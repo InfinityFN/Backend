@@ -5,7 +5,7 @@ const uuid = require("uuid");
 const express = require("express");
 const application = express();
 const User = require("./modules/User")
-
+const matchmaker = require("./matchmaker");
 global.Clients = [];
 global.MUCs = [];
 
@@ -29,6 +29,7 @@ class xmpp {
             res.send(data);
         })
         wss.on('connection', async (ws) => {
+            if (ws.protocol.toLowerCase() != "xmpp") return matchmaker(ws);
             var accountId = "";
             var displayName = "";
             var token = "";
@@ -41,7 +42,7 @@ class xmpp {
                 if (Buffer.isBuffer(message)) message = message.toString();
                 const msg = XMLParser(message);
                 if (!msg || !msg.root || !msg.root.name) return Error(ws);
-                console.log(msg.root.name)
+             //   console.log(msg.root.name)
                 switch (msg.root.name) {
                     case "open":
                         ws.send(XMLBuilder.create("open")
@@ -87,13 +88,13 @@ class xmpp {
                         }
 
 
-                        console.log(auth[0])
+                        //console.log(auth[0])
 
                         var user = await User.findOne({ id: auth[0] });
 
-                        console.log(user)
+                       // console.log(user)
                         if (user) {
-                            console.log(0)
+                         //   console.log(0)
                             displayName = user.displayName
                         }
 
@@ -117,7 +118,7 @@ class xmpp {
                         break;
 
                     case "iq":
-                        console.log(msg.root.attributes.id)
+                     //   console.log(msg.root.attributes.id)
                         switch (msg.root.attributes.id) {
                            
                             case "_xmpp_bind1":
@@ -126,7 +127,7 @@ class xmpp {
                                 if (!msg.root.children.find(i => i.name == "bind").children.find(i => i.name == "resource")) return;
                                 if (!msg.root.children.find(i => i.name == "bind").children.find(i => i.name == "resource").content) return;
 
-                                console.log("TEST")
+                              //  console.log("TEST")
 
                                 resource = msg.root.children.find(i => i.name == "bind").children.find(i => i.name == "resource").content;
                                 jid = `${accountId}@prod.ol.epicgames.com/${resource}`;
@@ -142,10 +143,10 @@ class xmpp {
                                 break;
 
                             case "_xmpp_session1":
-                                console.log(global.Clients)
+                              //  console.log(global.Clients)
                                 if (!global.Clients.find(i => i.client == ws)) return Error(ws);
 
-                                console.log("TEST")
+                              //  console.log("TEST")
                                 var xml = XMLBuilder.create("iq")
                                     .attribute("to", jid)
                                     .attribute("from", "prod.ol.epicgames.com")
@@ -159,7 +160,7 @@ class xmpp {
 
 
                             default:
-                                console.log("TESTSTS")
+                              //  console.log("TESTSTS")
                                 if (!global.Clients.find(i => i.client == ws)) return Error(ws);
                                 var xml = XMLBuilder.create("iq")
                                     .attribute("to", jid)
@@ -179,7 +180,7 @@ class xmpp {
                             if (!msg.root.children.find(i => i.name == "body") || !msg.root.children.find(i => i.name == "body").content) return;
 
                             var body = msg.root.children.find(i => i.name == "body").content;
-                            console.log(msg.root.attributes)
+                          //  console.log(msg.root.attributes)
                             switch (msg.root.attributes.type) {
                                 case "chat":
                                     if (!msg.root.attributes.to) return;
@@ -198,7 +199,7 @@ class xmpp {
                                 break;
             
                                 case "groupchat":
-                                    console.log("GROUPCVHAT")
+                                   // console.log("GROUPCVHAT")
                                     if (!msg.root.attributes.to) return;
                                     var sender = global.Clients.find(i => i.client == ws);
                                     if (!sender) return;
@@ -238,7 +239,7 @@ class xmpp {
             
                         case "presence":
                             if (!global.Clients.find(i => i.client == ws)) return Error(ws);
-                            console.log("pre", msg.root.attributes.type)
+                            //console.log("pre", msg.root.attributes.type)
                             if (msg.root.attributes.type == "unavailable") {
                                 if (!msg.root.attributes.to) return;
             
@@ -251,8 +252,8 @@ class xmpp {
                 
                                         const client = global.Clients.find(i => i.client == ws);
                                         if (global.MUCs[MUCIndex].members.find(i => i.accountId == client.accountId)) {
-                                            console.log("AH", global.MUCs[MUCIndex].members.find(i => (i.accountId)))
-                                            console.log("dsfs", client.accountId)
+                                       //     console.log("AH", global.MUCs[MUCIndex].members.find(i => (i.accountId)))
+                                      //      console.log("dsfs", client.accountId)
                                             global.MUCs[MUCIndex].members.splice(global.MUCs[MUCIndex].members.findIndex(i => i.accountId == client.accountId), 1);
                                         }
             
@@ -273,7 +274,7 @@ class xmpp {
                                     }
                                 }
                             }
-                            console.log("child", msg.root.children)
+                         //   console.log("child", msg.root.children)
                             if (msg.root.children.find(i => i.name == "x")) {
                                 if (msg.root.children.find(i => i.name == "x").children.find(i => i.name == "history")) {
                                     if (!msg.root.attributes.to) return;
@@ -289,7 +290,7 @@ class xmpp {
                                     const client = global.Clients.find(i => i.client == ws);
                                     global.MUCs[MUCIndex].members.push({ accountId: client.accountId });
             
-                                    console.log("e", client.accountId)
+                                   // console.log("e", client.accountId)
                                     ws.send(XMLBuilder.create("presence")
                                     .attribute("to", client.jid)
                                     .attribute("from", getMUCmember(global.MUCs[MUCIndex].roomName, client.accountId))
@@ -417,18 +418,18 @@ async function updatePresenceForFriends(ws, body, away, offline) {
     accepted.forEach(friend => {
         var ClientData = global.Clients.find(i => i.accountId == friend.id);
         if (!ClientData) return;
-        console.log("ds")
+       // console.log("ds")
         var xml = XMLBuilder.create("presence")
             .attribute("to", ClientData.jid)
             .attribute("xmlns", "jabber:client")
             .attribute("from", SenderData.jid)
-        console.log("dsa")
+      //  console.log("dsa")
         if (offline == true) xml = xml.attribute("type", "unavailable");
         else xml = xml.attribute("type", "available")
 
         if (away == true) xml = xml.element("show", "away").up().element("status", body).up();
         else xml = xml.element("status", body).up();
-        console.log("TESTSTSTSTSTWSSTST")
+       // console.log("TESTSTSTSTSTWSSTST")
         ClientData.client.send(xml.toString())
     })
 }
@@ -438,7 +439,7 @@ async function getPresenceFromFriends(ws) {
     if (!SenderData) return;
 
     var friends = await User.findOne({ id: SenderData.accountId });
-    console.log(friends)
+    //console.log(friends)
     var accepted = friends["Friends"]["accepted"];
 
     accepted.forEach(friend => {

@@ -1,5 +1,6 @@
 const express = require("express")
 const fs = require("fs");
+const cookieParser = require("cookie-parser");
 // PROD
 
 class Server {
@@ -19,6 +20,7 @@ class Server {
     Use() {
         this.application.use(express.json())
         this.application.use(express.urlencoded({ extended: true }))
+        this.application.use(cookieParser());
     }
     Routing(application, logger) {
         fs.readdirSync(`${__dirname}/routes`).filter(async function (mainFiles) {
