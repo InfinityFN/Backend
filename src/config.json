@@ -1,0 +1,4 @@
+{
+    "port": 6969,
+    "mongodb": "mongodb+srv://jfods:wnEqtCEts7i0G8qX@cluster0.4wunckd.mongodb.net/AhYes?retryWrites=true&w=majority"
+}
