@@ -259,3 +259,5 @@ class Epic {
         });
     }
 }
+
+module.exports = new Epic
