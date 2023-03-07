@@ -17,7 +17,7 @@ class EOS {
                 }
             ]);
         })
-
-        
     }
 }
+
+module.exports = new EOS
