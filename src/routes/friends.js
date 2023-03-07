@@ -143,7 +143,7 @@ class Friends {
 
         application.all("/friends/api/public/friends/:accountId/:friendId", async (req, res) => {
             var friends = await User.findOne({ id: req.params.accountId }).lean().catch(e => next(e))
-
+            console.log("d2")
             if (friends) {
                 if (req.method == "GET") {
                     if (friends.Friends.accepted.find(x => x.id == req.params.friendId) != undefined) {
@@ -164,7 +164,7 @@ class Friends {
                         )
                     }
                 } else if (req.method == "POST") {
-
+                    console.log("df")
                     if (friends.Friends.accepted.find(x => x.id == req.params.friendId) != undefined) {
                         res.status(409).json(
                             "errors.com.epicgames.friends.friend_request_already_sent", 14014,
@@ -178,14 +178,69 @@ class Friends {
                             "friends", "prod", [req.params.friendId]
                         )
                     } else if (friends.Friends.incoming.find(x => x.id == req.params.friendId) != undefined) {
-                        //console.log("E")
+                        console.log("E")
                         await User.updateOne({ id: req.params.accountId }, { $pull: { ['Friends.incoming']: { id: req.params.friendId } }, $push: { ['Friends.accepted']: { id: req.params.friendId, createdAt: new Date() } } })
                         await User.updateOne({ id: req.params.friendId }, { $pull: { ['Friends.outgoing']: { id: req.params.accountId } }, $push: { ['Friends.accepted']: { id: req.params.accountId, createdAt: new Date() } } })
+                        OMG.sendXmppMessageToId({
+                            "payload": {
+                                "accountId": req.params.friendId,
+                                "status": "ACCEPTED",
+                                "direction": "OUTBOUND",
+                                "created": new Date().toISOString(),
+                                "favorite": false
+                            },
+                            "type": "com.epicgames.friends.core.apiobjects.Friend",
+                            "timestamp": new Date().toISOString()
+                        }, req.params.accountId);
+    
+    
+                        OMG.sendXmppMessageToId({
+                            "payload": {
+                                "accountId": req.params.accountId,
+                                "status": "ACCEPTED",
+                                "direction": "OUTBOUND",
+                                "created": new Date().toISOString(),
+                                "favorite": false
+                            },
+                            "type": "com.epicgames.friends.core.apiobjects.Friend",
+                            "timestamp": new Date().toISOString()
+                        }, req.params.friendId);
+     
+                        OMG.getPresenceFromUser(req.params.accountId, req.params.friendId, false);
+                        OMG.getPresenceFromUser(req.params.friendId, req.params.accountId, false);
                         res.status(204).end()
                     } else {
-                     //   console.log("A")
+                        console.log("A")
                         await User.updateOne({ id: req.params.accountId }, { $push: { ['Friends.outgoing']: { id: req.params.friendId, createdAt: new Date() } } })
                         await User.updateOne({ id: req.params.friendId }, { $push: { ['Friends.incoming']: { id: req.params.accountId, createdAt: new Date() } } })
+                        OMG.sendXmppMessageToId({
+                            "payload": {
+                                "accountId": req.params.friendId,
+                                "status": "PENDING",
+                                "direction": "OUTBOUND",
+                                "created": new Date().toISOString(),
+                                "favorite": false
+                            },
+                            "type": "com.epicgames.friends.core.apiobjects.Friend",
+                            "timestamp": new Date().toISOString()
+                        }, req.params.accountId);
+
+
+                        OMG.sendXmppMessageToId({
+                            "payload": {
+                                "accountId": req.params.accountId,
+                                "status": "PENDING",
+                                "direction": "INBOUND",
+                                "created": new Date().toISOString(),
+                                "favorite": false
+                            },
+                            "type": "com.epicgames.friends.core.apiobjects.Friend",
+                            "timestamp": new Date().toISOString()
+                        }, req.params.friendId);
+                        OMG.getPresenceFromUser(req.params.accountId, req.params.friendId, false);
+                        OMG.getPresenceFromUser(req.params.friendId, req.params.accountId, false);
+    
+                        
                         res.status(204).end()
                     }
                 }
@@ -205,7 +260,8 @@ class Friends {
                 } else if (friends.Friends.incoming.find(x => x.id == req.params.friendId) != undefined) {
                     await User.updateOne({ id: req.params.accountId }, { $pull: { ['Friends.incoming']: { id: req.params.friendId } } })
                     await User.updateOne({ id: req.params.friendId }, { $pull: { ['Friends.outgoing']: { id: req.params.accountId } } })
-
+                    OMG.getPresenceFromUser(req.params.accountId, req.params.friendId, false);
+                    OMG.getPresenceFromUser(req.params.friendId, req.params.accountId, false);
                     res.status(204).end()
                 } else {
                     res.status(404).json(errors.create(
@@ -222,7 +278,7 @@ class Friends {
 
         application.all("/friends/api/v1/:accountId/friends/:friendId", async (req, res) => {
             var friends = await User.findOne({ id: req.params.accountId }).lean().catch(e => next(e))
-
+            console.log("fdsfds")
             if (!friends) return res.status(404).json(
                 "errors.com.epicgames.account.account_not_found", 18007,
                 `Sorry, we couldn't find an account for ${req.params.accountId}`,
@@ -250,6 +306,7 @@ class Friends {
                 }
             }
             else if (req.method == "POST") {
+                console.log("df")
                 if (friends.Friends.accepted.find(x => x.id == req.params.friendId) != undefined) {
                     res.status(409).json(
                         "errors.com.epicgames.friends.friend_request_already_sent", 14014,
@@ -266,6 +323,32 @@ class Friends {
                 } else if (friends.Friends.incoming.find(x => x.id == req.params.friendId) != undefined) {
                     await User.updateOne({ id: req.params.accountId }, { $pull: { ["Friends.incoming"]: { id: req.params.friendId } }, $push: { ["Friends.accepted"]: { id: req.params.friendId, createdAt: new Date() } } })
                     await User.updateOne({ id: req.params.friendId }, { $pull: { ["Friends.outgoing"]: { id: req.params.accountId } }, $push: { ["Friends.accepted"]: { id: req.params.accountId, createdAt: new Date() } } })
+                    console.log("TESF")
+                    OMG.sendXmppMessageToId({
+                        "payload": {
+                            "accountId": req.params.friendId,
+                            "status": "ACCEPTED",
+                            "direction": "OUTBOUND",
+                            "created": new Date().toISOString(),
+                            "favorite": false
+                        },
+                        "type": "com.epicgames.friends.core.apiobjects.Friend",
+                        "timestamp": new Date().toISOString()
+                    }, req.params.accountId);
+
+
+                    OMG.sendXmppMessageToId({
+                        "payload": {
+                            "accountId": req.params.accountId,
+                            "status": "ACCEPTED",
+                            "direction": "OUTBOUND",
+                            "created": new Date().toISOString(),
+                            "favorite": false
+                        },
+                        "type": "com.epicgames.friends.core.apiobjects.Friend",
+                        "timestamp": new Date().toISOString()
+                    }, req.params.friendId);
+ 
                     OMG.getPresenceFromUser(req.params.accountId, req.params.friendId, false);
                     OMG.getPresenceFromUser(req.params.friendId, req.params.accountId, false);
 
@@ -359,53 +442,6 @@ async function validateFriendAdd(accountId, friendId) {
 
     if (sender["friends"]["accepted"].find(i => i.accountId == receiver.accountId) || receiver.list.accepted.find(i => i.accountId == sender.accountId)) return false;
     // if (sender["friends"]["blocked"].find(i => i.accountId == receiver.accountId) || receiver.list.blocked.find(i => i.accountId == sender.accountId)) return false; -- if added enable
-
-    return true;
-}
-
-
-async function sendFriendReq(fromId, toId) {
-    if (!await validateFriendAdd(fromId, toId)) return false;
-
-    let from = await User.findOne({ id: fromId });
-    let fromFriends = from["friends"];
-
-    let to = await User.findOne({ id: toId });
-    let toFriends = to["friends"];
-
-    //  if (fromFriends.blocked.find(i => i.accountId == to.accountId)) return;
-    //   if (toFriends.blocked.find(i => i.accountId == from.accountId)) return;
-
-    fromFriends["outgoing"].push({ accountId: to.accountId, created: new Date().toISOString() });
-
-    functions.sendXmppMessageToId({
-        "payload": {
-            "accountId": to.accountId,
-            "status": "PENDING",
-            "direction": "OUTBOUND",
-            "created": new Date().toISOString(),
-            "favorite": false
-        },
-        "type": "com.epicgames.friends.core.apiobjects.Friend",
-        "timestamp": new Date().toISOString()
-    }, from.accountId);
-
-    toFriends["incoming"].push({ accountId: from.accountId, created: new Date().toISOString() });
-
-    functions.sendXmppMessageToId({
-        "payload": {
-            "accountId": from.accountId,
-            "status": "PENDING",
-            "direction": "INBOUND",
-            "created": new Date().toISOString(),
-            "favorite": false
-        },
-        "type": "com.epicgames.friends.core.apiobjects.Friend",
-        "timestamp": new Date().toISOString()
-    }, to.accountId);
-
-    await from.updateOne({ $set: { friends: fromFriends } });
-    await to.updateOne({ $set: { friends: toFriends } });
 
     return true;
 }

@@ -41,7 +41,9 @@ class Server {
         this.application.listen(this.port || process.env.port, () => {
             this.logger.log(`[Server] Running on port ${this.port || process.env.port}`)
             require("./services/Mongodb").MongoDB.Connect(this.mongodb, this.logger)
+            require("./services/matchmaker").matchmaker;
             require("./services/xmpp").xmpp;
+          
           //  this.application.get("*", function (req,res) {
                // res.json({ "eh": "Your one of thoses people ;) skidder..."})
           //  })

@@ -5,7 +5,6 @@ const uuid = require("uuid");
 const express = require("express");
 const application = express();
 const User = require("./modules/User")
-const matchmaker = require("./matchmaker");
 global.Clients = [];
 global.MUCs = [];
 
@@ -16,7 +15,7 @@ class xmpp {
         this.accountId = ""
     }
     setup(port) {
-        const wss = new WebSocket({ server: application.listen(port, () => console.log(`XMPP and Matchmaker started listening on port ${port}`)) });
+        const wss = new WebSocket({ server: application.listen(port, () => console.log(`XMPP started listening on port ${port}`)) });
 
         application.get("/clients", (req, res) => {
             res.set("Content-Type", "text/plain");
@@ -29,7 +28,7 @@ class xmpp {
             res.send(data);
         })
         wss.on('connection', async (ws) => {
-            if (ws.protocol.toLowerCase() != "xmpp") return matchmaker(ws);
+        //    if (ws.protocol.toLowerCase() != "xmpp") return new matchmaker(ws);
             var accountId = "";
             var displayName = "";
             var token = "";
@@ -385,14 +384,29 @@ class xmpp {
     }
 }
 
+function sendXmppMessageToId(body, toAccountId) {
+    if (!global.Clients) return;
+    if (typeof body == "object") body = JSON.stringify(body);
+
+    var receiver = global.Clients.find(i => i.accountId == toAccountId);
+    if (!receiver) return;
+
+    receiver.client.send(XMLBuilder.create("message")
+    .attribute("from", "xmpp-admin@prod.ol.epicgames.com")
+    .attribute("to", receiver.jid)
+    .attribute("xmlns", "jabber:client")
+    .element("body", body).up().toString());
+}
+
 
 function getPresenceFromUser(fromId, toId, unavailable) {
     if (!global.Clients) return;
+   // console.log(global.Clients.find(i => console.log(i.accountId == fromId)))
     var SenderData = global.Clients.find(i => i.accountId == fromId);
     var ClientData = global.Clients.find(i => i.accountId == toId);
     var availability = unavailable == true ? "unavailable" : "available";
     if (!SenderData || !ClientData) return;
-
+    console.log("dsf")
     var xml = XMLBuilder.create("presence")
         .attribute("to", ClientData.jid)
         .attribute("xmlns", "jabber:client")
@@ -507,7 +521,7 @@ function RemoveClient(ws) {
     global.Clients.forEach(ClientData => {
         if (client.accountId.toLowerCase() != ClientData.accountId.toLowerCase()) {
             ClientData.client.send(XMLBuilder.create("message")
-                .attribute("id", functions.MakeID().replace(/-/ig, "").toUpperCase())
+                .attribute("id", uuid.v4().replace(/-/ig, "").toUpperCase())
                 .attribute("from", client.jid)
                 .attribute("xmlns", "jabber:client")
                 .attribute("to", ClientData.jid)
@@ -533,5 +547,6 @@ module.exports = {
     xmpp: new xmpp,
     getPresenceFromUser: getPresenceFromUser,
     updatePresenceForFriends: updatePresenceForFriends,
-    getPresenceFromFriends: getPresenceFromFriends
+    getPresenceFromFriends: getPresenceFromFriends,
+    sendXmppMessageToId: sendXmppMessageToId
 }
