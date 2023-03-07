@@ -4,7 +4,7 @@ class Matchmaker {
     constructor() {
         this.application = require("express").Router()
         this.endpoints(this.application)
-        this.matchmakerIP = "127.0.0.1:433"
+        this.matchmakerIP = "127.0.0.1:442"
     }
     endpoints(application) {
 
@@ -16,9 +16,27 @@ class Matchmaker {
         application.get("/fortnite/api/game/v2/matchmakingservice/ticket/player/*", async (req, res) => {
             // console.log("no", req)
             //  console.log(yes)
-            const yes = req.query.bucketId.split(':')[3]
+            //  const yes = req.query.bucketId.split(':')[3]
             //  console.log(yes)
             res.cookie("buildUniqueId", req.query.bucketId.split(":")[0]);
+            res.cookie("Playlist", req.query.bucketId.split(":")[3]);
+
+            switch(req.query.bucketId.split(":")[3].toLowerCase()) {
+                case "playlist_defaultsolo":
+                    break;
+                case "playlist_defaultduo":
+                    break;
+                default:
+                    return res.status(401).json({
+                        errorCode: "dev.infinity.servers.ded",
+                        errorMessage: "Servers ded",
+                        messageVars: undefined,
+                        numericErrorCode: 12002,
+                        originatingService: "fortnite",
+                        intent: "prod"
+                    })
+        
+            }
 
             res.json({
                 "serviceUrl": `ws://${this.matchmakerIP}`,
@@ -31,7 +49,9 @@ class Matchmaker {
         });
 
         application.get("/fortnite/api/game/v2/matchmaking/account/:accountId/session/:sessionId", async (req, res) => {
-            console.log(req)
+
+   
+            //   console.log(req)
             res.json({
                 "accountId": req.params.accountId,
                 "sessionId": req.params.sessionId,
@@ -44,28 +64,51 @@ class Matchmaker {
             // console.log("e", req.headers)
             // console.log("s", res.body)
             //   console.log("no", req)
-            let gameServerInfo = {
-                serverAddress: "127.0.0.1",
-                serverPort: 7777
-            }
+            console.log(req.cookies)
+
 
             try {
-                let calculateIp = this.matchmakerIP.split(":")[0];
-                let calculatePort = Number(this.matchmakerIP.split(":")[1]);
-
-                if (calculateIp) gameServerInfo.serverAddress = calculateIp;
-                if (Number.isNaN(calculatePort) || !calculatePort) throw new Error("Invalid port.");
-
-                gameServerInfo.serverPort = calculatePort;
-            } catch { }
+                var serverAddress = "127.0.0.1"
+                var serverPort = 646433
+ 
+                // ABOVE PUT PORT SERVER AND PORT ALWAYS WRONG
+                console.log(req.cookies.Playlist)
+                switch(req.cookies.Playlist) {
+                    case "playlist_defaultsolo":
+                        serverAddress = "127.0.0.1";
+                        serverPort = 7777;
+                        break;
+                    case "playlist_defaultduo":
+                        serverAddress = "127.0.0.1";
+                        serverPort = 69; //shouldnt connect
+                        break;
+                    default:
+                        return res.status(401).json({
+                            errorCode: "dev.infinity.servers.ded",
+                            errorMessage: "Servers ded",
+                            messageVars: undefined,
+                            numericErrorCode: 12002,
+                            originatingService: "fortnite",
+                            intent: "prod"
+                        })
+            
+                }
+          
+            
+                console.log(serverAddress)
+                console.log(serverPort)
+            } catch (err) {
+                console.log(err)
+                return res.json({})
+            }
 
             res.json({
                 "id": req.params.session_id,
                 "ownerId": uuid.v4().replace(/-/ig, "").toUpperCase(),
                 "ownerName": "[DS]fortnite-liveeugcec1c2e30ubrcore0a-z8hj-1968",
                 "serverName": "[DS]fortnite-liveeugcec1c2e30ubrcore0a-z8hj-1968",
-                "serverAddress": gameServerInfo.serverAddress,
-                "serverPort": gameServerInfo.serverPort,
+                "serverAddress": serverAddress,
+                "serverPort": serverPort,
                 "maxPublicPlayers": 220,
                 "openPublicPlayers": 175,
                 "maxPrivatePlayers": 0,
@@ -103,6 +146,14 @@ class Matchmaker {
         });
 
         application.post("/fortnite/api/matchmaking/session/*/join", async (req, res) => {
+            return res.json({
+                errorCode: "dev.infinity.servers.ded",
+                errorMessage: "Servers ded",
+                messageVars: undefined,
+                numericErrorCode: 1006,
+                originatingService: "gameserver",
+                intent: "prod"
+            }).status(401)
             res.status(204);
             res.end();
         });
