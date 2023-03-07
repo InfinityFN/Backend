@@ -14,10 +14,10 @@ class Matchmaker {
         });
 
         application.get("/fortnite/api/game/v2/matchmakingservice/ticket/player/*", async (req, res) => {
-           // console.log("no", req)
-          //  console.log(yes)
+            // console.log("no", req)
+            //  console.log(yes)
             const yes = req.query.bucketId.split(':')[3]
-          //  console.log(yes)
+            //  console.log(yes)
             res.cookie("buildUniqueId", req.query.bucketId.split(":")[0]);
 
             res.json({
@@ -25,7 +25,7 @@ class Matchmaker {
                 "ticketType": "mms-player",
                 "payload": "69=",
                 "signature": "420=",
-       
+
             });
             res.end();
         });
@@ -40,10 +40,10 @@ class Matchmaker {
         });
 
         application.get("/fortnite/api/matchmaking/session/:session_id", async (req, res) => {
-           // console.log(req.headers)
-           // console.log("e", req.headers)
-           // console.log("s", res.body)
-         //   console.log("no", req)
+            // console.log(req.headers)
+            // console.log("e", req.headers)
+            // console.log("s", res.body)
+            //   console.log("no", req)
             let gameServerInfo = {
                 serverAddress: "127.0.0.1",
                 serverPort: 7777
