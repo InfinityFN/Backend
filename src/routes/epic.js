@@ -255,7 +255,7 @@ class Epic {
         })
 
         application.get("/fortnite/api/game/v2/friendcodes/*/epic", (req,res) => {
-            res.json({});
+            res.json([]);
         });
         
     }
