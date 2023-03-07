@@ -20,7 +20,7 @@ class Matchmaker {
             //  console.log(yes)
             res.cookie("buildUniqueId", req.query.bucketId.split(":")[0]);
             res.cookie("Playlist", req.query.bucketId.split(":")[3]);
-            res.cookie("Region", req.query.buckerId.split(":")[2]);
+            res.cookie("Region", req.query.bucketId.split(":")[2]);
 
             switch(req.query.bucketId.split(":")[3].toLowerCase()) {
                 case "playlist_defaultsolo":
