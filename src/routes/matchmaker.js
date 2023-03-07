@@ -20,6 +20,7 @@ class Matchmaker {
             //  console.log(yes)
             res.cookie("buildUniqueId", req.query.bucketId.split(":")[0]);
             res.cookie("Playlist", req.query.bucketId.split(":")[3]);
+            res.cookie("Region", req.query.buckerId.split(":")[2]);
 
             switch(req.query.bucketId.split(":")[3].toLowerCase()) {
                 case "playlist_defaultsolo":
@@ -36,6 +37,18 @@ class Matchmaker {
                         intent: "prod"
                     })
         
+            }
+
+            // if player is not on 10.40 cancel out.
+            if(req.query.bucketId.split(":")[0] != "8371783" || req.query.bucketId.split(":")[0] != 8371783) {
+                return res.status(401).json({
+                    errorCode: "dev.infinity.incompatible.version",
+                    errorMessage: "Your version is incompatible with the Infinity Matchmaker. Please use 10.40 to play!",
+                    messageVars: undefined,
+                    numericErrorCode: 12002,
+                    originatingService: "fortnite",
+                    intent: "prod"
+                })
             }
 
             res.json({
