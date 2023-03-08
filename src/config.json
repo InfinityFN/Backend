@@ -1,4 +1,7 @@
 {
     "port": 6969,
+    "//": "DO NOT SHARE THE ADMINAPPID OR APIKEY TO ANYONE!",
+    "adminAppId": "INFINITY-LIVE-DSFKJDK7239HAAG2321JBDJ24",
+    "apiKey": "INFINITY-KEY-DFJLSK892378LSDHFSD2348947KSDHK",
     "mongodb": "mongodb://uk9kkc3c7qqnumel0euq:yuC66JkUUh1sCx3jvC7g@n1-c2-mongodb-clevercloud-customers.services.clever-cloud.com:27017,n2-c2-mongodb-clevercloud-customers.services.clever-cloud.com:27017/bl3msgm96tshbyj?replicaSet=rs0"
 }

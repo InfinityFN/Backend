@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Invalid User Agent</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/infinity/public/bootstrap"/>
+  </head>
+  <body>
+    <div class="container my-5">
+      <h1 class="text-center">Error: Wrong User Agent Detected</h1>
+      <p class="text-center">
+        Your user agent is: <strong id="userAgent"></strong>
+      </p>
+      <p class="text-center">
+        Please open the Infinity Admin App provided by the server administrator
+        to access this page.
+      </p>
+      <p class="text-center">
+        Infinity &copy; 2023
+      </p>
+    </div>
+    
+    <script>
+      // Get user agent and display it on the page
+      document.getElementById("userAgent").textContent = navigator.userAgent;
+    </script>
+  </body>
+</html>

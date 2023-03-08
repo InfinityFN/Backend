@@ -87,6 +87,16 @@ class Admin {
         })
 
         application.get("/infinity/dev/api/playlist/manage", (req, res) => {
+
+            // unique id everytime we update
+            if(req.headers['user-agent'] != require('../config.json').adminAppId) {
+                return res.sendFile(path.join(__dirname, '../public/useragenterror.html'));
+            }
+
+            if(req.query.key != require('../config.json').apiKey) {
+                return res.sendFile(path.join(__dirname, '../public/apikeyerror.html'));
+            }
+
             res.sendFile(path.join(__dirname, '../public/changeplaylist.html'));
         });
 
