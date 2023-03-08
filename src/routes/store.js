@@ -10,7 +10,7 @@ class Store {
         application.get("/fortnite/api/storefront/v2/catalog", async (req, res) => {
 
             const test = require('../services/resources/json/store.json');
-            //res.json(this.getItemShop(fs.readFileSync(path.join(__dirname, '../services/resources/json/store.json')), fs.readFileSync(path.join(__dirname, '../services/resources/json/catalog_config.json'))));
+            res.json(this.getItemShop(fs.readFileSync(path.join(__dirname, '../services/resources/json/store.json')), fs.readFileSync(path.join(__dirname, '../services/resources/json/catalog_config.json'))));
         });
 
         // lazy <3
