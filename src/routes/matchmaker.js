@@ -1,5 +1,5 @@
 const uuid = require("uuid")
-
+const AdminMod = require("../services/modules/Admin")
 class Matchmaker {
     constructor() {
         this.application = require("express").Router()
@@ -26,6 +26,14 @@ class Matchmaker {
 
             var servers = require('../services/resources/json/active-playlists.json');
 
+            //const activeplaylists = AdminMod.find().lean().catch(e => next(e))
+            //const omgyes = activeplaylists[0].playlists
+             // omgyes.forEach(omgye => {
+             //   console.log("Testing Playlist: " + omgye.playlist.toUpperCase());
+             ///   if (omgye.playlist.toUpperCase() == req.query.bucketId.split(":")[3].toUpperCase() && server.enabled != false) {
+             //       CanContinue = true;
+            //    }
+        //    });
             console.log("Playlist to Play: " + req.query.bucketId.split(":")[3].toUpperCase());
             servers.forEach(server => {
                 console.log("Testing Playlist: " + server.playlist.toUpperCase());
@@ -102,7 +110,14 @@ class Matchmaker {
                     }
                 });
 
-
+                  //const activeplaylists = AdminMod.find().lean().catch(e => next(e))
+            //const omgyes = activeplaylists[0].playlists
+             // omgyes.forEach(omgye => {
+             //     if (omgye.playlist.toUpperCase() == req.cookies.Playlist.toUpperCase() && omgye.enabled != false) {
+                 //       serverAddress = omgye.ServerIP;
+                 //       serverPort = omgye.ServerPort;
+               //     }
+        //    });
 
                 if(serverAddress == "" || serverPort == 646433) {
                     return res.status(401).json({
