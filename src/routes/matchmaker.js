@@ -104,7 +104,7 @@ class Matchmaker {
 
 
 
-                /*if(serverAddress == "" || serverPort == 646433) {
+                if(serverAddress == "" || serverPort == 646433) {
                     return res.status(401).json({
                         errorCode: "This playlist is currently not being hosted or is not available in your region at the moment.",
                         errorMessage: "dev.infinity.servers.ded",
@@ -113,7 +113,7 @@ class Matchmaker {
                         originatingService: "fortnite",
                         intent: "prod"
                     })
-                }*/
+                }
 
                 console.log("Gameserver IP " + serverAddress)
                 console.log("Gameserver Port " + serverPort)
