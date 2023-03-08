@@ -45,6 +45,32 @@ class Admin {
             return res.json(emergencynotice)
         });
 
+        application.get("/infinity/dev/api/emergencynotice/edit/:edit", async (req, res) => {
+            const emergencynoticealive = await AdminMod.findOne({ _id: new ObjectId("6408cefd0e072e39fd5d7ebf") }).lean().catch(e => next(e))
+            const sexymessage = req.query.message
+            const Thingy = req.params.edit
+            if (emergencynoticealive) {
+                AdminMod.collection.updateOne({ id: req.query.id }, { $set: { [`emergencynotice.${Thingy}`]: sexymessage } })
+                return res.json({ message: 'changed successfully' });
+            }
+
+            return res.status(404).json({ message: 'Account not found.' });
+        })
+
+        application.get("/infinity/dev/api/news/edit/:news/:edit", async (req, res) => {
+            const emergencynoticealive = await AdminMod.findOne({ _id: new ObjectId("6408cefd0e072e39fd5d7ebf") }).lean().catch(e => next(e))
+            const sexymessage = req.query.message
+            const Thingy = req.params.edit
+            const NewsThingy = req.params.news
+            if (emergencynoticealive) {
+                AdminMod.collection.updateOne({ id: req.query.id }, { $set: { [`news.${NewsThingy}.${Thingy}`]: sexymessage } })
+                return res.json({ message: 'changed successfully' });
+            }
+
+            return res.status(404).json({ message: 'Account not found.' });
+        })
+
+
         application.get("/infinity/dev/api/players/json", async (req, res, next) => {
             const playersalive = await UserMod.find();
             let PlayersData = []
@@ -87,7 +113,6 @@ class Admin {
         })
 
         application.get("/infinity/dev/api/playlist/manage", (req, res) => {
-
             // unique id everytime we update
             if(req.headers['user-agent'] != require('../config.json').adminAppId) {
                 return res.sendFile(path.join(__dirname, '../public/useragenterror.html'));
