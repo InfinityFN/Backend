@@ -19,6 +19,10 @@ class Admin {
 
         // Playlists
         application.get("/infinity/dev/api/playlist/json", (req, res, next)=> {
+            
+            //const activeplaylists = AdminMod.find().lean().catch(e => next(e))
+            //const omgyes = activeplaylists[0].playlists
+            // enable once done testing (mongodb yay)
             return res.json(require('../services/resources/json/active-playlists.json'))
         });
 
@@ -73,7 +77,13 @@ class Admin {
             if (req.query.enabled == "true") {
                 isEnabled = true;
             }
-            let testservers = [];
+            let testservers = []
+            //const activeplaylists = AdminMod.find().lean().catch(e => next(e))
+             //const omgyes = activeplaylists[0].playlists
+            //  omgyes.forEach(omgye => {
+            //     testservers.push({ playlist: omgye.playlist, ServerIP: omgye.ServerIP, ServerPort:omgye.ServerPort, enabled: ServerPort.enabled })
+            // }
+            //  testservers.push({ playlist: req.query.playlist, ServerIP: req.query.serverIP, ServerPort: parseInt(req.query.serverPort), enabled: isEnabled });
            
             // EXAMPLE:
             // http://127.0.0.1:6969/add?playlist=Playlist_DefaultSquad&serverIP=127.0.0.1&serverPort=7777&enabled=false
