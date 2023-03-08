@@ -1,6 +1,7 @@
 // Infinity Admin Panel
 const path = require('path');
 const fs = require('fs');
+const Playlists = require("../services/modules/Playlists")
 class Admin {
     constructor() {
         this.application = require("express").Router()
@@ -17,7 +18,11 @@ class Admin {
         });
 
         // Playlists
-        application.get("/infinity/dev/api/playlist/json", (req, res) => {
+        application.get("/infinity/dev/api/playlist/json", (req, res, next)=> {
+            
+            //const activeplaylists = Playlists.find().lean().catch(e => next(e))
+            //const omgyes = activeplaylists[0].playlists
+            // enable once done testing (mongodb yay)
             return res.json(require('../services/resources/json/active-playlists.json'))
         });
 
