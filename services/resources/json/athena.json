@@ -1,0 +1,1439 @@
+{
+    "loadout_1": {
+        "templateId": "CosmeticLocker:cosmeticlocker_athena",
+        "attributes": {
+            "locker_slots_data": {
+                "slots": {
+                    "Pickaxe": {
+                        "items": [
+                            null
+                        ],
+                        "activeVariants": []
+                    },
+                    "Dance": {
+                        "items": [
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null
+                        ]
+                    },
+                    "Glider": {
+                        "items": [
+                            null
+                        ]
+                    },
+                    "Character": {
+                        "items": [
+                            "AthenaCharacter:cid_028_athena_commando_f"
+                        ],
+                        "activeVariants": []
+                    },
+                    "Backpack": {
+                        "items": [
+                            null
+                        ],
+                        "activeVariants": []
+                    },
+                    "ItemWrap": {
+                        "items": [
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null
+                        ],
+                        "activeVariants": [
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null,
+                            null
+                        ]
+                    },
+                    "LoadingScreen": {
+                        "items": [
+                            null
+                        ],
+                        "activeVariants": [
+                            null
+                        ]
+                    },
+                    "MusicPack": {
+                        "items": [
+                            null
+                        ],
+                        "activeVariants": [
+                            null
+                        ]
+                    },
+                    "SkyDiveContrail": {
+                        "items": [
+                            null
+                        ],
+                        "activeVariants": [
+                            null
+                        ]
+                    }
+                }
+            },
+            "use_count": 0,
+            "banner_icon_template": "",
+            "locker_name": "Cloud",
+            "banner_color_template": "",
+            "item_seen": false,
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_001_Cattus": {
+        "templateId": "BannerToken:BannerToken_001_Cattus",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_002_Doggus": {
+        "templateId": "BannerToken:BannerToken_002_Doggus",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_003_2019WorldCup": {
+        "templateId": "BannerToken:BannerToken_003_2019WorldCup",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_004_Oak": {
+        "templateId": "BannerToken:BannerToken_004_Oak",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_005_BlackMonday": {
+        "templateId": "BannerToken:BannerToken_005_BlackMonday",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_006_StormKing": {
+        "templateId": "BannerToken:BannerToken_006_StormKing",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_007_S11_TreeSymbol": {
+        "templateId": "BannerToken:BannerToken_007_S11_TreeSymbol",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_008_S11_DiamondShapes": {
+        "templateId": "BannerToken:BannerToken_008_S11_DiamondShapes",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_009_S11_EightBall": {
+        "templateId": "BannerToken:BannerToken_009_S11_EightBall",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_010_S11_Toadstool": {
+        "templateId": "BannerToken:BannerToken_010_S11_Toadstool",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_011_S11_Pawmark": {
+        "templateId": "BannerToken:BannerToken_011_S11_Pawmark",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_012_S11_Fishhook": {
+        "templateId": "BannerToken:BannerToken_012_S11_Fishhook",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_013_S11_ToxicMask": {
+        "templateId": "BannerToken:BannerToken_013_S11_ToxicMask",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_014_S11_WaterWaves": {
+        "templateId": "BannerToken:BannerToken_014_S11_WaterWaves",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_015_GalileoA_0W6VH": {
+        "templateId": "BannerToken:BannerToken_015_GalileoA_0W6VH",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_016_GalileoB_ZF42Y": {
+        "templateId": "BannerToken:BannerToken_016_GalileoB_ZF42Y",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_017_GalileoC_CKB0B": {
+        "templateId": "BannerToken:BannerToken_017_GalileoC_CKB0B",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_018_GalileoD_5XXFQ": {
+        "templateId": "BannerToken:BannerToken_018_GalileoD_5XXFQ",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_019_XmasSweaterB": {
+        "templateId": "BannerToken:BannerToken_019_XmasSweaterB",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_020_Flake": {
+        "templateId": "BannerToken:BannerToken_020_Flake",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_021_SockMonkey": {
+        "templateId": "BannerToken:BannerToken_021_SockMonkey",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_022_S11_Badge_01": {
+        "templateId": "BannerToken:BannerToken_022_S11_Badge_01",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_023_S11_Badge_02": {
+        "templateId": "BannerToken:BannerToken_023_S11_Badge_02",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_024_S11_Badge_03": {
+        "templateId": "BannerToken:BannerToken_024_S11_Badge_03",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_025_S11_Badge_04": {
+        "templateId": "BannerToken:BannerToken_025_S11_Badge_04",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_026_S11_Badge_05": {
+        "templateId": "BannerToken:BannerToken_026_S11_Badge_05",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_027_LoveAndWar_Love": {
+        "templateId": "BannerToken:BannerToken_027_LoveAndWar_Love",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_028_LoveAndWar_War": {
+        "templateId": "BannerToken:BannerToken_028_LoveAndWar_War",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_029_S12_Cowboy": {
+        "templateId": "BannerToken:BannerToken_029_S12_Cowboy",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_030_S12_Grenade": {
+        "templateId": "BannerToken:BannerToken_030_S12_Grenade",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_031_S12_Kitty": {
+        "templateId": "BannerToken:BannerToken_031_S12_Kitty",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_032_S12_Roses": {
+        "templateId": "BannerToken:BannerToken_032_S12_Roses",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_033_S12_Skull": {
+        "templateId": "BannerToken:BannerToken_033_S12_Skull",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_034_S12_WingedCritter": {
+        "templateId": "BannerToken:BannerToken_034_S12_WingedCritter",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_035_S12_Badge_1": {
+        "templateId": "BannerToken:BannerToken_035_S12_Badge_1",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_036_S12_Badge_2": {
+        "templateId": "BannerToken:BannerToken_036_S12_Badge_2",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_037_S12_Badge_3": {
+        "templateId": "BannerToken:BannerToken_037_S12_Badge_3",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_038_S12_Badge_4": {
+        "templateId": "BannerToken:BannerToken_038_S12_Badge_4",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_039_S12_Badge_5": {
+        "templateId": "BannerToken:BannerToken_039_S12_Badge_5",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_040_S12_Midas": {
+        "templateId": "BannerToken:BannerToken_040_S12_Midas",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_041_S12_CycloneA": {
+        "templateId": "BannerToken:BannerToken_041_S12_CycloneA",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_043_S12_Donut": {
+        "templateId": "BannerToken:BannerToken_043_S12_Donut",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_044_S12_BananaAgent": {
+        "templateId": "BannerToken:BannerToken_044_S12_BananaAgent",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_045_S12_BrazilToucan": {
+        "templateId": "BannerToken:BannerToken_045_S12_BrazilToucan",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_046_S12_BrazilDrum": {
+        "templateId": "BannerToken:BannerToken_046_S12_BrazilDrum",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_047_S13_BlackKnight": {
+        "templateId": "BannerToken:BannerToken_047_S13_BlackKnight",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_048_S13_MechanicalEngineer": {
+        "templateId": "BannerToken:BannerToken_048_S13_MechanicalEngineer",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_049_S13_OceanRider": {
+        "templateId": "BannerToken:BannerToken_049_S13_OceanRider",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_050_S13_ProfessorPup": {
+        "templateId": "BannerToken:BannerToken_050_S13_ProfessorPup",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_051_S13_RacerZero": {
+        "templateId": "BannerToken:BannerToken_051_S13_RacerZero",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_052_S13_SandCastle": {
+        "templateId": "BannerToken:BannerToken_052_S13_SandCastle",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_053_S13_SpaceWanderer": {
+        "templateId": "BannerToken:BannerToken_053_S13_SpaceWanderer",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_054_S13_TacticalScuba": {
+        "templateId": "BannerToken:BannerToken_054_S13_TacticalScuba",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_055_S13_Yonezu": {
+        "templateId": "BannerToken:BannerToken_055_S13_Yonezu",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_056_S14_HighTowerDate": {
+        "templateId": "BannerToken:BannerToken_056_S14_HighTowerDate",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_057_S14_HighTowerGrape": {
+        "templateId": "BannerToken:BannerToken_057_S14_HighTowerGrape",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_058_S14_HighTowerHoneyDew": {
+        "templateId": "BannerToken:BannerToken_058_S14_HighTowerHoneyDew",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_059_S14_HighTowerMango": {
+        "templateId": "BannerToken:BannerToken_059_S14_HighTowerMango",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_060_S14_HighTowerRadish": {
+        "templateId": "BannerToken:BannerToken_060_S14_HighTowerRadish",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_061_S14_HighTowerSquash": {
+        "templateId": "BannerToken:BannerToken_061_S14_HighTowerSquash",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_062_S14_HighTowerTapas": {
+        "templateId": "BannerToken:BannerToken_062_S14_HighTowerTapas",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_063_S14_HighTowerTomato": {
+        "templateId": "BannerToken:BannerToken_063_S14_HighTowerTomato",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_064_S14_HighTowerWasabi": {
+        "templateId": "BannerToken:BannerToken_064_S14_HighTowerWasabi",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_065_S14_PS_PlusPack_11": {
+        "templateId": "BannerToken:BannerToken_065_S14_PS_PlusPack_11",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_066_S15_AncientGladiator": {
+        "templateId": "BannerToken:BannerToken_066_S15_AncientGladiator",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_067_S15_Shapeshifter": {
+        "templateId": "BannerToken:BannerToken_067_S15_Shapeshifter",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_068_S15_Lexa": {
+        "templateId": "BannerToken:BannerToken_068_S15_Lexa",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_069_S15_FutureSamurai": {
+        "templateId": "BannerToken:BannerToken_069_S15_FutureSamurai",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_070_S15_Flapjack": {
+        "templateId": "BannerToken:BannerToken_070_S15_Flapjack",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_071_S15_SpaceFighter": {
+        "templateId": "BannerToken:BannerToken_071_S15_SpaceFighter",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_072_S15_CosmosA": {
+        "templateId": "BannerToken:BannerToken_072_S15_CosmosA",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_073_S15_CosmosB": {
+        "templateId": "BannerToken:BannerToken_073_S15_CosmosB",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_074_S15_CosmosC": {
+        "templateId": "BannerToken:BannerToken_074_S15_CosmosC",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_075_S20_JourneyMentor": {
+        "templateId": "BannerToken:BannerToken_075_S20_JourneyMentor",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_076_S20_Lyrical": {
+        "templateId": "BannerToken:BannerToken_076_S20_Lyrical",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_077_S20_NeonCatSpeed": {
+        "templateId": "BannerToken:BannerToken_077_S20_NeonCatSpeed",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_STW001_Starlight1": {
+        "templateId": "BannerToken:BannerToken_STW001_Starlight1",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_STW002_Starlight5": {
+        "templateId": "BannerToken:BannerToken_STW002_Starlight5",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_STW003_Starlight3": {
+        "templateId": "BannerToken:BannerToken_STW003_Starlight3",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_STW004_Starlight4": {
+        "templateId": "BannerToken:BannerToken_STW004_Starlight4",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_STW005_Starlight2": {
+        "templateId": "BannerToken:BannerToken_STW005_Starlight2",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_STW006_Starlight6": {
+        "templateId": "BannerToken:BannerToken_STW006_Starlight6",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_STW007_StarlightScience": {
+        "templateId": "BannerToken:BannerToken_STW007_StarlightScience",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_TBD_S13_Badge_1": {
+        "templateId": "BannerToken:BannerToken_TBD_S13_Badge_1",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_TBD_S13_Badge_2": {
+        "templateId": "BannerToken:BannerToken_TBD_S13_Badge_2",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_TBD_S13_Badge_3": {
+        "templateId": "BannerToken:BannerToken_TBD_S13_Badge_3",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_TBD_S13_Badge_4": {
+        "templateId": "BannerToken:BannerToken_TBD_S13_Badge_4",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_TBD_S13_Badge_5": {
+        "templateId": "BannerToken:BannerToken_TBD_S13_Badge_5",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_TBD_S13_SeasonBanner1": {
+        "templateId": "BannerToken:BannerToken_TBD_S13_SeasonBanner1",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_TBD_S13_SeasonBanner2": {
+        "templateId": "BannerToken:BannerToken_TBD_S13_SeasonBanner2",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "BannerToken:BannerToken_TBD_S13_SpraySweater": {
+        "templateId": "BannerToken:BannerToken_TBD_S13_SpraySweater",
+        "attributes": {
+            "max_level_bonus": 0,
+            "level": 1,
+            "item_seen": true,
+            "xp": 0,
+            "variants": [],
+            "favorite": false
+        },
+        "quantity": 1
+    },
+    "AthenaCharacter:CID_001_Athena_Commando_F_Default": {
+        "attributes": {
+            "favorite": false,
+            "item_seen": true,
+            "level": 0,
+            "max_level_bonus": 0,
+            "rnd_sel_cnt": 0,
+            "variants": [],
+            "xp": 0
+        },
+        "templateId": "AthenaCharacter:CID_001_Athena_Commando_F_Default"
+    },
+    "AthenaCharacter:CID_002_Athena_Commando_F_Default": {
+        "attributes": {
+            "favorite": false,
+            "item_seen": true,
+            "level": 0,
+            "max_level_bonus": 0,
+            "rnd_sel_cnt": 0,
+            "variants": [],
+            "xp": 0
+        },
+        "templateId": "AthenaCharacter:CID_002_Athena_Commando_F_Default"
+    },
+    "AthenaCharacter:CID_003_Athena_Commando_F_Default": {
+        "attributes": {
+            "favorite": false,
+            "item_seen": true,
+            "level": 0,
+            "max_level_bonus": 0,
+            "rnd_sel_cnt": 0,
+            "variants": [],
+            "xp": 0
+        },
+        "templateId": "AthenaCharacter:CID_003_Athena_Commando_F_Default"
+    },
+    "AthenaCharacter:CID_004_Athena_Commando_F_Default": {
+        "attributes": {
+            "favorite": false,
+            "item_seen": true,
+            "level": 0,
+            "max_level_bonus": 0,
+            "rnd_sel_cnt": 0,
+            "variants": [],
+            "xp": 0
+        },
+        "templateId": "AthenaCharacter:CID_004_Athena_Commando_F_Default"
+    },
+    "AthenaCharacter:CID_005_Athena_Commando_M_Default": {
+        "attributes": {
+            "favorite": false,
+            "item_seen": true,
+            "level": 0,
+            "max_level_bonus": 0,
+            "rnd_sel_cnt": 0,
+            "variants": [],
+            "xp": 0
+        },
+        "templateId": "AthenaCharacter:CID_005_Athena_Commando_M_Default"
+    },
+    "AthenaCharacter:CID_006_Athena_Commando_M_Default": {
+        "attributes": {
+            "favorite": false,
+            "item_seen": true,
+            "level": 0,
+            "max_level_bonus": 0,
+            "rnd_sel_cnt": 0,
+            "variants": [],
+            "xp": 0
+        },
+        "templateId": "AthenaCharacter:CID_006_Athena_Commando_M_Default"
+    },
+    "AthenaCharacter:CID_007_Athena_Commando_M_Default": {
+        "attributes": {
+            "favorite": false,
+            "item_seen": true,
+            "level": 0,
+            "max_level_bonus": 0,
+            "rnd_sel_cnt": 0,
+            "variants": [],
+            "xp": 0
+        },
+        "templateId": "AthenaCharacter:CID_007_Athena_Commando_M_Default"
+    },
+    "AthenaCharacter:CID_008_Athena_Commando_M_Default": {
+        "attributes": {
+            "favorite": false,
+            "item_seen": true,
+            "level": 0,
+            "max_level_bonus": 0,
+            "rnd_sel_cnt": 0,
+            "variants": [],
+            "xp": 0
+        },
+        "templateId": "AthenaCharacter:CID_008_Athena_Commando_M_Default"
+    },
+    "AthenaCharacter:CID_556_Athena_Commando_F_RebirthDefaultA": {
+        "attributes": {
+            "favorite": false,
+            "item_seen": true,
+            "level": 0,
+            "max_level_bonus": 0,
+            "rnd_sel_cnt": 0,
+            "variants": [],
+            "xp": 0
+        },
+        "templateId": "AthenaCharacter:CID_556_Athena_Commando_F_RebirthDefaultA"
+    },
+    "AthenaCharacter:CID_557_Athena_Commando_F_RebirthDefaultB": {
+        "attributes": {
+            "favorite": false,
+            "item_seen": true,
+            "level": 0,
+            "max_level_bonus": 0,
+            "rnd_sel_cnt": 0,
+            "variants": [],
+            "xp": 0
+        },
+        "templateId": "AthenaCharacter:CID_557_Athena_Commando_F_RebirthDefaultB"
+    },
+    "AthenaCharacter:CID_558_Athena_Commando_F_RebirthDefaultC": {
+        "attributes": {
+            "favorite": false,
+            "item_seen": true,
+            "level": 0,
+            "max_level_bonus": 0,
+            "rnd_sel_cnt": 0,
+            "variants": [],
+            "xp": 0
+        },
+        "templateId": "AthenaCharacter:CID_558_Athena_Commando_F_RebirthDefaultC"
+    },
+    "AthenaCharacter:CID_559_Athena_Commando_F_RebirthDefaultD": {
+        "attributes": {
+            "favorite": false,
+            "item_seen": true,
+            "level": 0,
+            "max_level_bonus": 0,
+            "rnd_sel_cnt": 0,
+            "variants": [],
+            "xp": 0
+        },
+        "templateId": "AthenaCharacter:CID_559_Athena_Commando_F_RebirthDefaultD"
+    },
+    "AthenaCharacter:CID_560_Athena_Commando_M_RebirthDefaultA": {
+        "attributes": {
+            "favorite": false,
+            "item_seen": true,
+            "level": 0,
+            "max_level_bonus": 0,
+            "rnd_sel_cnt": 0,
+            "variants": [],
+            "xp": 0
+        },
+        "templateId": "AthenaCharacter:CID_560_Athena_Commando_M_RebirthDefaultA"
+    },
+    "AthenaCharacter:CID_561_Athena_Commando_M_RebirthDefaultB": {
+        "attributes": {
+            "favorite": false,
+            "item_seen": true,
+            "level": 0,
+            "max_level_bonus": 0,
+            "rnd_sel_cnt": 0,
+            "variants": [],
+            "xp": 0
+        },
+        "templateId": "AthenaCharacter:CID_561_Athena_Commando_M_RebirthDefaultB"
+    },
+    "AthenaCharacter:CID_562_Athena_Commando_M_RebirthDefaultC": {
+        "attributes": {
+            "favorite": false,
+            "item_seen": true,
+            "level": 0,
+            "max_level_bonus": 0,
+            "rnd_sel_cnt": 0,
+            "variants": [],
+            "xp": 0
+        },
+        "templateId": "AthenaCharacter:CID_562_Athena_Commando_M_RebirthDefaultC"
+    },
+    "AthenaCharacter:CID_563_Athena_Commando_M_RebirthDefaultD": {
+        "attributes": {
+            "favorite": false,
+            "item_seen": true,
+            "level": 0,
+            "max_level_bonus": 0,
+            "rnd_sel_cnt": 0,
+            "variants": [],
+            "xp": 0
+        },
+        "templateId": "AthenaCharacter:CID_563_Athena_Commando_M_RebirthDefaultD"
+    },
+    "AthenaCharacter:cid_a_272_athena_commando_f_prime": {
+        "attributes": {
+            "favorite": false,
+            "item_seen": true,
+            "level": 0,
+            "max_level_bonus": 0,
+            "rnd_sel_cnt": 0,
+            "variants": [],
+            "xp": 0
+        },
+        "templateId": "AthenaCharacter:cid_a_272_athena_commando_f_prime"
+    },
+    "AthenaPickaxe:DefaultPickaxe": {
+        "attributes": {
+            "favorite": false,
+            "item_seen": true,
+            "level": 0,
+            "max_level_bonus": 0,
+            "rnd_sel_cnt": 0,
+            "variants": [],
+            "xp": 0
+        },
+        "templateId": "AthenaPickaxe:DefaultPickaxe"
+    },
+    "AthenaGlider:DefaultGlider": {
+        "attributes": {
+            "favorite": false,
+            "item_seen": true,
+            "level": 0,
+            "max_level_bonus": 0,
+            "rnd_sel_cnt": 0,
+            "variants": [],
+            "xp": 0
+        },
+        "templateId": "AthenaGlider:DefaultGlider"
+    },
+    "AthenaDance:EID_DanceMoves": {
+        "attributes": {
+            "favorite": false,
+            "item_seen": true,
+            "level": 0,
+            "max_level_bonus": 0,
+            "rnd_sel_cnt": 0,
+            "variants": [],
+            "xp": 0
+        },
+        "templateId": "AthenaDance:EID_DanceMoves"
+    },
+    "AthenaDance:EID_BoogieDown": {
+        "attributes": {
+            "favorite": false,
+            "item_seen": true,
+            "level": 0,
+            "max_level_bonus": 0,
+            "rnd_sel_cnt": 0,
+            "variants": [],
+            "xp": 0
+        },
+        "templateId": "AthenaDance:EID_BoogieDown"
+    }
+}
