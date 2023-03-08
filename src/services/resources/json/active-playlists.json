@@ -1,0 +1,14 @@
+[
+  {
+    "playlist": "Playlist_DefaultSolo",
+    "ServerIP": "127.0.0.1",
+    "ServerPort": 7777,
+    "enabled": true
+  },
+  {
+    "playlist": "Playlist_50v50HE",
+    "ServerIP": "127.0.0.1",
+    "ServerPort": 7777,
+    "enabled": false
+  }
+]
