@@ -47,6 +47,8 @@ async function GrabUserAccount(accountId, profileID){
     }
 }
 
+
+
 async function grabItems(accountId){
     var Athena = await Account.findOne({ id: accountId }).lean().catch(e => next(e))
 	//commoncore
@@ -58,9 +60,37 @@ async function grabItems(accountId){
 				},
 				"quantity": Athena.profile.vbucks,
 			},
+
 		}
 
-	 return Object.assign({}, AthenaData, commoncore)
+	    Athena.profile.gifts.forEach(gift => {
+        AthenaData[`${gift.giftbox}`] = {
+            templateId: gift.giftbox,
+            attributes: {
+                max_level_bonus: 0,
+                fromAccountId: gift.personsend,
+                lootList: gift.items.map(x => {
+                    return {
+                        itemProfile: "athena",
+                        itemType: x.templateId,
+                        itemGuid: x.templateId,
+                        quantity: x.quantity
+                    }
+                }),
+                level: 1,
+                item_seen: false,
+                xp: 0,
+                giftedOn: gift.giftedAt,
+                params: {
+                    userMessage: gift.message
+                },
+                favorite: false
+            },
+            quantity: 1
+        }
+    })
+
+    return Object.assign({}, AthenaData, commoncore)
 }
 
 async function attributes(accountId){

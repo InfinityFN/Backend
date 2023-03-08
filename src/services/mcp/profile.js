@@ -238,6 +238,79 @@ async function grabItems(accountId){
 	
 }
 
+
+async function ClientGrabattributes(accountId, season) {
+    var Athena = await User.findOne({ id: accountId }).lean().catch(e => next(e))
+  
+    var ohnu = {
+      "use_random_loadout": false,
+      "past_seasons": [],
+      "season_match_boost": 0,
+      "loadouts": [
+        "sandbox_loadout",
+        "loadout_1"
+      ],
+      "mfa_reward_claimed": true,
+      "rested_xp_overflow": 0,
+      "last_xp_interaction": "2022-12-10T22:14:37.647Z",
+      "quest_manager": {
+        "dailyLoginInterval": "2022-12-10T13:51:03.840Z",
+        "dailyQuestRerolls": 1
+      },
+      "book_level": 24,
+      "season_num": 23,
+      "book_xp": 30950,
+      "creative_dynamic_xp": {
+        "timespan": 317.2308349609375,
+        "bucketXp": 0,
+        "bankXp": 0,
+        "bankXpMult": 1,
+        "boosterBucketXp": 0,
+        "boosterXpMult": 0,
+        "dailyExcessXpMult": 1,
+        "currentDayXp": 6196,
+        "currentDay": 68
+      },
+      "season": {
+        "numWins": 3,
+        "numHighBracket": 7,
+        "numLowBracket": 19
+      },
+      "battlestars": Athena.profile.battlestars,
+      "vote_data": {},
+      "battlestars_season_total": Athena.profile.battlestars,
+      "alien_style_points": 0,
+      "lifetime_wins": 294,
+      "party_assist_quest": "d9b6bc03-12af-4c23-8ccd-8a5b98cb90fc",
+      "book_purchased": true,
+      "rested_xp_exchange": 1,
+      "level": Athena.profile.level,
+      "rested_xp": 2500,
+      "rested_xp_mult": 4.4,
+      "accountLevel": 1914,
+      "rested_xp_cumulative": 52500,
+      "xp": 34243565325235,
+      "season_friend_match_boost": 0,
+      "purchased_bp_offers": [],
+      "last_match_end_datetime": "2022-12-10T14:19:14.282Z",
+      "last_stw_accolade_transfer_datetime": "2022-12-10T22:14:37.650Z",
+      "mtx_purchase_history_copy": [],
+      "favorite_musicpack": Athena.profile.musicpack.items,
+      "banner_icon": Athena.profile.banner.banner_icon,
+      "favorite_itemwraps": Athena.profile.itemwrap.items,
+      "favorite_skydivecontrail": "",
+      "favorite_pickaxe": Athena.profile.pickaxe.items,
+      "favorite_glider": Athena.profile.glider.items,
+      "favorite_backpack": Athena.profile.backpack.items,
+      "favorite_dance": Athena.profile.dance.items,
+      "favorite_loadingscreen": Athena.profile.loadingscreen.items,
+      "banner_color": Athena.profile.banner.banner_color
+    }
+  
+    return ohnu
+  }
+  
+
 async function attributes(accountId, season){
     var Athena = await User.findOne({ id: accountId }).lean().catch(e => next(e))
 
@@ -254,6 +327,7 @@ async function attributes(accountId, season){
 	  console.log(season)
 
     var AthenaData = {
+        "use_random_loadout": false,
         "past_seasons": [],
         "season_match_boost": 999999999,
         "loadouts": [
@@ -261,7 +335,8 @@ async function attributes(accountId, season){
             "loadout_1"
         ],
         "favorite_victorypose": "",
-        "mfa_reward_claimed": false,
+        "mfa_reward_claimed": true,
+        "rested_xp_overflow": 0,
         "quest_manager": {
             "dailyLoginInterval": "2020-01-01T17:22:28.023Z",
             "dailyQuestRerolls": 1
@@ -279,6 +354,8 @@ async function attributes(accountId, season){
         "lifetime_wins": 100,
         "favorite_hat": "",
         "level": Athena.profile.level.items,
+        "battlestars_season_total": Athena.profile.battlestars,
+        "battlestars": Athena.profile.battlestars,
         "favorite_battlebus": "",
         "favorite_mapmarker": "",
         "favorite_vehicledeco": "",
@@ -302,5 +379,8 @@ async function attributes(accountId, season){
 }
 
 module.exports = {
-    GrabUserAccount: GrabUserAccount
+    GrabUserAccount: GrabUserAccount,
+    grabItems: grabItems,
+    attributes: attributes,
+    ClientGrabattributes: ClientGrabattributes
 }

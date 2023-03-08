@@ -7,6 +7,8 @@ class Api {
         this.endpoints(this.application)
     }
     endpoints(application) {
+
+
         application.get("/fortnite/api/v2/versioncheck/*", (req, res) => {
             res.json({
                 "type": "NO_UPDATE"
@@ -46,22 +48,22 @@ class Api {
             const accountId = req.query.accountId
 
             var Data = []
-            if (Array.isArray(accountId)) {
-                for (const index of accountId) {
+            if(Array.isArray(accountId)) {
+                for(const index of accountId){
                     var Accounts = await User.findOne({ id: index }).lean();
-                    if (Accounts) {
+                    if(Accounts){
                         Data.push({
                             "id": index,
                             "displayName": Accounts.displayName,
                             "externalAuths": {}
                         })
-                    } else {
+                    }else{
 
                     }
                 }
-            } else {
-                var Accounts = await User.findOne({ id: accountId }).lean();
-                if (Accounts) {
+            }else{
+                var Accounts = await User.findOne({ id: accountId}).lean();
+                if(Accounts){
                     Data.push({
                         "id": Accounts.id,
                         "links": {},

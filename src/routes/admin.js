@@ -2,6 +2,8 @@
 const path = require('path');
 const fs = require('fs');
 const AdminMod = require("../services/modules/Admin")
+const UserMod = require("../services/modules/User")
+const ObjectId = require('mongodb').ObjectId
 class Admin {
     constructor() {
         this.application = require("express").Router()
@@ -18,82 +20,140 @@ class Admin {
         });
 
         // Playlists
-        application.get("/infinity/dev/api/playlist/json", (req, res, next)=> {
-            
-            //const activeplaylists = AdminMod.find().lean().catch(e => next(e))
-            //const omgyes = activeplaylists[0].playlists
-            // enable once done testing (mongodb yay)
-            return res.json(require('../services/resources/json/active-playlists.json'))
+        application.get("/infinity/dev/api/playlist/json", async (req, res, next) => {
+
+            const activeplaylists = await AdminMod.findOne({ _id: new ObjectId("6408cefd0e072e39fd5d7ebf") }).lean().catch(e => next(e))
+            const omgyes = activeplaylists.playlists
+
+
+            return res.json(omgyes)
+            //return res.json(require('../services/resources/json/active-playlists.json'))
         });
+
+        application.get("/infinity/dev/api/news/json", async (req, res, next) => {
+            const newsalive = await AdminMod.findOne({ _id: new ObjectId("6408cefd0e072e39fd5d7ebf") }).lean().catch(e => next(e))
+            const content = newsalive.news
+
+            return res.json(content)
+            //return res.json(require('../services/resources/json/active-playlists.json'))
+        });
+
+        application.get("/infinity/dev/api/emergencynotice/json", async (req, res, next) => {
+            const emergencynoticealive = await AdminMod.findOne({ _id: new ObjectId("6408cefd0e072e39fd5d7ebf") }).lean().catch(e => next(e))
+            const emergencynotice = emergencynoticealive.emergencynotice
+
+            return res.json(emergencynotice)
+        });
+
+        application.get("/infinity/dev/api/players/json", async (req, res, next) => {
+            const playersalive = await UserMod.find();
+            let PlayersData = []
+
+            playersalive.forEach(player => {
+                PlayersData.push({
+                    displayName: player.displayName,
+                    discord: player.discord,
+                    id: player.id,
+                    banned: player.profile.banned
+                })
+            })
+
+            return res.json(PlayersData)
+            //return res.json(require('../services/resources/json/active-playlists.json'))
+        });
+
+        // ONLY REMOVE IF THERE NOT BANNED ELSE WHY BANNED :skull:
+        application.get("/infinity/dev/api/players/remove", async (req, res, next) => {
+            const playersalive = await UserMod.findOne({ id: req.query.id }).lean().catch(e => next(e)); // we save ids as id alr?
+
+            if (playersalive) {
+                UserMod.collection.findOneAndDelete({ id: req.query.id })
+                return res.json({ message: 'Account removed successfully.' });
+            }
+
+            return res.status(404).json({ message: 'Account not found.' });
+        });
+
+        application.get("/infinity/dev/api/players/edit/banned", async (req, res) => {
+            const playersalive = await UserMod.findOne({ id: req.query.id }).lean().catch(e => next(e)); // we save ids as id alr?
+            let Banned = req.query.banned;
+
+            if (playersalive) {
+                UserMod.collection.updateOne({ id: req.query.id }, { $set: { ["profile.banned"]: Banned } })
+                return res.json({ message: 'changed successfully' });
+            }
+
+            return res.status(404).json({ message: 'Account not found.' });
+        })
 
         application.get("/infinity/dev/api/playlist/manage", (req, res) => {
             res.sendFile(path.join(__dirname, '../public/changeplaylist.html'));
         });
 
-        application.get("/infinity/dev/api/playlist/remove", (req, res) => {
-            // Shoot me :/
-            const activePlaylists = require('../services/resources/json/active-playlists.json');
+        application.get("/infinity/dev/api/playlist/remove", async (req, res) => {
+            // Shoot me :/ ok
+            const activeplaylists = await AdminMod.findOne({ _id: new ObjectId("6408cefd0e072e39fd5d7ebf") }).lean().catch(e => next(e))
+            const servers = activeplaylists.playlists
+            let ServersData = []
+            let IsFound = false
 
-            const playlistIndexToRemove = activePlaylists.findIndex(server => server.playlist.toUpperCase() === req.query.playlist.toUpperCase());
+            servers.forEach(server => {
+                if (server.playlist.toUpperCase() === req.query.playlist.toUpperCase()) {
+                    IsFound = true
+                } else {
+                    ServersData.push({ playlist: server.playlist, ServerIP: server.ServerIP, ServerPort: server.ServerPort, enabled: server.enabled })
+                }
+            })
 
-            if (playlistIndexToRemove >= 0) {
-                activePlaylists.splice(playlistIndexToRemove, 1);
-            }
 
-            fs.writeFileSync(path.join(__dirname, '../services/resources/json/active-playlists.json'), JSON.stringify(activePlaylists, null, 2));
-
-            if (playlistIndexToRemove >= 0) {
+            if (IsFound) {
+                await AdminMod.updateOne({ _id: new ObjectId("6408cefd0e072e39fd5d7ebf") }, { playlists: ServersData })
                 res.json({ message: 'Playlist removed successfully.' });
             } else {
                 res.status(404).json({ message: 'Playlist not found.' });
             }
         });
 
-        application.get("/infinity/dev/api/playlist/edit/enabled", (req, res) => {
+        application.get("/infinity/dev/api/playlist/edit/enabled", async (req, res) => {
+            const activeplaylists = await AdminMod.findOne({ _id: new ObjectId("6408cefd0e072e39fd5d7ebf") }).lean().catch(e => next(e))
+            const servers = activeplaylists.playlists
             let Enabled = req.query.enabled;
             let Playlist = req.query.playlist;
             let isEnabled = false;
+            let ServersData = []
 
-            if(Enabled == true || Enabled == "true") {
+            if (Enabled == true || Enabled == "true") {
                 isEnabled = true;
             }
 
-            let servers = require('../services/resources/json/active-playlists.json');
-            
             servers.forEach(server => {
-                if(server.playlist.toUpperCase() == Playlist.toUpperCase()) {
-                    server.enabled = isEnabled;
+                if (server.playlist.toUpperCase() == Playlist.toUpperCase()) {
+                    ServersData.push({ playlist: server.playlist, ServerIP: server.ServerIP, ServerPort: server.ServerPort, enabled: isEnabled })
+                } else {
+                    ServersData.push({ playlist: server.playlist, ServerIP: server.ServerIP, ServerPort: server.ServerPort, enabled: server.enabled })
                 }
-            });
-
-            fs.writeFileSync(path.join(__dirname, '../services/resources/json/active-playlists.json'), JSON.stringify(servers, null, 2));
-
-            return res.json({message: 'changed enabled status successfully'});
+            })
+            console.log(servers)
+            await AdminMod.updateOne({ _id: new ObjectId("6408cefd0e072e39fd5d7ebf") }, { playlists: ServersData })
+            return res.json({ message: 'changed enabled status successfully' });
         });
 
-        application.get("/infinity/dev/api/playlist/add", (req, res) => {
-            var servers = require('../services/resources/json/active-playlists.json');
+        application.get("/infinity/dev/api/playlist/add", async (req, res) => {
+            const activeplaylists = await AdminMod.findOne({ _id: new ObjectId("6408cefd0e072e39fd5d7ebf") }).lean().catch(e => next(e))
+            const servers = activeplaylists.playlists
             var isEnabled = false;
+            let ServersData = []
             if (req.query.enabled == "true") {
                 isEnabled = true;
             }
-            let testservers = []
-            //const activeplaylists = AdminMod.find().lean().catch(e => next(e))
-             //const omgyes = activeplaylists[0].playlists
-            //  omgyes.forEach(omgye => {
-            //     testservers.push({ playlist: omgye.playlist, ServerIP: omgye.ServerIP, ServerPort:omgye.ServerPort, enabled: ServerPort.enabled })
-            // }
-            //  testservers.push({ playlist: req.query.playlist, ServerIP: req.query.serverIP, ServerPort: parseInt(req.query.serverPort), enabled: isEnabled });
-           
-            // EXAMPLE:
-            // http://127.0.0.1:6969/add?playlist=Playlist_DefaultSquad&serverIP=127.0.0.1&serverPort=7777&enabled=false
-            servers.push({ playlist: req.query.playlist, ServerIP: req.query.serverIP, ServerPort: parseInt(req.query.serverPort), enabled: isEnabled });
-            fs.writeFileSync(path.join(__dirname, '../services/resources/json/active-playlists.json'), JSON.stringify(servers, null, 2), function (err) {
-                if (err) {
-                    return err;
-                }
-                console.log('playlist added!');
-            });
+
+            servers.forEach(server => {
+                console.log("test")
+                ServersData.push({ playlist: server.playlist, ServerIP: server.ServerIP, ServerPort: server.ServerPort, enabled: server.enabled })
+            })
+            ServersData.push({ playlist: req.query.playlist, ServerIP: req.query.serverIP, ServerPort: parseInt(req.query.serverPort), enabled: isEnabled });
+
+            await AdminMod.updateOne({ _id: new ObjectId("6408cefd0e072e39fd5d7ebf") }, { playlists: ServersData })
             return res.json({ message: 'Playlist added successfully' });
         });
         // End of Playlists
