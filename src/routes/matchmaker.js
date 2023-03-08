@@ -29,12 +29,12 @@ class Matchmaker {
             console.log("Playlist to Play: " + req.query.bucketId.split(":")[3].toUpperCase());
             servers.forEach(server => {
                 console.log("Testing Playlist: " + server.playlist.toUpperCase());
-                if(server.playlist.toUpperCase() == req.query.bucketId.split(":")[3].toUpperCase() && server.enabled != false) {
+                if (server.playlist.toUpperCase() == req.query.bucketId.split(":")[3].toUpperCase() && server.enabled != false) {
                     CanContinue = true;
                 }
             });
 
-            if(CanContinue == false) {
+            if (CanContinue == false) {
                 return res.status(401).json({
                     errorCode: "This playlist is currently not being hosted or is not available in your region at the moment.",
                     errorMessage: "dev.infinity.servers.ded",
@@ -46,7 +46,7 @@ class Matchmaker {
             }
 
             // if player is not on 10.40 cancel out.
-            if(req.query.bucketId.split(":")[0] != "8371783" || req.query.bucketId.split(":")[0] != 8371783) {
+            if (req.query.bucketId.split(":")[0] != "8371783" || req.query.bucketId.split(":")[0] != 8371783) {
                 return res.status(401).json({
                     errorCode: "dev.infinity.incompatible.version",
                     errorMessage: "Your version is incompatible with the Infinity Matchmaker. Please use 10.40 to play!",
@@ -69,7 +69,7 @@ class Matchmaker {
 
         application.get("/fortnite/api/game/v2/matchmaking/account/:accountId/session/:sessionId", async (req, res) => {
 
-   
+
             //   console.log(req)
             res.json({
                 "accountId": req.params.accountId,
@@ -87,22 +87,24 @@ class Matchmaker {
 
 
             try {
-                var serverAddress = ""
+                var serverAddress = "1"
                 var serverPort = 646433
- 
+
                 // ABOVE PUT PORT SERVER AND PORT ALWAYS WRONG
                 console.log(req.cookies.Playlist)
 
                 var servers = require('../services/resources/json/active-playlists.json');
 
                 servers.forEach(server => {
-                    if(server.playlist.toUpperCase() == req.cookies.Playlist.toUpperCase() && server.enabled != true) {
+                    if (server.playlist.toUpperCase() == req.cookies.Playlist.toUpperCase() && server.enabled != false) {
                         serverAddress = server.ServerIP;
                         serverPort = server.ServerPort;
                     }
                 });
 
-                if(serverAddress == "" || serverPort == 646433) {
+
+
+                /*if(serverAddress == "" || serverPort == 646433) {
                     return res.status(401).json({
                         errorCode: "This playlist is currently not being hosted or is not available in your region at the moment.",
                         errorMessage: "dev.infinity.servers.ded",
@@ -111,10 +113,10 @@ class Matchmaker {
                         originatingService: "fortnite",
                         intent: "prod"
                     })
-                }
+                }*/
 
-                console.log(serverAddress)
-                console.log(serverPort)
+                console.log("Gameserver IP " + serverAddress)
+                console.log("Gameserver Port " + serverPort)
             } catch (err) {
                 console.log(err)
                 return res.json({})
