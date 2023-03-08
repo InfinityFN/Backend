@@ -121,6 +121,8 @@ class Admin {
             if(req.query.key != require('../config.json').apiKey) {
                 return res.sendFile(path.join(__dirname, '../public/apikeyerror.html'));
             }
+
+            res.sendFile(path.join(__dirname, '../public/changeplaylist.html'));
         });
 
         application.get("/infinity/dev/api/playlist/remove", async (req, res) => {
