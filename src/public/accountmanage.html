@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Profile List</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/infinity/public/bootstrap"/>
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Fetch the JSON data from the API URL
+            $.getJSON("/infinity/dev/api/players/json", function (data) {
+                // Loop through the JSON data and create a table row for each profile
+                $.each(data, function (index, profile) {
+                    var row = "<tr>" +
+                        "<td>" + profile.displayName + "</td>" +
+                        "<td>" + profile.discord + "</td>" +
+                        "<td>" + profile.id + "</td>" +
+                        "<td>" + (profile.banned ? "Yes" : "No") + "</td>" +
+                        "<td><button class='btn btn-" + (profile.banned ? "success" : "danger") + " ban-btn' data-profile-id='" + profile.id + "'>" + (profile.banned ? "Unban" : "Ban") + "</button></td>" +
+                        //"<td><button class='btn btn-warning edit-btn' data-profile-id='" + profile.id + "'>Edit</button></td>" +
+                        "<td><button class='btn btn-danger delete-btn' data-profile-id='" + profile.id + "'>Delete</button></td>" +
+                        "</tr>";
+                    // Append the row to the table body
+                    $("#profileTable tbody").append(row);
+                });
+
+                // Handle the "Ban" button click event
+                $(".ban-btn").click(function () {
+                    var profileId = $(this).data("profile-id");
+                    var banned = !$(this).hasClass("btn-success");
+                    $.ajax({
+                        type: "GET",
+                        url: "/infinity/dev/api/players/edit/banned?id=" + profileId + "&banned=" + banned,
+                        success: function () {
+                            // Update the button text and class
+                            $(".ban-btn[data-profile-id='" + profileId + "']").text(banned ? "Unban" : "Ban").removeClass("btn-danger btn-success").addClass(banned ? "btn-success" : "btn-danger");
+                            // Update the "Banned" column text
+                            $("#profileTable tbody tr td:nth-child(4):contains('" + profileId + "')").siblings("td:eq(3)").text(banned ? "Yes" : "No");
+                        }
+                    });
+                });
+
+                // Handle the "Delete" button click event
+                $(".delete-btn").click(function () {
+                    var profileId = $(this).data("profile-id");
+                    if (confirm("Are you sure you want to delete this profile?")) {
+                        $.ajax({
+                            type: "GET",
+                            url: "/infinity/dev/api/players/remove?id=" + profileId,
+                            success: function () {
+                                // Remove the table row for the deleted profile
+                                $("#profileTable tbody tr td:nth-child(4):contains('" + profileId + "')").closest("tr").remove();
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+    <style>
+        body {
+            padding: 20px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Profile List</h1>
+        <table class="table table-striped" id="profileTable">
+            <thead>
+                <tr>
+                    <th>Display Name</th>
+                    <th>Discord ID</th>
+                    <th>Profile ID</th>
+                    <th>Banned</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- This will be populated by the JS code -->
+            </tbody>
+        </table>
+    </div>
+    <footer style="font-style: italic; text-align: center;">
+        <p>Infinity Frontend made with &lt;3 by ctrlKohl</p>
+    </footer>
+</body>
+
+</html>
