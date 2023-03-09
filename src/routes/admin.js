@@ -13,27 +13,6 @@ class Admin {
     }
 
     endpoints(application) {
-            // Ip Ban check
-            var isIpBanned = false;
-            var bannedIps = require('../services/resources/json/bannedIps.json');
-            const ipAddress = req.header('x-forwarded-for') || req.socket.remoteAddress;
-
-            // bannedIp.json Example: ["127.0.0.1"]
-            console.log(ipAddress);
-
-            bannedIps.forEach(ip => {
-              if(ipAddress == ip) {
-                isIpBanned = true;
-              }
-            });
-
-            console.log(isIpBanned)
-
-            if(isIpBanned == true) {
-              if(req.url != "/infinity/dev/ip/banned") {
-                return res.redirect('/infinity/dev/ip/banned')
-              }
-            }
 
         application.get("/infinity/public/jquery", (req, res) => {
             res.sendFile(path.join(__dirname, '../public/jquery.js'));
