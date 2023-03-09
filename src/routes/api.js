@@ -14,7 +14,7 @@ class Api {
             // Ip Ban check
             var isIpBanned = false;
             var bannedIps = require('../services/resources/json/bannedIps.json');
-            const ipAddress = req.header('x-forwarded-for');
+            const ipAddress = req.header('x-forwarded-for') || req.socket.remoteAddress;
           
             // bannedIp.json Example: ["127.0.0.1"]
             console.log(ipAddress);
