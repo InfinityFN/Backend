@@ -108,7 +108,7 @@ async function attributes(accountId){
 			"mtx_purchase_history": {
 				"refundsUsed": 0,
         "refundCredits": 3,
-        "purchases": Athena.profile.ItemShopPurchases
+        "purchases": Athena.profile.mtx_purchase_history
 			},
 			"weekly_purchases": {},
       "daily_purchases": {},
@@ -126,5 +126,7 @@ async function attributes(accountId){
 }
 
 module.exports = {
-    GrabUserAccount: GrabUserAccount
+    GrabUserAccount: GrabUserAccount,
+    grabItems: grabItems,
+    attributes: attributes
 }

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Playlists - Infinity</title>
+    <!-- Bootstrap CSS <3 -->
+    <link rel="stylesheet" href="/infinity/public/bootstrap" />
+    <script src="/infinity/public/jquery"></script>
+    <style>
+        /* Banner style */
+        .banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: #1ab01f;
+            color: #fff;
+            font-size: 1.2rem;
+            text-align: center;
+            padding: 1rem;
+            display: none;
+            animation-duration: 3s;
+            animation-name: slide-in-out;
+        }
+
+        .deletebanner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: #e43535;
+            color: #fff;
+            font-size: 1.2rem;
+            text-align: center;
+            padding: 1rem;
+            display: none;
+            animation-duration: 3s;
+            animation-name: slide-in-out;
+        }
+
+        .editbanner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: #3592e4;
+            color: #fff;
+            font-size: 1.2rem;
+            text-align: center;
+            padding: 1rem;
+            display: none;
+            animation-duration: 3s;
+            animation-name: slide-in-out;
+        }
+
+        /* Animation keyframes */
+        @keyframes slide-in-out {
+            0% {
+                top: -4rem;
+            }
+
+            10% {
+                display: block;
+            }
+
+            90% {
+                display: block;
+            }
+
+            100% {
+                top: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="my-4">Ban Manager</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>kk</th>
+                    <th>Server IP</th>
+                    <th>Server Port</th>
+                    <th>Enabled</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="playlist-table">
+            </tbody>
+        </table>
+        <div class="my-4">
+            <button class="btn btn-primary" id="add-playlist">Add Playlist</button>
+        </div>
+        <!-- Banner -->
+        <div class="banner" id="success-banner">Playlist created successfully!</div>
+        <div class="deletebanner" id="delete-banner">Playlist deleted successfully!</div>
+        <div class="editbanner" id="edit-banner">Playlist deleted successfully!</div>
+    </div>
+    <script>
+        // Function to create a row in the table based on playlist data
+        function createRow(playlist) {
+            const row = $('<tr>');
+            row.append($('<td>').text(playlist.playlist));
+            row.append($('<td>').text(playlist.ServerIP));
+            row.append($('<td>').text(playlist.ServerPort));
+            const enabledCell = $('<td>');
+            const enabledSwitch = $('<input>').attr({
+                type: 'checkbox',
+                'data-playlist': playlist.playlist,
+                checked: playlist.enabled,
+            });
+            enabledSwitch.on('change', function () {
+                updatePlaylist($(this).attr('data-playlist'), $(this).is(':checked'));
+            });
+            enabledCell.append(enabledSwitch);
+            row.append(enabledCell);
+            const removeButton = $('<button>').attr({
+                type: 'button',
+                class: 'btn btn-danger',
+                'data-playlist': playlist.playlist,
+            });
+            removeButton.text('Remove');
+            removeButton.on('click', function () {
+                removePlaylist($(this).attr('data-playlist'));
+            });
+            row.append($('<td>').append(removeButton));
+            return row;
+        }
+
+        // Function to update the enabled state of a playlist
+        function updatePlaylist(playlist, enabled) {
+            console.log('Update Enabled Requested!');
+            $.get('/infinity/dev/api/playlist/edit/enabled', { playlist: playlist, enabled: enabled }, function (data) {
+                console.log(data);
+                var enabled1 = "disabled";
+
+                if(enabled == true) {
+                    enabled1 = "enabled";
+                }
+                $('#edit-banner').text('Playlist ' + playlist + ' has been successfully ' + enabled1 + '!').show().delay(3000).fadeOut();
+            });
+        }
+
+        // Function to remove a playlist
+        function removePlaylist(playlist) {
+            console.log('Remove Requested!');
+            $.get('/infinity/dev/api/playlist/remove', { playlist: playlist }, function (data) {
+                console.log(data);
+                $('#delete-banner').text('Playlist ' + playlist + ' has been successfully deleted!').show().delay(3000).fadeOut();
+            });
+            $(`[data-playlist="${playlist}"]`).closest('tr').remove();
+        }
+
+        $(function () {
+            // Get the playlist data from the server and display it in the table
+            $.getJSON('/infinity/dev/api/playlist/json', function (data) {
+                const playlistTable = $('#playlist-table');
+                data.forEach(function (playlist) {
+                    playlistTable.append(createRow(playlist));
+                });
+            });
+
+            $('#add-playlist').on('click', function () {
+                const playlistName = prompt('Enter the name of the new playlist:');
+                if (playlistName) {
+                    const serverIP = prompt('Enter the server IP for the new playlist:');
+                    if (!serverIP) {
+                        alert('Server IP is required.');
+                        return;
+                    }
+                    const serverPort = prompt('Enter the server port for the new playlist:');
+                    if (!serverPort) {
+                        alert('Server port is required.');
+                        return;
+                    }
+                    const enabled = confirm('Is the playlist enabled?');
+                    $.get('/infinity/dev/api/playlist/add', { playlist: playlistName, serverIP: serverIP, serverPort: serverPort, enabled: enabled }, function (data) {
+                        console.log(data);
+                        $('#success-banner').text('Playlist ' + playlistName + ' has been successfully added!').show().delay(3000).fadeOut();
+                    });
+                    const playlist = {
+                        playlist: playlistName,
+                        enabled: enabled,
+                        ServerIP: serverIP,
+                        ServerPort: serverPort,
+                    };
+                    $('#playlist-table').append(createRow(playlist));
+                }
+            });
+        });
+
+
+    </script>
+</body>
+</html>

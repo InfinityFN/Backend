@@ -1,8 +1,6 @@
 const User = require("../services/modules/User")
+
 const { WebhookClient, MessageEmbed } = require('discord.js');
-const path = require('path');
-
-
 class Api {
     constructor() {
         this.application = require("express").Router()
@@ -41,9 +39,7 @@ class Api {
             next()
         })
 
-        application.get('/infinity/dev/ip/banned', (req,res) => {
-            return res.sendFile(path.join(__dirname, '../public/ipban.html'));
-        });
+
 
         // JUST to test to see how the embed looked. will delete later
         application.post('/report/test', (req, res) => {
@@ -81,7 +77,7 @@ class Api {
             // report webhook
             const webhook = new WebhookClient('1083247535575015455', '32LrEwxSdBBevi82lbHuQm0bzluWgtGzs1IVnC-nNf4OBeVecBK9RmP1nTCUrMi-XBnE');
 
-            /* req.body for this (do not remove)
+            /*
             {
   reason: 'CommunicationsAbuse',
   details: '',
@@ -178,22 +174,22 @@ class Api {
             const accountId = req.query.accountId
 
             var Data = []
-            if (Array.isArray(accountId)) {
-                for (const index of accountId) {
+            if(Array.isArray(accountId)) {
+                for(const index of accountId){
                     var Accounts = await User.findOne({ id: index }).lean();
-                    if (Accounts) {
+                    if(Accounts){
                         Data.push({
                             "id": index,
                             "displayName": Accounts.displayName,
                             "externalAuths": {}
                         })
-                    } else {
+                    }else{
 
                     }
                 }
-            } else {
-                var Accounts = await User.findOne({ id: accountId }).lean();
-                if (Accounts) {
+            }else{
+                var Accounts = await User.findOne({ id: accountId}).lean();
+                if(Accounts){
                     Data.push({
                         "id": Accounts.id,
                         "links": {},

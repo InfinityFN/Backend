@@ -1,9 +1,11 @@
 // Infinity Admin Panel
 const path = require('path');
 const fs = require('fs');
+
 const AdminMod = require("../services/modules/Admin")
 const UserMod = require("../services/modules/User")
 const ObjectId = require('mongodb').ObjectId
+const path = require('path');
 class Admin {
     constructor() {
         this.application = require("express").Router()
@@ -11,6 +13,28 @@ class Admin {
     }
 
     endpoints(application) {
+            // Ip Ban check
+            var isIpBanned = false;
+            var bannedIps = require('../services/resources/json/bannedIps.json');
+            const ipAddress = req.header('x-forwarded-for') || req.socket.remoteAddress;
+
+            // bannedIp.json Example: ["127.0.0.1"]
+            console.log(ipAddress);
+
+            bannedIps.forEach(ip => {
+              if(ipAddress == ip) {
+                isIpBanned = true;
+              }
+            });
+
+            console.log(isIpBanned)
+
+            if(isIpBanned == true) {
+              if(req.url != "/infinity/dev/ip/banned") {
+                return res.redirect('/infinity/dev/ip/banned')
+              }
+            }
+
         application.get("/infinity/public/jquery", (req, res) => {
             res.sendFile(path.join(__dirname, '../public/jquery.js'));
         });
@@ -71,6 +95,10 @@ class Admin {
         })
 
 
+        application.get('/infinity/dev/ip/banned', (req,res) => {
+            return res.sendFile(path.join(__dirname, '../public/ipban.html'));
+        });
+
         application.get("/infinity/dev/api/players/json", async (req, res, next) => {
             const playersalive = await UserMod.find();
             let PlayersData = []
@@ -125,34 +153,6 @@ class Admin {
             res.sendFile(path.join(__dirname, '../public/changeplaylist.html'));
         });
 
-        application.get("/infinity/dev/api/accounts/manage", (req, res) => {
-
-            // unique id everytime we update
-            if(req.headers['user-agent'] != require('../config.json').adminAppId) {
-                return res.sendFile(path.join(__dirname, '../public/useragenterror.html'));
-            }
-
-            if(req.query.key != require('../config.json').apiKey) {
-                return res.sendFile(path.join(__dirname, '../public/apikeyerror.html'));
-            }
-
-            res.sendFile(path.join(__dirname, '../public/accountmanage.html'));
-        });
-
-        application.get("/infinity/dev/api/basic/config", (req, res) => {
-
-            // unique id everytime we update
-            if(req.headers['user-agent'] != require('../config.json').adminAppId) {
-                return res.sendFile(path.join(__dirname, '../public/useragenterror.html'));
-            }
-
-            if(req.query.key != require('../config.json').apiKey) {
-                return res.sendFile(path.join(__dirname, '../public/apikeyerror.html'));
-            }
-
-            res.sendFile(path.join(__dirname, '../public/newsconfig.html'));
-        });
-
         application.get("/infinity/dev/api/playlist/remove", async (req, res) => {
             // Shoot me :/ ok
             const activeplaylists = await AdminMod.findOne({ _id: new ObjectId("6408cefd0e072e39fd5d7ebf") }).lean().catch(e => next(e))
@@ -199,6 +199,34 @@ class Admin {
             console.log(servers)
             await AdminMod.updateOne({ _id: new ObjectId("6408cefd0e072e39fd5d7ebf") }, { playlists: ServersData })
             return res.json({ message: 'changed enabled status successfully' });
+        });
+
+        application.get("/infinity/dev/api/basic/config", (req, res) => {
+
+            // unique id everytime we update
+            if(req.headers['user-agent'] != require('../config.json').adminAppId) {
+                return res.sendFile(path.join(__dirname, '../public/useragenterror.html'));
+            }
+
+            if(req.query.key != require('../config.json').apiKey) {
+                return res.sendFile(path.join(__dirname, '../public/apikeyerror.html'));
+            }
+
+            res.sendFile(path.join(__dirname, '../public/newsconfig.html'));
+        });
+
+        application.get("/infinity/dev/api/accounts/manage", (req, res) => {
+
+            // unique id everytime we update
+            if(req.headers['user-agent'] != require('../config.json').adminAppId) {
+                return res.sendFile(path.join(__dirname, '../public/useragenterror.html'));
+            }
+
+            if(req.query.key != require('../config.json').apiKey) {
+                return res.sendFile(path.join(__dirname, '../public/apikeyerror.html'));
+            }
+
+            res.sendFile(path.join(__dirname, '../public/accountmanage.html'));
         });
 
         application.get("/infinity/dev/api/playlist/add", async (req, res) => {

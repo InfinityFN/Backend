@@ -6,6 +6,7 @@ class Lightswitch {
     }
     endpoints(application, maintenanceUri){
         this.application.get("/lightswitch/api/service/bulk/status", async (req,res) => {
+            console.log(req.headers)
             res.json(  [{
                 "serviceInstanceId": "fortnite",
                 "status": "UP",

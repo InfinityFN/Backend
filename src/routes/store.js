@@ -1,4 +1,5 @@
 const axios = require("axios")
+const User = require("../services/modules/User")
 class Store {
     constructor() {
         this.application = require("express").Router()
@@ -7,6 +8,9 @@ class Store {
 
     endpoints(application) {
         application.all("/fortnite/api/storefront/v2/gift/check_eligibility/recipient/:friendID/offer/:offerID", async (req,res) => {
+
+            var account = await User.findOne({ id: req.params.friendID }).lean().catch(e => next(e))
+
             var shop = (await axios.get("http://localhost:6969/fortnite/api/storefront/v2/catalog")).data;
             var OfferID = decodeURI(req.params.offerID)
         
@@ -19,6 +23,11 @@ class Store {
                     }
                 }
             }
+
+            console.log(CatalogPurchaseID)
+            var FOUND = false
+           
+
             //console.log(CatalogPurchaseID)
         
         

@@ -164,7 +164,7 @@ const data101 = mongoose.Schema({
         },
         "vbucks": {
             type: Number,
-            default: 100000
+            default: 1000
         },
         "battlestars": {
             type: Number,
@@ -235,6 +235,10 @@ const data101 = mongoose.Schema({
             default: []
         },
         "ItemShopPurchases": {
+            type: Object,
+            default: {}
+        },
+        "mtx_purchase_history": {
             type: Array,
             default: []
         },

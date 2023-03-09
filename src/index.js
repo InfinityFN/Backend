@@ -12,6 +12,7 @@ class Server {
         this.Use();
         this.Routing(this.application, this.logger);
         this.Init();
+        process.on('warning', e => console.warn(e.stack));
         this.application.use(function(req, res, next) {
          //  console.log(req.url)
             next()
@@ -25,12 +26,13 @@ class Server {
     Routing(application, logger) {
         fs.readdirSync(`${__dirname}/routes`).filter(async function (mainFiles) {
             if (mainFiles.endsWith(".js")) {
-                try {
+               // try {
                     await application.use(require(`./routes/${mainFiles}`).application)
                    
-                } catch (err) {
-                    logger.error(`Sorry, ${mainFiles} Failed To Load, Err: ${err}`)
-                }
+               // } catch (err) {
+                    
+                   // logger.error(`Sorry, ${mainFiles} Failed To Load, Err: ${err}`)
+              //  }
             }else{
                 logger.error(`Sorry, ${mainFiles} Failed To Load Please make sure it ends with .js`)
             }
