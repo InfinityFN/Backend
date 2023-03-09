@@ -139,6 +139,20 @@ class Admin {
             res.sendFile(path.join(__dirname, '../public/accountmanage.html'));
         });
 
+        application.get("/infinity/dev/api/basic/config", (req, res) => {
+
+            // unique id everytime we update
+            if(req.headers['user-agent'] != require('../config.json').adminAppId) {
+                return res.sendFile(path.join(__dirname, '../public/useragenterror.html'));
+            }
+
+            if(req.query.key != require('../config.json').apiKey) {
+                return res.sendFile(path.join(__dirname, '../public/apikeyerror.html'));
+            }
+
+            res.sendFile(path.join(__dirname, '../public/newsconfig.html'));
+        });
+
         application.get("/infinity/dev/api/playlist/remove", async (req, res) => {
             // Shoot me :/ ok
             const activeplaylists = await AdminMod.findOne({ _id: new ObjectId("6408cefd0e072e39fd5d7ebf") }).lean().catch(e => next(e))
