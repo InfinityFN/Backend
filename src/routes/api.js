@@ -53,7 +53,7 @@ class Api {
             // report webhook
             const webhook = new WebhookClient('1083247535575015455', '32LrEwxSdBBevi82lbHuQm0bzluWgtGzs1IVnC-nNf4OBeVecBK9RmP1nTCUrMi-XBnE');
 
-            /*
+            /* req.body for this (do not remove)
             {
   reason: 'CommunicationsAbuse',
   details: '',
