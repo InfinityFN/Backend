@@ -1,4 +1,4 @@
-
+const AdminMod = require("../services/modules/Admin")
 class FortniteGame {
     constructor(){
         this.application = require("express").Router()
