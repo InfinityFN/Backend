@@ -1,11 +1,10 @@
 // Infinity Admin Panel
 const path = require('path');
 const fs = require('fs');
-
 const AdminMod = require("../services/modules/Admin")
 const UserMod = require("../services/modules/User")
 const ObjectId = require('mongodb').ObjectId
-const path = require('path');
+
 class Admin {
     constructor() {
         this.application = require("express").Router()
