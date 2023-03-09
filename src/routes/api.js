@@ -1,5 +1,6 @@
 const User = require("../services/modules/User")
 const { WebhookClient, MessageEmbed } = require('discord.js');
+const path = require('path');
 
 
 class Api {
@@ -10,12 +11,39 @@ class Api {
     endpoints(application) {
 
         application.use((req, res, next) => {
+            // Ip Ban check
+            var isIpBanned = false;
+            var bannedIps = require('../services/resources/json/bannedIps.json');
+            const ipAddress = req.header('x-forwarded-for');
+          
+            // bannedIp.json Example: ["127.0.0.1"]
+            console.log(ipAddress);
+          
+            bannedIps.forEach(ip => {
+              if(ipAddress == ip) {
+                isIpBanned = true;
+              }
+            });
+          
+            console.log(isIpBanned)
+          
+            if(isIpBanned == true) {
+              if(req.url != "/infinity/dev/ip/banned") {
+                return res.redirect('/infinity/dev/ip/banned')
+              }
+            }
+
+            // Log Requests
             if(require('../config.json').logRequests == true) {
                 console.log(`Incoming request: ${req.method} ${req.url}`)
             }
             
             next()
         })
+
+        application.get('/infinity/dev/ip/banned', (req,res) => {
+            return res.sendFile(path.join(__dirname, '../public/ipban.html'));
+        });
 
         // JUST to test to see how the embed looked. will delete later
         application.post('/report/test', (req, res) => {
