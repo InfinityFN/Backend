@@ -130,22 +130,30 @@ class Admin {
 
             res.sendFile(path.join(__dirname, '../public/changeplaylist.html'));
         });
+        
+
+        application.get("/register", (req,res) => {
+            res.sendFile(path.join(__dirname, '../public/sitereg.html'));
+        })
 
         application.get("/infinity/register", async (req,res) => {
-            var Email = req.params.email
-            var Password = req.params.password
-            var Username = req.params.username
-
-            if(Email & Password & Username){
+            var Email = req.query.email
+            var Password = req.query.password
+            var Username = req.query.username
+            console.log(Email)
+            console.log(Password)
+            console.log(Username)
+            if(Email && Password && Username){
                 const email = await UserMod.findOne({ email: Email }).lean().catch(e => next(e))
                 if(email){
                     return res.json({ message: "Email Already In Use"})
                 }else{
-                    const username = await UserMod.findOne({ username: Username }).lean().catch(e => next(e))
+                    const username = await UserMod.findOne({ displayName: Username }).lean().catch(e => next(e))
                     if(username){
                         return res.json({ message: "Username Already In Use"})
                     }else{
 
+                        return res.json({ message: "Yas"})
                     }
                 }
             }else{

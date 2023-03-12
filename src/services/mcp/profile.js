@@ -404,7 +404,7 @@ async function attributes(accountId, season) {
         "book_purchased": true,
         "lifetime_wins": 100,
         "favorite_hat": "",
-        "level": Athena.profile.level.items,
+        "level": Athena.profile.level,
         "battlestars_season_total": Athena.profile.battlestars,
         "battlestars": Athena.profile.battlestars,
         "favorite_battlebus": "",
