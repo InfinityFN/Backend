@@ -4,6 +4,8 @@ const fs = require('fs');
 const AdminMod = require("../services/modules/Admin")
 const UserMod = require("../services/modules/User")
 const ObjectId = require('mongodb').ObjectId
+const crypto = require("crypto")
+const bcrypt = require("bcrypt")
 
 class Admin {
     constructor() {
@@ -152,8 +154,24 @@ class Admin {
                     if(username){
                         return res.json({ message: "Username Already In Use"})
                     }else{
+                        const RandomID = crypto.randomBytes(16).toString('hex')
+                        const RandomID2 = crypto.randomBytes(16).toString('hex')
 
-                        return res.json({ message: "Yas"})
+
+                        let User = await UserMod.create({
+                            "id": RandomID,
+                            "createdAt": new Date(),
+                            "displayName": Username,
+                            "email": Email,
+                            "password": bcrypt.hashSync(Password, bcrypt.genSaltSync(10)),
+                            "Authorization": RandomID2 // Auto Gen a token ig
+                        })
+
+                        User.save().catch(err => {
+                            return res.json({ err: err})
+                        })
+
+                        return res.json({ message: "Account Created!"})
                     }
                 }
             }else{
