@@ -11,8 +11,8 @@ class Api {
         application.use((req, res, next) => {
             // Ip Ban check
             var isIpBanned = false;
-            var bannedIps = require('../services/resources/json/bannedIps.json');
-            const ipAddress = req.header('x-forwarded-for') || req.socket.remoteAddress;
+            const bannedIps = require('../services/resources/json/bannedIps.json');
+            const isIpBanned = bannedIps.includes(req.header('x-forwarded-for') || req.socket.remoteAddress);
           
             // bannedIp.json Example: ["127.0.0.1"]
           //  console.log(ipAddress);
@@ -25,12 +25,11 @@ class Api {
           
           //  console.log(isIpBanned)
           
-            if(isIpBanned == true) {
-              if(req.url != "/infinity/dev/ip/banned") {
-                return res.redirect('/infinity/dev/ip/banned')
-              }
-            }
-
+       
+          
+          if (isIpBanned && req.url !== "/infinity/dev/ip/banned") {
+            return res.redirect('/infinity/dev/ip/banned');
+          }
             // Log Requests
             if(require('../config.json').logRequests == true) {
                 console.log(`Incoming request: ${req.method} ${req.url}`)
