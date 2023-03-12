@@ -137,7 +137,17 @@ class Admin {
             var Username = req.params.username
 
             if(Email & Password & Username){
+                const email = await UserMod.findOne({ email: Email }).lean().catch(e => next(e))
+                if(email){
+                    return res.json({ message: "Email Already In Use"})
+                }else{
+                    const username = await UserMod.findOne({ username: Username }).lean().catch(e => next(e))
+                    if(username){
+                        return res.json({ message: "Username Already In Use"})
+                    }else{
 
+                    }
+                }
             }else{
                 return res.json({ message: "Sorry There Is A Issue"})
             }
