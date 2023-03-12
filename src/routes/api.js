@@ -15,7 +15,7 @@ class Api {
             const ipAddress = req.header('x-forwarded-for') || req.socket.remoteAddress;
           
             // bannedIp.json Example: ["127.0.0.1"]
-            console.log(ipAddress);
+          //  console.log(ipAddress);
           
             bannedIps.forEach(ip => {
               if(ipAddress == ip) {
@@ -23,7 +23,7 @@ class Api {
               }
             });
           
-            console.log(isIpBanned)
+          //  console.log(isIpBanned)
           
             if(isIpBanned == true) {
               if(req.url != "/infinity/dev/ip/banned") {
@@ -34,6 +34,8 @@ class Api {
             // Log Requests
             if(require('../config.json').logRequests == true) {
                 console.log(`Incoming request: ${req.method} ${req.url}`)
+                console.log(isIpBanned);
+                console.log(ipAddress);
             }
             
             next()
@@ -219,6 +221,13 @@ class Api {
             // when your lazy
             res.json(require("../services/resources/json/keychain.json"))
             res.status(200);
+        })
+
+        application.all("/fortnite/api/game/v2/privacy/account/:accountId", (req, res) => {
+            res.json({
+                accountId: req.params.accountId,
+                optOutOfPublicLeaderboards: false
+            })
         })
     }
 }

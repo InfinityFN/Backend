@@ -1,6 +1,7 @@
 const express = require("express")
 const fs = require("fs");
 const cookieParser = require("cookie-parser");
+const User = require("./services/modules/User")
 // PROD
 
 class Server {
@@ -40,11 +41,12 @@ class Server {
     }
     Init() {
         if (!this.port) return console.log("PORT NOT SET!")
-        this.application.listen(this.port || process.env.port, () => {
+        this.application.listen(this.port || process.env.port, async () => {
             this.logger.log(`[Server] Running on port ${this.port || process.env.port}`)
-            require("./services/Mongodb").MongoDB.Connect(this.mongodb, this.logger)
+            await require("./services/Mongodb").MongoDB.Connect(this.mongodb, this.logger)
+ 
             require("./services/matchmaker").matchmaker;
-            require("./services/xmpp").xmpp;
+           require("./services/xmpp").xmpp;
           
           //  this.application.get("*", function (req,res) {
                // res.json({ "eh": "Your one of thoses people ;) skidder..."})

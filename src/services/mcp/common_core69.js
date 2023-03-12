@@ -98,6 +98,18 @@ async function attributes(accountId){
 		var AthenaData = {
 			"survey_data": {},
       "personal_offers": {},
+      "vote_data": {
+        "electionId": "7mr570d4119meh78jo4i562god[0]0",
+        "voteHistory": {
+          "vote://7mr570d4119meh78jo4i562god[0]:0": {
+            "voteCount": 1,
+            "firstVoteAt": "2019-11-26T07:02:34.710Z",
+            "lastVoteAt": "2019-11-26T07:02:34.710Z"
+          }
+        },
+        "votesRemaining": 1,
+        "lastVoteGranted": "2019-11-26T07:02:09.857Z"
+      },
       "intro_game_played": true,
       "import_friends_claimed": {},
 			"mtx_affiliate": "",

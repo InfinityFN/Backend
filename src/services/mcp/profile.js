@@ -4,7 +4,7 @@ const fs = require("fs")
 const path = require("path")
 async function GrabUserAccount(accountId, profileID, season = 2) {
     try {
-        var Athena = await User.findOne({ id: accountId }).lean().catch(e => next(e))
+        const Athena = await User.findOne({ id: accountId }).lean().catch(e => next(e))
 
         // todo add account id to this without it breaking fortnite Athena.id
         if (Athena) {
@@ -17,13 +17,13 @@ async function GrabUserAccount(accountId, profileID, season = 2) {
                         "changeType": "fullProfileUpdate",
                         "_id": "RANDOM",
                         "profile": {
-                            "_id": "RANDOM",
+                            "_id": Athena.id,
                             "Update": "",
                             "Created": "2021-03-07T16:33:28.462Z",
-                            "updated": "2021-05-20T14:57:29.907Z",
-                            "rvn": 0,
+                            "updated": new Date().toISOString(),
+                            "rvn": Athena.profile.profilerevision,
                             "wipeNumber": 1,
-                            "accountId": "",
+                            "accountId": Athena.id,
                             "profileId": profileID,
                             "version": "no_version",
                             "items": {},
@@ -67,13 +67,13 @@ async function GrabUserAccount3(accountId, profileID, season = 2) {
         if (Athena) {
             var AthenaData = {
 
-                "_id": "RANDOM",
+                "_id": Athena.id,
                 "Update": "",
                 "Created": "2021-03-07T16:33:28.462Z",
-                "updated": "2021-05-20T14:57:29.907Z",
-                "rvn": 0,
+                "updated": new Date().toISOString(),
+                "rvn": Athena.profile.profilerevision,
                 "wipeNumber": 1,
-                "accountId": "",
+                "accountId": Athena.id,
                 "profileId": profileID,
                 "version": "no_version",
                 "items": {},
