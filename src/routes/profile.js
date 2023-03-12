@@ -193,6 +193,8 @@ class Profile {
                     var friends = await User.findOne({ id: req.body.receiverAccountIds[0] }).lean().catch(e => next(e))
                     let allgifts = []
                     let Epic1 = []
+                    const accountId = req.params.accountId
+                  
                     let Epic3 = []
                     var shop = (await axios.get("http://localhost:6969/fortnite/api/storefront/v2/catalog")).data;
                     var templateIdIG
@@ -201,6 +203,7 @@ class Profile {
 
                     var account = await User.findOne({ id: accountId }).lean().catch(e => next(e))
 
+                    if(!account) return;
                  
 
                     for (const storefront of shop.storefronts) {
@@ -226,7 +229,7 @@ class Profile {
                                     }
                                 }`
                                 var test2 = Object.assign({}, friends.profile.ItemShopPurchases, JSON.parse(Epic))
-                         
+                                
                             }
                         }
                     }
@@ -243,7 +246,6 @@ class Profile {
                         }
                     }
 
-                    const accountId = req.params.accountId
                   
 
 
@@ -375,30 +377,40 @@ class Profile {
                     var account = await User.findOne({ id: accountId }).lean().catch(e => next(e))
                     let catalogEntryToPurchase = null;
                     var test123;
+                    var finalPriceIG
 
                     for (const storefront of shop.storefronts) {
-                        /*if (!storefront.name.startsWith("BR")) {
-                            throw new Error("Unsupported");
-                        }*/
-
-                        
                         for (const catalogEntry of storefront.catalogEntries) {
                             if (catalogEntry.offerId == req.body.offerId) {
                                 catalogEntryToPurchase = catalogEntry;
-
+                                finalPriceIG = catalogEntry["prices"][0]["finalPrice"]
                     
                             }
                         }
                     }
 
                     if (catalogEntryToPurchase == null) {
-                        throw next(new ApiException(errors.com.epicgames.modules.gamesubcatalog.catalog_out_of_date).with(req.body.offerId));
+                        return res.json({})
+                      //  throw next(new ApiException(errors.com.epicgames.modules.gamesubcatalog.catalog_out_of_date).with(req.body.offerId));
                     }
 
 
                     var grantProfile = await profile.GrabUserAccount(accountId, "athena", season);
                     grantProfile = grantProfile['profileChanges'][0]['profile']
                     const lootResult = [];
+
+                    if (account) {
+                        var vbucks = account.profile.vbucks
+                        /// console.log(vbucks)
+                        ///   console.log(finalPriceIG)
+                        if (vbucks > finalPriceIG) {
+                            vbucks = vbucks - finalPriceIG
+                            // console.log(vbucks)
+                            await User.updateOne({ id: accountId }, { [`profile.vbucks`]: vbucks })
+
+                        }
+                    }
+
 
 
                     for (const itemGrant of catalogEntryToPurchase.itemGrants) {
@@ -444,6 +456,10 @@ class Profile {
 
                     grantProfile = await profile.GrabUserAccount(accountId, "athena", season);
                     grantProfile = grantProfile['profileChanges'][0]['profile']
+
+                    var grantProfile2 = await common_core69.GrabUserAccount(accountId, "common_core");
+            
+                    grantProfile2 = grantProfile2['profileChanges'][0]['profile']
                     // need to add it to the mtx one as well at some point
 
                     console.log(lootResult)
@@ -453,8 +469,7 @@ class Profile {
                     await User.updateOne({ id: req.params.accountId }, { [`profile.profilerevision`]: account.profile.profilerevision + 1 })
                     var accoun2t = await User.findOne({ id: accountId }).lean().catch(e => next(e))
 
-             
-                       
+    
                 
                     console.log( grantProfile)
                     res.json({
@@ -483,6 +498,18 @@ class Profile {
                             "serverTime": new Date().toISOString(),
                             "profileCommandRevision":  accoun2t.profile.profilerevision,
                             "responseVersion": 1
+                        },
+                        {
+                            "profileRevision":  accoun2t.profile.profilerevision,
+                            "profileId": "common_core",
+                            "profileChangesBaseRevision":  accoun2t.profile.profilerevision,
+                            "profileChanges": [{
+                                changeType: "fullProfileUpdate",
+                                profile: grantProfile2
+                            }],
+                            "serverTime": new Date().toISOString(),
+                            "profileCommandRevision":  accoun2t.profile.profilerevision,
+                            "responseVersion": 1
                         }]
                       
                     })
@@ -491,7 +518,7 @@ class Profile {
                    
                     var AccountTemp = await User.findOne({ id: req.params.accountId }).lean().catch(error => next(e))
                     let remove = []
-                    console.log(req.headers)
+                    console.log(res.headers)
      
                     AccountTemp.profile.gifts.forEach(async gift => {
                         console.log(gift.giftbox)
@@ -501,23 +528,14 @@ class Profile {
                         }
                     })
 
-                    var grantProfile = await profile.GrabUserAccount(accountId, "athena", season);
-                    
-                    var accoun2t = await User.findOne({ id: accountId }).lean().catch(e => next(e))
+                    await User.updateOne({ id: req.params.accountId }, { [`profile.profilerevision`]: AccountTemp.profile.profilerevision + 1 })
+                   
+                    const athenaData = await common_core69.GrabUserAccount(accountId, profileID)
 
-                    res.json({
-                        "profileRevision": accoun2t.profile.profilerevision,
-                        "profileId": req.query.profileId || "athena",
-                        "profileChangesBaseRevision": accoun2t.profile.profilerevision,
-                        "profileChanges": {
-                            "changeType": "fullProfileUpdate",
-                            "profile": grantProfile['profileChanges'][0]['profile']
-                        },
-                        "profileCommandRevision": accoun2t.profile.profilerevision,
-                        "serverTime": new Date().toISOString(),
-                        "responseVersion": 1
-                    })
-                    res.end();
+                
+                    res.json(athenaData)
+                    res.status(200)
+                    res.end()
                 } else if(command == "BulkEquipBattleRoyaleCustomization"){
                     const athenaData = await profile.GrabUserAccount(accountId, profileID, season)
 
