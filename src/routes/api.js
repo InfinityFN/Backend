@@ -10,33 +10,20 @@ class Api {
 
         application.use((req, res, next) => {
             // Ip Ban check
-            var isIpBanned = false;
             const bannedIps = require('../services/resources/json/bannedIps.json');
             const isIpBanned = bannedIps.includes(req.header('x-forwarded-for') || req.socket.remoteAddress);
-          
-            // bannedIp.json Example: ["127.0.0.1"]
-          //  console.log(ipAddress);
-          
-            bannedIps.forEach(ip => {
-              if(ipAddress == ip) {
-                isIpBanned = true;
-              }
-            });
-          
-          //  console.log(isIpBanned)
-          
-       
-          
-          if (isIpBanned && req.url !== "/infinity/dev/ip/banned") {
-            return res.redirect('/infinity/dev/ip/banned');
-          }
+
+
+            if (isIpBanned && req.url !== "/infinity/dev/ip/banned") {
+                return res.redirect('/infinity/dev/ip/banned');
+            }
             // Log Requests
-            if(require('../config.json').logRequests == true) {
+            if (require('../config.json').logRequests == true) {
                 console.log(`Incoming request: ${req.method} ${req.url}`)
                 console.log(isIpBanned);
                 console.log(ipAddress);
             }
-            
+
             next()
         })
 
@@ -71,7 +58,7 @@ class Api {
             var Offender = await User.findOne({ id: req.params.offenderAccountId }).lean();
             console.log(Offender);
 
-            if(Offender.displayName == null || Offender.displayName == "" || Offender.displayName == undefined) {
+            if (Offender.displayName == null || Offender.displayName == "" || Offender.displayName == undefined) {
                 return console.log("Offender isn't found");
             }
 
@@ -175,22 +162,22 @@ class Api {
             const accountId = req.query.accountId
 
             var Data = []
-            if(Array.isArray(accountId)) {
-                for(const index of accountId){
+            if (Array.isArray(accountId)) {
+                for (const index of accountId) {
                     var Accounts = await User.findOne({ id: index }).lean();
-                    if(Accounts){
+                    if (Accounts) {
                         Data.push({
                             "id": index,
                             "displayName": Accounts.displayName,
                             "externalAuths": {}
                         })
-                    }else{
+                    } else {
 
                     }
                 }
-            }else{
-                var Accounts = await User.findOne({ id: accountId}).lean();
-                if(Accounts){
+            } else {
+                var Accounts = await User.findOne({ id: accountId }).lean();
+                if (Accounts) {
                     Data.push({
                         "id": Accounts.id,
                         "links": {},

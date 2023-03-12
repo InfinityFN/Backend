@@ -461,7 +461,7 @@ class Profile {
                     })
                     console.log(grantProfile)
                     res.json({
-                        "profileRevision": account.profile.profilerevision,
+                        "profileRevision": account.profile.profilerevision + 1,
                         "profileId": "common_core",
                         "profileChangesBaseRevision": 1,
                         "profileChanges": [],
@@ -472,18 +472,18 @@ class Profile {
                                 "items": lootResult
                             }
                         }],
-                        "profileCommandRevision": account.profile.profilerevision,
+                        "profileCommandRevision":  account.profile.profilerevision + 1,
                         "serverTime": new Date().toISOString(),
                         "multiUpdate": [{
-                            "profileRevision": account.profile.profilerevision,
+                            "profileRevision":  account.profile.profilerevision + 1,
                             "profileId": "athena",
-                            "profileChangesBaseRevision": account.profile.profilerevision,
+                            "profileChangesBaseRevision":  account.profile.profilerevision + 1,
                             "profileChanges": [{
                                 changeType: "fullProfileUpdate",
                                 profile: grantProfile
                             }],
                             "serverTime": new Date().toISOString(),
-                            "profileCommandRevision": account.profile.profilerevision,
+                            "profileCommandRevision":  account.profile.profilerevision + 1,
                             "responseVersion": 1
                         }],
                         "responseVersion": 1
