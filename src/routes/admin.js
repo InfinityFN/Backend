@@ -24,7 +24,7 @@ class Admin {
         // Playlists
         application.get("/infinity/dev/api/playlist/json", async (req, res, next) => {
 
-            const activeplaylists = await AdminMod.findOne({ _id: new ObjectId("6408cefd0e072e39fd5d7ebf") }).lean().catch(e => next(e))
+            const activeplaylists =  await AdminMod.findOne({ _id: new ObjectId("640d1c48fe89a28d0bf5b7c6") }).lean().catch(e => next(e))
             const omgyes = activeplaylists.playlists
 
 
@@ -33,7 +33,7 @@ class Admin {
         });
 
         application.get("/infinity/dev/api/news/json", async (req, res, next) => {
-            const newsalive = await AdminMod.findOne({ _id: new ObjectId("6408cefd0e072e39fd5d7ebf") }).lean().catch(e => next(e))
+            const newsalive =  await AdminMod.findOne({ _id: new ObjectId("640d1c48fe89a28d0bf5b7c6") }).lean().catch(e => next(e))
             const content = newsalive.news
 
             return res.json(content)
@@ -41,14 +41,14 @@ class Admin {
         });
 
         application.get("/infinity/dev/api/emergencynotice/json", async (req, res, next) => {
-            const emergencynoticealive = await AdminMod.findOne({ _id: new ObjectId("6408cefd0e072e39fd5d7ebf") }).lean().catch(e => next(e))
+            const emergencynoticealive =  await AdminMod.findOne({ _id: new ObjectId("640d1c48fe89a28d0bf5b7c6") }).lean().catch(e => next(e))
             const emergencynotice = emergencynoticealive.emergencynotice
 
             return res.json(emergencynotice)
         });
 
         application.get("/infinity/dev/api/emergencynotice/edit/:edit", async (req, res) => {
-            const emergencynoticealive = await AdminMod.findOne({ _id: new ObjectId("6408cefd0e072e39fd5d7ebf") }).lean().catch(e => next(e))
+            const emergencynoticealive =  await AdminMod.findOne({ _id: new ObjectId("640d1c48fe89a28d0bf5b7c6") }).lean().catch(e => next(e))
             const sexymessage = req.query.message
             const Thingy = req.params.edit
             if (emergencynoticealive) {
@@ -60,7 +60,7 @@ class Admin {
         })
 
         application.get("/infinity/dev/api/news/edit/:news/:edit", async (req, res) => {
-            const emergencynoticealive = await AdminMod.findOne({ _id: new ObjectId("6408cefd0e072e39fd5d7ebf") }).lean().catch(e => next(e))
+            const emergencynoticealive =  await AdminMod.findOne({ _id: new ObjectId("640d1c48fe89a28d0bf5b7c6") }).lean().catch(e => next(e))
             const sexymessage = req.query.message
             const Thingy = req.params.edit
             const NewsThingy = req.params.news
@@ -133,7 +133,7 @@ class Admin {
 
         application.get("/infinity/dev/api/playlist/remove", async (req, res) => {
             // Shoot me :/ ok
-            const activeplaylists = await AdminMod.findOne({ _id: new ObjectId("6408cefd0e072e39fd5d7ebf") }).lean().catch(e => next(e))
+            const activeplaylists =  await AdminMod.findOne({ _id: new ObjectId("640d1c48fe89a28d0bf5b7c6") }).lean().catch(e => next(e))
             const servers = activeplaylists.playlists
             let ServersData = []
             let IsFound = false
@@ -148,7 +148,7 @@ class Admin {
 
 
             if (IsFound) {
-                await AdminMod.updateOne({ _id: new ObjectId("6408cefd0e072e39fd5d7ebf") }, { playlists: ServersData })
+                await AdminMod.updateOne({ _id: new ObjectId("640d1c48fe89a28d0bf5b7c6") }, { playlists: ServersData })
                 res.json({ message: 'Playlist removed successfully.' });
             } else {
                 res.status(404).json({ message: 'Playlist not found.' });
@@ -156,7 +156,7 @@ class Admin {
         });
 
         application.get("/infinity/dev/api/playlist/edit/enabled", async (req, res) => {
-            const activeplaylists = await AdminMod.findOne({ _id: new ObjectId("6408cefd0e072e39fd5d7ebf") }).lean().catch(e => next(e))
+            const activeplaylists = await AdminMod.findOne({ _id: new ObjectId("640d1c48fe89a28d0bf5b7c6") }).lean().catch(e => next(e))
             const servers = activeplaylists.playlists
             let Enabled = req.query.enabled;
             let Playlist = req.query.playlist;
@@ -175,7 +175,7 @@ class Admin {
                 }
             })
             console.log(servers)
-            await AdminMod.updateOne({ _id: new ObjectId("6408cefd0e072e39fd5d7ebf") }, { playlists: ServersData })
+            await AdminMod.updateOne({ _id: new ObjectId("640d1c48fe89a28d0bf5b7c6") }, { playlists: ServersData })
             return res.json({ message: 'changed enabled status successfully' });
         });
 
@@ -208,7 +208,7 @@ class Admin {
         });
 
         application.get("/infinity/dev/api/playlist/add", async (req, res) => {
-            const activeplaylists = await AdminMod.findOne({ _id: new ObjectId("6408cefd0e072e39fd5d7ebf") }).lean().catch(e => next(e))
+            const activeplaylists = await AdminMod.findOne({ _id: new ObjectId("640d1c48fe89a28d0bf5b7c6") }).lean().catch(e => next(e))
             const servers = activeplaylists.playlists
             var isEnabled = false;
             let ServersData = []
@@ -222,7 +222,7 @@ class Admin {
             })
             ServersData.push({ playlist: req.query.playlist, ServerIP: req.query.serverIP, ServerPort: parseInt(req.query.serverPort), enabled: isEnabled });
 
-            await AdminMod.updateOne({ _id: new ObjectId("6408cefd0e072e39fd5d7ebf") }, { playlists: ServersData })
+            await AdminMod.updateOne({ _id: new ObjectId("640d1c48fe89a28d0bf5b7c6") }, { playlists: ServersData })
             return res.json({ message: 'Playlist added successfully' });
         });
         // End of Playlists

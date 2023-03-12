@@ -7,7 +7,7 @@ class FortniteGame {
     }
     endpoints(application) {
         application.get(["/content/api/pages/fortnite-game", "/content/app/pages/"], async (req, res) => {
-            const fortnitecontentyay = await AdminMod.findOne({ _id: new ObjectId("6408cefd0e072e39fd5d7ebf") }).lean().catch(e => next(e))
+            const fortnitecontentyay = await AdminMod.findOne({ _id: new ObjectId("640d1c48fe89a28d0bf5b7c6") }).lean().catch(e => next(e))
             res.json({
                 "_title": "Fortnite Game",
                 "_activeDate": "2017-08-30T03:20:48.050Z",

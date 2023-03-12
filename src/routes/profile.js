@@ -1,6 +1,8 @@
 const User = require("../services/modules/User")
 const axios = require("axios")
 const OMG = require("../services/xmpp")
+const fs = require("fs")
+const path = require("path")
 //const AthenaProfile = require("../services/mcp/profile")
 class Profile {
     constructor() {
@@ -435,6 +437,9 @@ class Profile {
                         await User.updateOne({ id: req.params.accountId }, { [`profile.ItemShopPurchases`]: test2 })
                       
                     }
+
+                    grantProfile = await profile.GrabUserAccount(accountId, "athena", season);
+                    grantProfile = grantProfile['profileChanges'][0]['profile']
                     // need to add it to the mtx one as well at some point
 
                     console.log(lootResult)
@@ -444,35 +449,42 @@ class Profile {
                     await User.updateOne({ id: req.params.accountId }, { [`profile.profilerevision`]: account.profile.profilerevision + 1 })
                     var accoun2t = await User.findOne({ id: accountId }).lean().catch(e => next(e))
 
-                    console.log({
-                        "profileRevision": accoun2t.profile.profilerevision ,
-                        "profileId": "common_core",
-                        "profileChangesBaseRevision": 1,
-                        "profileChanges": [],
-                        "responseVersion": 1,
-                        "serverTime": new Date().toISOString(),
-                        "profileCommandRevision":  accoun2t.profile.profilerevision,
-                        "notifications": [{
-                            "type": "CatalogPurchase",
-                            "primary": true,
-                            "lootResult": {
-                                "items": lootResult
-                            }
-                        }],                 
-                        "multiUpdate": [{
-                            "profileRevision":  accoun2t.profile.profilerevision,
-                            "profileId": "athena",
-                            "profileChangesBaseRevision":  account.profile.profilerevision,
-                            "profileChanges": [{
-                                changeType: "fullProfileUpdate",
-                                profile: grantProfile
-                            }],
+             
+                        fs.writeFile(path.join(`TEST/fds.json`), JSON.stringify({    
+                            "profileRevision": accoun2t.profile.profilerevision ,
+                            "profileId": "common_core",
+                            "profileChangesBaseRevision": 1,
+                            "profileChanges": [],
+                            "responseVersion": 1,
                             "serverTime": new Date().toISOString(),
                             "profileCommandRevision":  accoun2t.profile.profilerevision,
-                            "responseVersion": 1
-                        }]
-                    })
-                    
+                            "notifications": [{
+                                "type": "CatalogPurchase",
+                                "primary": true,
+                                "lootResult": {
+                                    "items": lootResult
+                                }
+                            }],                 
+                            "multiUpdate": [{
+                                "profileRevision":  accoun2t.profile.profilerevision,
+                                "profileId": "athena",
+                                "profileChangesBaseRevision":  accoun2t.profile.profilerevision,
+                                "profileChanges": [{
+                                    changeType: "fullProfileUpdate",
+                                    profile: grantProfile
+                                }],
+                                "serverTime": new Date().toISOString(),
+                                "profileCommandRevision":  accoun2t.profile.profilerevision,
+                                "responseVersion": 1
+                            }]
+                        }, null, 2), (err) => {
+                            if(err){
+                                console.log(err)
+                            }
+                        })
+    
+           
+                
                     console.log( grantProfile)
                     res.json({
                         "profileRevision": accoun2t.profile.profilerevision ,
