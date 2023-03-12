@@ -1,7 +1,7 @@
-const User = require("../services/modules/User")
+const User = require("./modules/User")
 const axios = require("axios")
-const OMG = require("../services/xmpp")
-const AthenaProfile = require("../services/mcp/profile")
+const OMG = require("./xmpp")
+const AthenaProfile = require("./mcp/profile")
 class Profile {
     constructor() {
         this.application = require("express").Router()

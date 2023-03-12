@@ -180,7 +180,17 @@ const data101 = mongoose.Schema({
         },
         "gifts": {
             type: Array,
-            default: []
+            default: [{
+                giftbox: "GiftBox:gb_mfareward",
+                giftedAt: new Date().toISOString(),
+                message: "Thanks For Playing Infinity",
+                itemGuid: "EID_BoogieDown",
+                items: [{
+                    templateId: "AthenaDance:EID_BoogieDown",
+                    profileId: "common_core",
+                    quantity: 1
+                }]
+            }]
         },
         "pickaxe": {
             "items": {

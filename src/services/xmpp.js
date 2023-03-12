@@ -11,7 +11,7 @@ global.MUCs = [];
 class xmpp {
     constructor() {
         this.port = 433
-        //this.setup(this.port)
+        this.setup(this.port)
         this.accountId = ""
     }
     setup(port) {

@@ -199,6 +199,10 @@ class Profile {
                     var finalPriceIG
                     var CatalogPurchaseID = null
 
+                    var account = await User.findOne({ id: accountId }).lean().catch(e => next(e))
+
+                 
+
                     for (const storefront of shop.storefronts) {
                         for (const storefrontSIR of storefront.catalogEntries) {
                             if (storefrontSIR.offerId == req.body.offerId) {
@@ -221,30 +225,26 @@ class Profile {
                                         "quantity": 1
                                     }
                                 }`
-                                var Epic2 = `{
-                                    "purchaseId": "${req.body.offerId}",
-                                       "offerId": "${req.body.offerId}",
-                                       "purchaseDate": "9999-99-20T06:02:41.902Z",
-                                       "freeRefundEligible": true,
-                                       "fulfillments": [],
-                                       "lootResult": [
-                                           {
-                                               "itemType": "${storefrontSIR.itemGrants[0].templateId}",
-                                               "itemGuid": "${storefrontSIR.itemGrants[0].templateId}",
-                                               "itemProfile": "athena",
-                                               "quantity": 1
-                                           }
-                                       ],
-                                       "totalMtxPaid": ${storefrontSIR["prices"][0]["finalPrice"]},
-                                       "metadata": {},
-                                       "gameContext": ""
-                                }`
+                                var test2 = Object.assign({}, friends.profile.ItemShopPurchases, JSON.parse(Epic))
+                         
                             }
                         }
                     }
 
+                    if (account) {
+                        var vbucks = account.profile.vbucks
+                        /// console.log(vbucks)
+                        ///   console.log(finalPriceIG)
+                        if (vbucks > finalPriceIG) {
+                            vbucks = vbucks - finalPriceIG
+                            // console.log(vbucks)
+                            await User.updateOne({ id: accountId }, { [`profile.vbucks`]: vbucks })
+
+                        }
+                    }
+
                     const accountId = req.params.accountId
-                    var account = await User.findOne({ id: accountId }).lean().catch(e => next(e))
+                  
 
 
                     //
@@ -254,15 +254,11 @@ class Profile {
                     //     Epic1.push(player)
                     //   })
 
-                    var test2 = Object.assign({}, friends.profile.ItemShopPurchases, JSON.parse(Epic))
+                 
                     // console.log("TEST", test2)
                     //  Epic1.push(test2)
 
-                    friends.profile.mtx_purchase_history.forEach(player => {
-                        // console.log(player)
-                        Epic3.push(player)
-                    })
-                    Epic3.push(Epic2)
+                   
                     //   var test = Object.assign({}, JSON.parse(Epic2))
 
 
@@ -280,6 +276,14 @@ class Profile {
                             items: idk.items
                         })
                     }
+                    let ItemGifts = []
+                    for (const idk of CatalogPurchaseID["itemGrants"]) {
+                        ItemGifts.push({
+                            templateId: idk.templateId,
+                            profileId: profileID,
+                            quantity: idk.quantity
+                        })
+                    }
 
                     allgifts.push({
                         giftbox: req.body.giftWrapTemplateId || "GiftBox:gb_default",
@@ -287,7 +291,7 @@ class Profile {
                         giftedAt: new Date().toISOString(),
                         message: req.body.personalMessage || "Have A Nice Day :)",
                         itemGuid: req.body.offerId,
-                        items: CatalogPurchaseID["itemGrants"]
+                        items: ItemGifts
                     })
 
 
@@ -298,11 +302,11 @@ class Profile {
                         if (vbucks > finalPriceIG) {
                             vbucks = vbucks - finalPriceIG
                             // console.log(vbucks)
-                            await User.updateOne({ id: accountId }, { [`profile.vbucks`]: vbucks })
+                           // await User.updateOne({ id: accountId }, { [`profile.vbucks`]: vbucks })
                             console.log(req.body.receiverAccountIds[0])
                             await User.updateOne({ id: req.body.receiverAccountIds[0] }, { [`profile.gifts`]: allgifts })
                             await User.updateOne({ id: req.body.receiverAccountIds[0] }, { [`profile.ItemShopPurchases`]: test2 })
-                            await User.updateOne({ id: req.body.receiverAccountIds[0] }, { [`profile.mtx_purchase_history`]: Epic3 })
+                          //  await User.updateOne({ id: req.body.receiverAccountIds[0] }, { [`profile.mtx_purchase_history`]: Epic3 })
                         } else {
                             return res.json("THIS IS TOO MUCH!") // they bypassed it
                         }
@@ -450,40 +454,7 @@ class Profile {
                     var accoun2t = await User.findOne({ id: accountId }).lean().catch(e => next(e))
 
              
-                        fs.writeFile(path.join(`TEST/fds.json`), JSON.stringify({    
-                            "profileRevision": accoun2t.profile.profilerevision ,
-                            "profileId": "common_core",
-                            "profileChangesBaseRevision": 1,
-                            "profileChanges": [],
-                            "responseVersion": 1,
-                            "serverTime": new Date().toISOString(),
-                            "profileCommandRevision":  accoun2t.profile.profilerevision,
-                            "notifications": [{
-                                "type": "CatalogPurchase",
-                                "primary": true,
-                                "lootResult": {
-                                    "items": lootResult
-                                }
-                            }],                 
-                            "multiUpdate": [{
-                                "profileRevision":  accoun2t.profile.profilerevision,
-                                "profileId": "athena",
-                                "profileChangesBaseRevision":  accoun2t.profile.profilerevision,
-                                "profileChanges": [{
-                                    changeType: "fullProfileUpdate",
-                                    profile: grantProfile
-                                }],
-                                "serverTime": new Date().toISOString(),
-                                "profileCommandRevision":  accoun2t.profile.profilerevision,
-                                "responseVersion": 1
-                            }]
-                        }, null, 2), (err) => {
-                            if(err){
-                                console.log(err)
-                            }
-                        })
-    
-           
+                       
                 
                     console.log( grantProfile)
                     res.json({
@@ -517,11 +488,11 @@ class Profile {
                     })
                    // res.end();
                 } else if (command == "RemoveGiftBox") {
-
+                   
                     var AccountTemp = await User.findOne({ id: req.params.accountId }).lean().catch(error => next(e))
                     let remove = []
-                    console.log(req.body)
-
+                    console.log(req.headers)
+     
                     AccountTemp.profile.gifts.forEach(async gift => {
                         console.log(gift.giftbox)
                         if (req.body.giftBoxItemId.includes(`GiftBox:${gift.giftbox.split(":")[1]}`)) {
@@ -530,40 +501,23 @@ class Profile {
                         }
                     })
 
+                    var grantProfile = await profile.GrabUserAccount(accountId, "athena", season);
+                    
+                    var accoun2t = await User.findOne({ id: accountId }).lean().catch(e => next(e))
 
-                    var retJSON = {
-                        profileRevision: rvn + 1 || 1,
-                        profileId: profileID,
-                        profileChangesBaseRevision: 1,
-                        profileChanges: [{
-                            changeTyp: "fullProfileUpdate",
-                            _id: "RANDOM",
-                            profile: {
-                                _id: "RANDOM",
-                                Update: "",
-                                Created: "2021-03-07T16:33:28.462Z",
-                                updated: "2021-05-20T14:57:29.907Z",
-                                rvn: 0,
-                                wipeNumber: 1,
-                                accountId: "",
-                                profileId: profileID,
-                                version: "no_version",
-                                items: {},
-                                stats: {
-                                    attributes: {}
-                                },
-                                commandRevision: 5
-                            }
-                        }
-                        ],
-                        profileCommandRevision: 1,
-                        serverTime: new Date(),
-                        responseVersion: 1
-                    }
-                    retJSON['profileChanges'][0]['profile']['items'] = await common_core69.grabItems(accountId) // this better be epic
-                    retJSON['profileChanges'][0]['profile']['stats']['attributes'] = await common_core69.attributes(accountId)
-
-                    res.json(retJSON)
+                    res.json({
+                        "profileRevision": accoun2t.profile.profilerevision,
+                        "profileId": req.query.profileId || "athena",
+                        "profileChangesBaseRevision": accoun2t.profile.profilerevision,
+                        "profileChanges": {
+                            "changeType": "fullProfileUpdate",
+                            "profile": grantProfile['profileChanges'][0]['profile']
+                        },
+                        "profileCommandRevision": accoun2t.profile.profilerevision,
+                        "serverTime": new Date().toISOString(),
+                        "responseVersion": 1
+                    })
+                    res.end();
                 } else if(command == "BulkEquipBattleRoyaleCustomization"){
                     const athenaData = await profile.GrabUserAccount(accountId, profileID, season)
 

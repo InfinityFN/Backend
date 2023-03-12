@@ -65,19 +65,19 @@ async function grabItems(accountId){
 
 	    Athena.profile.gifts.forEach(gift => {
         AthenaData[`${gift.giftbox}`] = {
-            templateId: gift.giftbox,
+            templateId: `${gift.giftbox}`,
             attributes: {
                 max_level_bonus: 0,
                 fromAccountId: gift.personsend,
                 lootList: gift.items.map(x => {
                     return {
-                        itemProfile: "athena",
+                        itemProfile: x.profileId,
                         itemType: x.templateId,
                         itemGuid: x.templateId,
                         quantity: x.quantity
                     }
                 }),
-                level: 1,
+                level: 999999,
                 item_seen: false,
                 xp: 0,
                 giftedOn: gift.giftedAt,
