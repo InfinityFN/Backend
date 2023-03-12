@@ -31,7 +31,7 @@ async function GrabUserAccount(accountId, profileID, season = 2) {
                             "stats": {
                                 "attributes": {}
                             },
-                            "commandRevision": 5
+                            "commandRevision": Athena.profile.profilerevision
                         }
                     }
                 ],

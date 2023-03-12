@@ -375,9 +375,12 @@ class Profile {
                             throw new Error("Unsupported");
                         }*/
 
+                        
                         for (const catalogEntry of storefront.catalogEntries) {
                             if (catalogEntry.offerId == req.body.offerId) {
                                 catalogEntryToPurchase = catalogEntry;
+
+                    
                             }
                         }
                     }
@@ -386,21 +389,25 @@ class Profile {
                         throw next(new ApiException(errors.com.epicgames.modules.gamesubcatalog.catalog_out_of_date).with(req.body.offerId));
                     }
 
-                    let grantToProfileId = "athena";
+
                     var grantProfile = await profile.GrabUserAccount(accountId, "athena", season);
                     grantProfile = grantProfile['profileChanges'][0]['profile']
                     const lootResult = [];
 
 
                     for (const itemGrant of catalogEntryToPurchase.itemGrants) {
+
+                      
+
                         lootResult.push({
                             "itemType": itemGrant.templateId,
                             "itemGuid": itemGrant.templateId,
-                            "itemProfile": grantToProfileId,
+                            "itemProfile": "athena",
                             "quantity": itemGrant.quantity
                         });
                     }
-
+                    
+                   
                     for (const lootResultEntry of lootResult) {
                         account = await User.findOne({ id: accountId }).lean().catch(e => next(e))
                         var Epic = `{
@@ -420,8 +427,13 @@ class Profile {
                             }
                         }`
 
+                        console.log(lootResultEntry)
+
+                      
                         var test2 = Object.assign({}, account.profile.ItemShopPurchases, JSON.parse(Epic))
+                     
                         await User.updateOne({ id: req.params.accountId }, { [`profile.ItemShopPurchases`]: test2 })
+                      
                     }
                     // need to add it to the mtx one as well at some point
 
@@ -430,63 +442,66 @@ class Profile {
                
 
                     await User.updateOne({ id: req.params.accountId }, { [`profile.profilerevision`]: account.profile.profilerevision + 1 })
-                    account = await User.findOne({ id: accountId }).lean().catch(e => next(e))
+                    var accoun2t = await User.findOne({ id: accountId }).lean().catch(e => next(e))
+
                     console.log({
-                        "profileRevision": account.profile.profilerevision,
+                        "profileRevision": accoun2t.profile.profilerevision ,
                         "profileId": "common_core",
                         "profileChangesBaseRevision": 1,
                         "profileChanges": [],
+                        "responseVersion": 1,
+                        "serverTime": new Date().toISOString(),
+                        "profileCommandRevision":  accoun2t.profile.profilerevision,
                         "notifications": [{
                             "type": "CatalogPurchase",
                             "primary": true,
                             "lootResult": {
                                 "items": lootResult
                             }
-                        }],
-                        "profileCommandRevision": account.profile.profilerevision,
-                        "serverTime": new Date().toISOString(),
+                        }],                 
                         "multiUpdate": [{
-                            "profileRevision": account.profile.profilerevision,
+                            "profileRevision":  accoun2t.profile.profilerevision,
                             "profileId": "athena",
-                            "profileChangesBaseRevision": account.profile.profilerevision,
+                            "profileChangesBaseRevision":  account.profile.profilerevision,
                             "profileChanges": [{
                                 changeType: "fullProfileUpdate",
                                 profile: grantProfile
                             }],
                             "serverTime": new Date().toISOString(),
-                            "profileCommandRevision": account.profile.profilerevision,
+                            "profileCommandRevision":  accoun2t.profile.profilerevision,
                             "responseVersion": 1
-                        }],
-                        "responseVersion": 1
+                        }]
                     })
-                    console.log(grantProfile)
+                    
+                    console.log( grantProfile)
                     res.json({
-                        "profileRevision": account.profile.profilerevision + 1,
+                        "profileRevision": accoun2t.profile.profilerevision ,
                         "profileId": "common_core",
                         "profileChangesBaseRevision": 1,
                         "profileChanges": [],
+                        "responseVersion": 1,
+                        "serverTime": new Date().toISOString(),
+                        "profileCommandRevision":  accoun2t.profile.profilerevision,
                         "notifications": [{
                             "type": "CatalogPurchase",
                             "primary": true,
                             "lootResult": {
                                 "items": lootResult
                             }
-                        }],
-                        "profileCommandRevision":  account.profile.profilerevision + 1,
-                        "serverTime": new Date().toISOString(),
+                        }],                 
                         "multiUpdate": [{
-                            "profileRevision":  account.profile.profilerevision + 1,
+                            "profileRevision":  accoun2t.profile.profilerevision,
                             "profileId": "athena",
-                            "profileChangesBaseRevision":  account.profile.profilerevision + 1,
+                            "profileChangesBaseRevision":  accoun2t.profile.profilerevision,
                             "profileChanges": [{
                                 changeType: "fullProfileUpdate",
                                 profile: grantProfile
                             }],
                             "serverTime": new Date().toISOString(),
-                            "profileCommandRevision":  account.profile.profilerevision + 1,
+                            "profileCommandRevision":  accoun2t.profile.profilerevision,
                             "responseVersion": 1
-                        }],
-                        "responseVersion": 1
+                        }]
+                      
                     })
                    // res.end();
                 } else if (command == "RemoveGiftBox") {
@@ -537,7 +552,12 @@ class Profile {
                     retJSON['profileChanges'][0]['profile']['stats']['attributes'] = await common_core69.attributes(accountId)
 
                     res.json(retJSON)
+                } else if(command == "BulkEquipBattleRoyaleCustomization"){
+                    const athenaData = await profile.GrabUserAccount(accountId, profileID, season)
 
+                    res.json(athenaData)
+                    res.status(200)
+                    res.end()
                 } else {
                     console.log("TES")
                     var retJSON = {

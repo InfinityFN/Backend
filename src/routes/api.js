@@ -21,7 +21,7 @@ class Api {
             if (require('../config.json').logRequests == true) {
                 console.log(`Incoming request: ${req.method} ${req.url}`)
                 console.log(isIpBanned);
-                console.log(ipAddress);
+           
             }
 
             next()
