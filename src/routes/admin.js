@@ -131,6 +131,18 @@ class Admin {
             res.sendFile(path.join(__dirname, '../public/changeplaylist.html'));
         });
 
+        application.get("/infinity/register", async (req,res) => {
+            var Email = req.params.email
+            var Password = req.params.password
+            var Username = req.params.username
+
+            if(Email & Password & Username){
+
+            }else{
+                return res.json({ message: "Sorry There Is A Issue"})
+            }
+        })
+
         application.get("/infinity/dev/api/playlist/remove", async (req, res) => {
             // Shoot me :/ ok
             const activeplaylists =  await AdminMod.findOne({ _id: new ObjectId("640d1c48fe89a28d0bf5b7c6") }).lean().catch(e => next(e))
