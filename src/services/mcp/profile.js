@@ -4,7 +4,8 @@ const fs = require("fs")
 const path = require("path")
 async function GrabUserAccount(accountId, profileID, season = 2) {
     try {
-        const Athena = await User.findOne({ id: accountId }).lean().catch(e => next(e))
+        var Athena = await User.findOne({ id: accountId }).lean().catch(e => next(e))
+
 
         // todo add account id to this without it breaking fortnite Athena.id
         if (Athena) {
