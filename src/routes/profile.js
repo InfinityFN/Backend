@@ -90,12 +90,14 @@ class Profile {
                 } else if (command == "EquipBattleRoyaleCustomization") {
                     var category = req.body.slotName;
                     var AccountTemp = await User.findOne({ id: req.params.accountId }).lean().catch(error => next(e))
+                    if(!AccountTemp) return
                     var ItemToSlot = req.body.itemToSlot;
                     await User.updateOne({ id: req.params.accountId }, { [`profile.profilerevision`]: AccountTemp.profile.profilerevision + 1 })
                     if (category == "ItemWrap" || category == "Dance") {
                         console.log(category)
                         if (ItemToSlot == "") {
-                            await User.updateOne({ id: req.params.accountId }, { [`profile.${category.toString().toLowerCase()}.items`]: `` })
+                            //console.log(`profile.${category.toString().toLowerCase()}.items.${req.body.indexWithinSlot}`)
+                         await User.updateOne({ id: req.params.accountId }, { [`profile.${category.toString().toLowerCase()}.items.${req.body.indexWithinSlot}`]: `` })
                         } else {
                             await User.updateOne({ id: req.params.accountId }, { [`profile.${category.toString().toLowerCase()}.items.${req.body.indexWithinSlot}`]: `${ItemToSlot.split(":")[0]}:${ItemToSlot.split(":")[1]}` })
                         }
@@ -109,6 +111,11 @@ class Profile {
 
                     console.log(req.body.variantUpdates)
                     if (req.body.variantUpdates?.length != 0) {
+                       // AccountNew = await User.findOne({ id: req.params.accountId }).lean().catch(error => next(e))
+                       // AccountNew.profile.ItemShopPurchases[ItemToSlot].attributes.variants = req.body.variantUpdates
+                       // console.log(ItemToSlot)
+                      //  console.log(AccountNew.profile.ItemShopPurchases[ItemToSlot].attributes.variants)
+                        await User.updateOne({ id: req.params.accountId }, { [`profile.ItemShopPurchases.${ItemToSlot}.attributes.variants`]: req.body.variantUpdates })
                         await User.updateOne({ id: req.params.accountId }, { [`profile.${category.toString().toLowerCase()}.activeVariants`]: req.body.variantUpdates })
                     }
                     var AccountNew = await User.findOne({ id: req.params.accountId }).lean().catch(error => next(e))
@@ -384,7 +391,7 @@ class Profile {
                             if (catalogEntry.offerId == req.body.offerId) {
                                 catalogEntryToPurchase = catalogEntry;
                                 finalPriceIG = catalogEntry["prices"][0]["finalPrice"]
-
+                               // console.log(catalogEntry)
                             }
                         }
                     }
@@ -445,7 +452,7 @@ class Profile {
                             }
                         }`
 
-                        console.log(lootResultEntry)
+                      //  console.log(lootResultEntry)
 
 
                         var test2 = Object.assign({}, account.profile.ItemShopPurchases, JSON.parse(Epic))
@@ -462,7 +469,7 @@ class Profile {
                     grantProfile2 = grantProfile2['profileChanges'][0]['profile']
                     // need to add it to the mtx one as well at some point
 
-                    console.log(lootResult)
+                 //   console.log(lootResult)
 
 
 
@@ -517,14 +524,18 @@ class Profile {
                 } else if (command == "RemoveGiftBox") {
 
                     var AccountTemp = await User.findOne({ id: req.params.accountId }).lean().catch(error => next(e))
-                    let remove = []
+                    //let remove = []
+                    if(!AccountTemp) return res.json({})
                     console.log(res.headers)
-
+                 //   await User.updateOne({ id: req.params.accountId }, { [`profile.profilerevision`]: AccountTemp.profile.profilerevision + 1 })
                     AccountTemp.profile.gifts.forEach(async gift => {
                         console.log(gift.giftbox)
                         if (req.body.giftBoxItemId.includes(`GiftBox:${gift.giftbox.split(":")[1]}`)) {
-                            remove.push(gift.personsend)
+                     
+ 
+                           // remove.push(gift.personsend)
                             await User.updateOne({ id: req.params.accountId }, { $pull: { ["profile.gifts"]: { giftedAt: gift.giftedAt } } })
+                        
                         }
                     })
 
