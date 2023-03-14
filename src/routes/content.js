@@ -7,7 +7,7 @@ class FortniteGame {
     }
     endpoints(application) {
         application.get(["/content/api/pages/fortnite-game", "/content/app/pages/"], async (req, res) => {
-            const fortnitecontentyay = await AdminMod.findOne({ _id: new ObjectId("640d1c48fe89a28d0bf5b7c6") }).lean().catch(e => next(e))
+            //const fortnitecontentyay = await AdminMod.findOne({ _id: new ObjectId("640d1c48fe89a28d0bf5b7c6") }).lean().catch(e => next(e))
             res.json({
                 "_title": "Fortnite Game",
                 "_activeDate": "2017-08-30T03:20:48.050Z",
@@ -27,37 +27,6 @@ class FortniteGame {
                     "lastModified": "2018-03-15T07:10:22.222Z",
                     "_locale": "en-US"
                 },
-                "savetheworldnews": {
-                    "news": {
-                        "_type": "Battle Royale News",
-                        "messages": [
-                            {
-                                "image": fortnitecontentyay.news.news1.image,
-                                "hidden": false,
-                                "_type": "CommonUI Simple Message Base",
-                                "adspace": fortnitecontentyay.news.news1.adspace,
-                                "title": fortnitecontentyay.news.news1.title,
-                                "body": fortnitecontentyay.news.news1.body,
-                                "spotlight": false
-                            },
-                            {
-                                "image": fortnitecontentyay.news.news2.image,
-                                "hidden": false,
-                                "_type": "CommonUI Simple Message Base",
-                                "adspace": fortnitecontentyay.news.news2.adspace,
-                                "title": fortnitecontentyay.news.news2.title,
-                                "body": fortnitecontentyay.news.news2.body,
-                                "spotlight": false
-                            }
-                        ]
-                    },
-                    "_title": "SaveTheWorldNews",
-                    "_noIndex": false,
-                    "alwaysShow": false,
-                    "_activeDate": "2018-08-06T18:25:46.770Z",
-                    "lastModified": "2019-10-30T20:17:48.789Z",
-                    "_locale": "en-US"
-                },
                 "emergencynotice": {
                     "news": {
                         "_type": "Battle Royale News",
@@ -65,8 +34,8 @@ class FortniteGame {
                             {
                                 "hidden": false,
                                 "_type": "CommonUI Simple Message Base",
-                                "title": fortnitecontentyay.emergencynotice.title,
-                                "body": fortnitecontentyay.emergencynotice.body,
+                                "title": "Welcome to Infinity!",
+                                "body": "Welcome to Infinity! Whenever there is a real issue we will display it here!",
                                 "spotlight": true
                             }
                         ]
@@ -90,8 +59,8 @@ class FortniteGame {
                                 "gamemodes": [],
                                 "hidden": false,
                                 "_type": "CommonUI Emergency Notice Base",
-                                "title": fortnitecontentyay.emergencynotice.title,
-                                "body": fortnitecontentyay.emergencynotice.body
+                                "title": "Welcome to Infinity!",
+                                "body": "Welcome to Infinity! Whenever there is a real issue we will display it here!"
                             }
                         ]
                     },
@@ -120,21 +89,21 @@ class FortniteGame {
                         "_type": "Battle Royale News",
                         "messages": [
                             {
-                                "image": fortnitecontentyay.news.news1.image,
+                                "image": "https://media.discordapp.net/attachments/1080368888342130829/1080370749044432917/image.png",
                                 "hidden": false,
                                 "_type": "CommonUI Simple Message Base",
-                                "adspace": fortnitecontentyay.news.news1.adspace,
-                                "title": fortnitecontentyay.news.news1.title,
-                                "body": fortnitecontentyay.news.news1.body,
+                                "adspace": "NOW IN BETA!",
+                                "title": "Welcome to Infinity!",
+                                "body": "Welcome to Infinity! Infinity is a 10.40 Fortnite Gameserver created by ctrlkohl!",
                                 "spotlight": false
                             },
                             {
-                                "image": fortnitecontentyay.news.news2.image,
+                                "image": "https://i.pinimg.com/originals/d0/a3/c3/d0a3c3ffade9804fad4075b13323d31d.png",
                                 "hidden": false,
                                 "_type": "CommonUI Simple Message Base",
-                                "adspace": fortnitecontentyay.news.news2.adspace,
-                                "title": fortnitecontentyay.news.news2.title,
-                                "body": fortnitecontentyay.news.news2.body,
+                                "adspace": "DISCORD!",
+                                "title": "Join our Discord Server",
+                                "body": "Join the Infinity Discord Server to be notified of new updates, item shop changes and more! https://discord.gg/b2zNBV9brW",
                                 "spotlight": false
                             }
                         ]
@@ -484,40 +453,6 @@ class FortniteGame {
                     "lastModified": "2019-10-29T14:05:17.030Z",
                     "_locale": "en-US"
                 },
-                "creativenews": {
-                    "news": {
-                        "_type": "Battle Royale News",
-                        "messages": [
-                            {
-                                "image": fortnitecontentyay.news.news1.image,
-                                "hidden": false,
-                                "_type": "CommonUI Simple Message Base",
-                                "adspace": fortnitecontentyay.news.news1.adspace,
-                                "title": fortnitecontentyay.news.news1.title,
-                                "body": fortnitecontentyay.news.news1.body,
-                                "spotlight": false
-                            },
-                            {
-                                "image": fortnitecontentyay.news.news2.image,
-                                "hidden": false,
-                                "_type": "CommonUI Simple Message Base",
-                                "adspace": fortnitecontentyay.news.news2.adspace,
-                                "title": fortnitecontentyay.news.news2.title,
-                                "body": fortnitecontentyay.news.news2.body,
-                                "spotlight": false
-                            }
-                        ]
-                    },
-                    "_title": "Creativenews",
-                    "header": "",
-                    "style": "None",
-                    "_noIndex": false,
-                    "alwaysShow": false,
-                    "_activeDate": "2018-08-17T16:00:00.000Z",
-                    "lastModified": "2019-10-31T20:35:52.569Z",
-                    "_locale": "en-US"
-                },
-
                 "tournamentinformation": {
                     "tournament_info": {
                         "tournaments": [
@@ -718,14 +653,9 @@ class FortniteGame {
                     "backgrounds": {
                         "backgrounds": [
                             {
-                                "stage": "fortnitemares",
+                                "stage": "seasonx",
                                 "_type": "DynamicBackground",
                                 "key": "lobby"
-                            },
-                            {
-                                "stage": "fortnitemares",
-                                "_type": "DynamicBackground",
-                                "key": "vault"
                             }
                         ],
                         "_type": "DynamicBackgroundList"

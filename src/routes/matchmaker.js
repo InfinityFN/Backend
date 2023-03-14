@@ -4,7 +4,8 @@ class Matchmaker {
     constructor() {
         this.application = require("express").Router()
         this.endpoints(this.application)
-        this.matchmakerIP = "127.0.0.1:442"
+        //this.matchmakerIP = "127.0.0.1:442"
+        this.matchmakerIP = "147.185.221.211:43634"
     }
     endpoints(application) {
 
@@ -22,7 +23,30 @@ class Matchmaker {
             res.cookie("Playlist", req.query.bucketId.split(":")[3]);
             res.cookie("Region", req.query.bucketId.split(":")[2]);
 
-            switch(req.query.bucketId.split(":")[3].toLowerCase()) {
+            var canContinue = false;
+
+            const servers = require('../services/resources/json/active-playlists.json');
+
+            servers.forEach(server => {
+                if(req.query.bucketId.split(":")[3].toLowerCase() == server.playlist.toLowerCase()) {
+                    canContinue = true;
+                }
+            })
+
+            if(canContinue != true) {
+                return res.status(401).json({
+                    errorCode: "This playlist is either not being hosted or is not available in your region. Try again later",
+                    errorMessage: "Servers ded",
+                    messageVars: undefined,
+                    numericErrorCode: 12002,
+                    originatingService: "fortnite",
+                    intent: "prod"
+                })
+            }
+
+
+
+            /*switch(req.query.bucketId.split(":")[3].toLowerCase()) {
                 case "playlist_defaultsolo":
                     break;
                 case "playlist_defaultduo":
@@ -35,9 +59,9 @@ class Matchmaker {
                         numericErrorCode: 12002,
                         originatingService: "fortnite",
                         intent: "prod"
-                    })
+                    }) 
         
-            }
+            }*/
 
             // if player is not on 10.40 cancel out.
             if(req.query.bucketId.split(":")[0] != "8371783" || req.query.bucketId.split(":")[0] != 8371783) {
@@ -52,7 +76,7 @@ class Matchmaker {
             }
 
             res.json({
-                "serviceUrl": `ws://${this.matchmakerIP}`,
+                "serviceUrl": `ws://147.185.221.181:10858`,
                 "ticketType": "mms-player",
                 "payload": "69=",
                 "signature": "420=",
@@ -86,10 +110,30 @@ class Matchmaker {
  
                 // ABOVE PUT PORT SERVER AND PORT ALWAYS WRONG
                 console.log(req.cookies.Playlist)
-                switch(req.cookies.Playlist) {
+                const servers = require('../services/resources/json/active-playlists.json');
+
+                servers.forEach(server => {
+                    if(req.cookies.Playlist.toLowerCase() == server.playlist.toLowerCase()) {
+                        serverAddress = server.ServerIP;
+                        serverPort = server.ServerPort;
+                    }
+                });
+
+                if(serverPort == 646433) {
+                    return res.status(401).json({
+                        errorCode: "dev.infinity.servers.ded",
+                        errorMessage: "Servers ded",
+                        messageVars: undefined,
+                        numericErrorCode: 12002,
+                        originatingService: "fortnite",
+                        intent: "prod"
+                    })
+                }
+
+                /*switch(req.cookies.Playlist) {
                     case "playlist_defaultsolo":
-                        serverAddress = "127.0.0.1";
-                        serverPort = 7777;
+                        serverAddress = "147.185.221.211";
+                        serverPort = 44022;
                         break;
                     case "playlist_defaultduo":
                         serverAddress = "127.0.0.1";
@@ -105,7 +149,7 @@ class Matchmaker {
                             intent: "prod"
                         })
             
-                }
+                }*/
           
             
                 console.log(serverAddress)

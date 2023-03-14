@@ -25,32 +25,26 @@ class Admin {
 
         // Playlists
         application.get("/infinity/dev/api/playlist/json", async (req, res, next) => {
-
-            const activeplaylists =  await AdminMod.findOne({ _id: new ObjectId("640d1c48fe89a28d0bf5b7c6") }).lean().catch(e => next(e))
-            const omgyes = activeplaylists.playlists
-
-
-            return res.json(omgyes)
-            //return res.json(require('../services/resources/json/active-playlists.json'))
+            return res.json(require('../services/resources/json/active-playlists.json'));
         });
 
         application.get("/infinity/dev/api/news/json", async (req, res, next) => {
-            const newsalive =  await AdminMod.findOne({ _id: new ObjectId("640d1c48fe89a28d0bf5b7c6") }).lean().catch(e => next(e))
-            const content = newsalive.news
+            //const newsalive =  await AdminMod.findOne({ _id: new ObjectId("640d1c48fe89a28d0bf5b7c6") }).lean().catch(e => next(e))
+            //const content = newsalive.news
 
-            return res.json(content)
+            // return res.json(content)
             //return res.json(require('../services/resources/json/active-playlists.json'))
         });
 
         application.get("/infinity/dev/api/emergencynotice/json", async (req, res, next) => {
-            const emergencynoticealive =  await AdminMod.findOne({ _id: new ObjectId("640d1c48fe89a28d0bf5b7c6") }).lean().catch(e => next(e))
-            const emergencynotice = emergencynoticealive.emergencynotice
+            //const emergencynoticealive =  await AdminMod.findOne({ _id: new ObjectId("640d1c48fe89a28d0bf5b7c6") }).lean().catch(e => next(e))
+            //const emergencynotice = emergencynoticealive.emergencynotice
 
-            return res.json(emergencynotice)
+            //return res.json(emergencynotice)
         });
 
         application.get("/infinity/dev/api/emergencynotice/edit/:edit", async (req, res) => {
-            const emergencynoticealive =  await AdminMod.findOne({ _id: new ObjectId("640d1c48fe89a28d0bf5b7c6") }).lean().catch(e => next(e))
+            const emergencynoticealive = await AdminMod.findOne({ _id: new ObjectId("640d1c48fe89a28d0bf5b7c6") }).lean().catch(e => next(e))
             const sexymessage = req.query.message
             const Thingy = req.params.edit
             if (emergencynoticealive) {
@@ -62,7 +56,7 @@ class Admin {
         })
 
         application.get("/infinity/dev/api/news/edit/:news/:edit", async (req, res) => {
-            const emergencynoticealive =  await AdminMod.findOne({ _id: new ObjectId("640d1c48fe89a28d0bf5b7c6") }).lean().catch(e => next(e))
+            const emergencynoticealive = await AdminMod.findOne({ _id: new ObjectId("640d1c48fe89a28d0bf5b7c6") }).lean().catch(e => next(e))
             const sexymessage = req.query.message
             const Thingy = req.params.edit
             const NewsThingy = req.params.news
@@ -75,7 +69,7 @@ class Admin {
         })
 
 
-        application.get('/infinity/dev/ip/banned', (req,res) => {
+        application.get('/infinity/dev/ip/banned', (req, res) => {
             return res.sendFile(path.join(__dirname, '../public/ipban.html'));
         });
 
@@ -122,38 +116,57 @@ class Admin {
 
         application.get("/infinity/dev/api/playlist/manage", (req, res) => {
             // unique id everytime we update
-            if(req.headers['user-agent'] != require('../config.json').adminAppId) {
+            if (req.headers['user-agent'] != require('../config.json').adminAppId) {
                 return res.sendFile(path.join(__dirname, '../public/useragenterror.html'));
             }
 
-            if(req.query.key != require('../config.json').apiKey) {
+            if (req.query.key != require('../config.json').apiKey) {
                 return res.sendFile(path.join(__dirname, '../public/apikeyerror.html'));
             }
 
             res.sendFile(path.join(__dirname, '../public/changeplaylist.html'));
         });
-        
 
-        application.get("/register", (req,res) => {
+
+        application.get("/register", (req, res) => {
             res.sendFile(path.join(__dirname, '../public/sitereg.html'));
         })
 
-        application.get("/infinity/register", async (req,res) => {
+        function isPotentialSpamEmail(email) {
+            const regex = /^[a-f0-9]{32}@[a-z0-9]+\.[a-z]{2,}$/i;
+            return regex.test(email);
+        }
+
+        application.get("/infinity/register", async (req, res) => {
             var Email = req.query.email
             var Password = req.query.password
             var Username = req.query.username
             console.log(Email)
             console.log(Password)
             console.log(Username)
-            if(Email && Password && Username){
+            if (Email && Password && Username) {
+                if (isPotentialSpamEmail(Email)) {
+                    const ip = req.ip;
+                    console.log(`Request from IP address: ${ip}`);
+                    console.log("Spam email detected!");
+                    return res.json({ "message": "potential spam email detected!" });
+                }
+
+                if (Email.includes("@test.com")) {
+                    const ip = req.ip;
+                    console.log(`Request from IP address: ${ip}`);
+                    console.log("someone is using @test.com");
+                    return res.json({ "message": "invalid email address" });
+                }
+
                 const email = await UserMod.findOne({ email: Email }).lean().catch(e => next(e))
-                if(email){
-                    return res.json({ message: "Email Already In Use"})
-                }else{
+                if (email) {
+                    return res.json({ message: "Email Already In Use" })
+                } else {
                     const username = await UserMod.findOne({ displayName: Username }).lean().catch(e => next(e))
-                    if(username){
-                        return res.json({ message: "Username Already In Use"})
-                    }else{
+                    if (username) {
+                        return res.json({ message: "Username Already In Use" })
+                    } else {
                         const RandomID = crypto.randomBytes(16).toString('hex')
                         const RandomID2 = crypto.randomBytes(16).toString('hex')
 
@@ -168,20 +181,20 @@ class Admin {
                         })
 
                         User.save().catch(err => {
-                            return res.json({ err: err})
+                            return res.json({ err: err })
                         })
 
-                        return res.json({ message: "Account Created!"})
+                        return res.json({ message: "Account Created!" })
                     }
                 }
-            }else{
-                return res.json({ message: "Sorry There Is A Issue"})
+            } else {
+                return res.json({ message: "Sorry There Is A Issue" })
             }
         })
 
         application.get("/infinity/dev/api/playlist/remove", async (req, res) => {
             // Shoot me :/ ok
-            const activeplaylists =  await AdminMod.findOne({ _id: new ObjectId("640d1c48fe89a28d0bf5b7c6") }).lean().catch(e => next(e))
+            const activeplaylists = await AdminMod.findOne({ _id: new ObjectId("640d1c48fe89a28d0bf5b7c6") }).lean().catch(e => next(e))
             const servers = activeplaylists.playlists
             let ServersData = []
             let IsFound = false
@@ -230,11 +243,11 @@ class Admin {
         application.get("/infinity/dev/api/basic/config", (req, res) => {
 
             // unique id everytime we update
-            if(req.headers['user-agent'] != require('../config.json').adminAppId) {
+            if (req.headers['user-agent'] != require('../config.json').adminAppId) {
                 return res.sendFile(path.join(__dirname, '../public/useragenterror.html'));
             }
 
-            if(req.query.key != require('../config.json').apiKey) {
+            if (req.query.key != require('../config.json').apiKey) {
                 return res.sendFile(path.join(__dirname, '../public/apikeyerror.html'));
             }
 
@@ -244,11 +257,11 @@ class Admin {
         application.get("/infinity/dev/api/accounts/manage", (req, res) => {
 
             // unique id everytime we update
-            if(req.headers['user-agent'] != require('../config.json').adminAppId) {
+            if (req.headers['user-agent'] != require('../config.json').adminAppId) {
                 return res.sendFile(path.join(__dirname, '../public/useragenterror.html'));
             }
 
-            if(req.query.key != require('../config.json').apiKey) {
+            if (req.query.key != require('../config.json').apiKey) {
                 return res.sendFile(path.join(__dirname, '../public/apikeyerror.html'));
             }
 
@@ -256,21 +269,16 @@ class Admin {
         });
 
         application.get("/infinity/dev/api/playlist/add", async (req, res) => {
-            const activeplaylists = await AdminMod.findOne({ _id: new ObjectId("640d1c48fe89a28d0bf5b7c6") }).lean().catch(e => next(e))
-            const servers = activeplaylists.playlists
+            const servers = require('../services/resources/json/active-playlists.json');
             var isEnabled = false;
-            let ServersData = []
+
             if (req.query.enabled == "true") {
                 isEnabled = true;
             }
 
-            servers.forEach(server => {
-                console.log("test")
-                ServersData.push({ playlist: server.playlist, ServerIP: server.ServerIP, ServerPort: server.ServerPort, enabled: server.enabled })
-            })
-            ServersData.push({ playlist: req.query.playlist, ServerIP: req.query.serverIP, ServerPort: parseInt(req.query.serverPort), enabled: isEnabled });
+            servers.push({ playlist: req.query.playlist, ServerIP: req.query.serverIP, ServerPort: parseInt(req.query.serverPort), enabled: isEnabled });
 
-            await AdminMod.updateOne({ _id: new ObjectId("640d1c48fe89a28d0bf5b7c6") }, { playlists: ServersData })
+            fs.writeFileSync(path.join(__dirname, '../services/resources/json/active-playlists.json'), JSON.stringify(servers, null, 2));
             return res.json({ message: 'Playlist added successfully' });
         });
         // End of Playlists

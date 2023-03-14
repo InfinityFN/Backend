@@ -1,8 +1,8 @@
 {
-    "port": 6969,
+    "port": 5595,
     "//": "DO NOT SHARE THE ADMINAPPID OR APIKEY TO ANYONE!",
     "logRequests": true,
     "adminAppId": "INFINITY-LIVE-DSFKJDK7239HAAG2321JBDJ24",
     "apiKey": "INFINITY-KEY-DFJLSK892378LSDHFSD2348947KSDHK",
-    "mongodb": "mongodb+srv://kohlfn:lQPBr4vTo7bUOEBE@infinitydb.lkqymfk.mongodb.net/InfinityDB?retryWrites=true&w=majority"
+    "mongodb": "mongodb+srv://jmcdowall2007:6kmMGuoIxDmdKZmt@infinitydb2.d5tpvqb.mongodb.net/?retryWrites=true&w=majority"
 }

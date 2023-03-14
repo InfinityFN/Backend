@@ -1,6 +1,7 @@
 const crypto = require("crypto");
 const WebSocket = require("ws").Server;
 const express = require("express")
+const { createServer } = require('http')
 class Matchmaker{
     constructor(){
         // ids maybe need to be changed...
@@ -9,9 +10,18 @@ class Matchmaker{
         this.sessionId = crypto.createHash('md5').update(`3${Date.now()}`).digest('hex');
         this.application = express()
 
+        /*const server = createServer().listen(442);
+
+        const wss = new WebSocket({
+            server,
+            path: '/',
+        })
+        console.log(`Matchmaker started listening on port 442`);*/
+
         const wss = new WebSocket({ server: this.application.listen(442, () => console.log(`Matchmaker started listening on port 442`)) });
 
         wss.on('connection', async (ws) => {
+            console.log('Connected!');
             if (ws.protocol.toLowerCase() == "xmpp") return;
             this.Connecting(ws);
             this.Waiting(ws);
