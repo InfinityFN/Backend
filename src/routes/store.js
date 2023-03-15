@@ -11,7 +11,7 @@ class Store {
 
             var account = await User.findOne({ id: req.params.friendID }).lean().catch(e => next(e))
 
-            var shop = (await axios.get("/fortnite/api/storefront/v2/catalog")).data;
+            //var shop = (await axios.get("/fortnite/api/storefront/v2/catalog")).data;
             var OfferID = decodeURI(req.params.offerID)
         
             var CatalogPurchaseID = null

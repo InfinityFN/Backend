@@ -12,6 +12,7 @@ class Oauth {
         this.endpoints(this.application)
     }
     endpoints(application) {
+
         // At Somepoint need to make this more secure
         application.get("/account/api/oauth/verify", (req, res) => {
             // find displayname
@@ -36,6 +37,7 @@ class Oauth {
         })
 
         this.application.all("/account/api/oauth/token", async (req, res) => {
+
             try{
                 var displayName = req.body.username
                 var accountid = ""
@@ -123,7 +125,9 @@ class Oauth {
             }
         })
 
-        application.delete("/account/api/oauth/sessions/kill/*", (req, res) => res.status(204).end())
+        application.delete("/account/api/oauth/sessions/kill/*", (req, res) => {
+            res.status(204).end()
+        });
         application.delete("/account/api/oauth/sessions/kill", (req, res) => res.status(204).end())
     }
 }

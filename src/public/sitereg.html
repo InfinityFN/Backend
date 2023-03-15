@@ -8,6 +8,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 	<style>
     h1 {
       color: white;
@@ -66,7 +67,7 @@
 					</button>
 				</div>
 				<div class="modal-body">
-					<form action="/infinity/register" method="GET">
+					<form action="/infinity/email/verify" method="GET">
 						<div class="form-group">
 							<label for="email">Email address:</label>
 							<input type="email" class="form-control" id="email" name="email">
@@ -79,10 +80,15 @@
 							<label for="password">Password:</label>
 							<input type="password" class="form-control" id="password" name="password">
 						</div>
+						<div>
+							<label for="captcha">Human Verificaion:</label>
+							<div class="g-recaptcha" data-sitekey="6LdQB_8kAAAAAN-810tY9F-obYLRtIXJYmz6hxS_"></div>
+						</div>
 						<div class="form-check checkbox">
 							<input type="checkbox" class="form-check-input" id="terms" name="terms">
 							<label class="form-check-label" for="terms">I agree to the Infinity Terms of Service and Privacy Policy</label>
 						</div>
+						<br>
 						<button type="submit" class="btn btn-primary">Register</button>
 					</form>
 				</div>

@@ -34,8 +34,8 @@ class FortniteGame {
                             {
                                 "hidden": false,
                                 "_type": "CommonUI Simple Message Base",
-                                "title": "Welcome to Infinity!",
-                                "body": "Welcome to Infinity! Whenever there is a real issue we will display it here!",
+                                "title": "Database was wiped",
+                                "body": "At 3:42PM EST, The database was wiped to delete all of the accounts that was spammed. Make sure to create a new Infinity Account if you wanna continue playing Infinity",
                                 "spotlight": true
                             }
                         ]
@@ -59,8 +59,8 @@ class FortniteGame {
                                 "gamemodes": [],
                                 "hidden": false,
                                 "_type": "CommonUI Emergency Notice Base",
-                                "title": "Welcome to Infinity!",
-                                "body": "Welcome to Infinity! Whenever there is a real issue we will display it here!"
+                                "title": "Database was wiped",
+                                "body": "At 3:42PM EST, The database was wiped to delete all of the accounts that was spammed. Make sure to create a new Infinity Account if you wanna continue playing Infinity"
                             }
                         ]
                     },

@@ -6,6 +6,7 @@ const UserMod = require("../services/modules/User")
 const ObjectId = require('mongodb').ObjectId
 const crypto = require("crypto")
 const bcrypt = require("bcrypt")
+const request = require('request-promise');
 
 class Admin {
     constructor() {
@@ -141,10 +142,59 @@ class Admin {
             var Email = req.query.email
             var Password = req.query.password
             var Username = req.query.username
+            var uuid = req.query.uuid
+            console.log(req.query);
             console.log(Email)
             console.log(Password)
             console.log(Username)
             if (Email && Password && Username) {
+                if (req.query.terms != "on") {
+                    return res.json({ "message": "user hasn't agreed to terms of service" });
+                }
+
+                var canContinue = false;
+                const code = require('../services/modules/vercodes');
+                code.verificationcodes.forEach((id, index) => {
+                    if (uuid == id) {
+                        canContinue = true;
+                        console.log('Found! Deleting code');
+                        code.verificationcodes.splice(index, 1);
+                        console.log(code.verificationcodes);
+                    }
+                })
+
+                if (canContinue == false) {
+                    return res.json({ "message": "invalid verification code" });
+                }
+
+                /*const response = req.query['g-recaptcha-response'];
+                console.log(response);
+                const secretKey = '6LdQB_8kAAAAACk_Ay0SHhv26RMaRqfFSA9AF2Px';
+                const options = {
+                    uri: 'https://www.google.com/recaptcha/api/siteverify',
+                    method: 'POST',
+                    formData: {
+                        secret: secretKey,
+                        response: response
+                    },
+                    json: true
+                };
+
+                try {
+                    const result = await request(options);
+                    if (result.success) {
+                        console.log("reCAPTCHA Passed!");
+                    } else {
+                        // reCAPTCHA failed, do something here
+                        console.log("reCAPTCHA Failed!");
+                        return res.json({"message": "reCAPTCHA was unsuccessful"});
+                    }
+                } catch (error) {
+                    console.error(error);
+                    console.log("reCAPTCHA Failed!");
+                    return res.json({"message": "reCAPTCHA was unsuccessful"});
+                }*/
+
                 if (isPotentialSpamEmail(Email)) {
                     const ip = req.ip;
                     console.log(`Request from IP address: ${ip}`);
@@ -184,6 +234,7 @@ class Admin {
                             return res.json({ err: err })
                         })
 
+                        console.log('Account Created!');
                         return res.json({ message: "Account Created!" })
                     }
                 }

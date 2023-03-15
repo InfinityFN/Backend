@@ -203,7 +203,7 @@ class Profile {
                     const accountId = req.params.accountId
 
                     let Epic3 = []
-                    var shop = (await axios.get("http://localhost:6969/fortnite/api/storefront/v2/catalog")).data;
+                    //var shop = (await axios.get("http://localhost:6969/fortnite/api/storefront/v2/catalog")).data;
                     var templateIdIG
                     var finalPriceIG
                     var CatalogPurchaseID = null

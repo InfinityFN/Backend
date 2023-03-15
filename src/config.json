@@ -4,5 +4,5 @@
     "logRequests": true,
     "adminAppId": "INFINITY-LIVE-DSFKJDK7239HAAG2321JBDJ24",
     "apiKey": "INFINITY-KEY-DFJLSK892378LSDHFSD2348947KSDHK",
-    "mongodb": "mongodb+srv://jmcdowall2007:6kmMGuoIxDmdKZmt@infinitydb2.d5tpvqb.mongodb.net/?retryWrites=true&w=majority"
+    "mongodb": "mongodb+srv://infinitydev:qffaUcLpH4NBIHfM@infinitydb2.d8cmwky.mongodb.net/?retryWrites=true&w=majority"
 }
