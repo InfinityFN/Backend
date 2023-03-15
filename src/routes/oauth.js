@@ -43,9 +43,12 @@ class Oauth {
                 var accountid = ""
                 this.access_token = ""
                 this.grantType = req.body.grant_type
+
+                console.log("grant type: " + this.grantType);
     
                // console.log(this.grantType)
                 if (this.grantType == "password") {
+                    console.log('Checking password')
                     try {
                         
                         var UsernameCheck = await User.findOne({ email: req.body.username }).lean();
@@ -55,7 +58,8 @@ class Oauth {
                         if (UsernameCheck) {
                             if (this.bcrypt.compareSync(req.body.password, UsernameCheck.password)) {
                                 displayName = UsernameCheck.displayName
-                                accountid= UsernameCheck.id
+                                accountid = UsernameCheck.id
+                                console.log(accountid);
                                 console.log("Checked!")
                             }
                         }else{
