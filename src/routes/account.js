@@ -202,6 +202,10 @@ class Account {
             return res.redirect('/login');
         });
 
+        application.get("/credits", (req,res) => {
+            return res.sendFile(path.join(__dirname, '../public/credits.html'));
+        });
+
         application.get('/acct/dashboard', async (req, res) => {
             let sessionID = req.query.sessionid;
 
