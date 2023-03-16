@@ -64,10 +64,10 @@ class Timeline {
                                 "seasonBegin": "9999-12-31T23:59:59.999Z",
                                 "seasonEnd": "9999-12-31T23:59:59.999Z",
                                 "seasonDisplayedEnd": "9999-12-31T23:59:59.999Z",
-                                "weeklyStoreEnd": "2023-03-16T13:59:06.168Z",
-                                "stwEventStoreEnd": "2023-03-16T13:59:06.168Z",
-                                "stwWeeklyStoreEnd": "2023-03-16T13:59:06.168Z",
-                                "dailyStoreEnd": "2023-03-16T13:59:06.168Z"
+                                "weeklyStoreEnd": "2023-03-16T19:57:08.567Z",
+                                "stwEventStoreEnd": "2023-03-16T19:57:08.567Z",
+                                "stwWeeklyStoreEnd": "2023-03-16T19:57:08.567Z",
+                                "dailyStoreEnd": "2023-03-16T19:57:08.567Z"
                             }
                         }],
                         "cacheExpire": "9999-12-31T23:59:59.999Z"

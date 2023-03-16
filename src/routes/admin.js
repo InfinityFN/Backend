@@ -92,7 +92,7 @@ class Admin {
         });
 
         // ONLY REMOVE IF THERE NOT BANNED ELSE WHY BANNED :skull:
-        application.get("/infinity/dev/api/players/remove", async (req, res, next) => {
+        /*application.get("/infinity/dev/api/players/remove", async (req, res, next) => {
             const playersalive = await UserMod.findOne({ id: req.query.id }).lean().catch(e => next(e)); // we save ids as id alr?
 
             if (playersalive) {
@@ -101,9 +101,9 @@ class Admin {
             }
 
             return res.status(404).json({ message: 'Account not found.' });
-        });
+        });*/
 
-        application.get("/infinity/dev/api/players/edit/banned", async (req, res) => {
+        /*application.get("/infinity/dev/api/players/edit/banned", async (req, res) => {
             const playersalive = await UserMod.findOne({ id: req.query.id }).lean().catch(e => next(e)); // we save ids as id alr?
             let Banned = req.query.banned;
 
@@ -113,7 +113,7 @@ class Admin {
             }
 
             return res.status(404).json({ message: 'Account not found.' });
-        })
+        })*/
 
         application.get("/infinity/dev/api/playlist/manage", (req, res) => {
             // unique id everytime we update

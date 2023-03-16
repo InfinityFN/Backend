@@ -1,1 +1,8 @@
-[]
+[
+  {
+    "playlist": "Playlist_DefaultSolo",
+    "ServerIP": "147.185.221.211",
+    "ServerPort": 44022,
+    "enabled": true
+  }
+]

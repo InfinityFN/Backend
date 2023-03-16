@@ -34,8 +34,8 @@ class FortniteGame {
                             {
                                 "hidden": false,
                                 "_type": "CommonUI Simple Message Base",
-                                "title": "Infinity MP Public Event",
-                                "body": "Infinity will have it's first public multiplayer matches today @ 4 PM EST. Stay tuned on our discord (https://discord.gg/b2zNBV9brW) for details",
+                                "title": "Welcome to Infinity",
+                                "body": "Welcome to Infinity! Make sure to join our Discord Server for updates! https://discord.gg/b2zNBV9brW",
                                 "spotlight": true
                             }
                         ]
@@ -59,8 +59,8 @@ class FortniteGame {
                                 "gamemodes": [],
                                 "hidden": false,
                                 "_type": "CommonUI Emergency Notice Base",
-                                "title": "Infinity MP Public Event!",
-                                "body": "Infinity will have it's first public multiplayer matches today @ 4 PM EST. Stay tuned on our discord (https://discord.gg/b2zNBV9brW) for details"
+                                "title": "Welcome to Infinity",
+                                "body": "Welcome to Infinity! Make sure to join our Discord Server for updates! https://discord.gg/b2zNBV9brW"
                             }
                         ]
                     },

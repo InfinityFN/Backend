@@ -8,7 +8,7 @@ class Gameserver {
     }
 
     endpoints(application) {
-        application.get("/gameserver/skin/:name", async (req, res) => {
+        /*application.get("/gameserver/skin/:name", async (req, res) => {
             console.log(req.params.name);
             const user = await User.findOne({ displayName: req.params.name }).lean();
             var AthenaCharacter = user.profile.character.items.split(':')[1];
@@ -69,6 +69,21 @@ class Gameserver {
             }
 
         });
+
+        application.get("/gameserver/pickaxe/:name", async (req, res) => {
+            console.log(req.params.name);
+            const user = await User.findOne({ displayName: req.params.name }).lean();
+            var AthenaPickaxe = user.profile.pickaxe.items.split(':')[1];
+            try {
+                var CID = (await axios.get(`https://fortnite-api.com/v2/cosmetics/br/${AthenaPickaxe}`)).data;
+                //console.log(CID);
+                var jsons = JSON.stringify(CID, null, 2);
+                var jsonp = JSON.parse(jsons, null, 2);
+                res.send(jsonp.data.id);
+            } catch {
+                console.log('cosmetic not found!');
+            }
+        });*/
 
         application.get("/gameserver/pickaxe/:name", async (req, res) => {
             console.log(req.params.name);
