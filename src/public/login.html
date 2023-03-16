@@ -9,37 +9,63 @@
     <!-- Custom CSS -->
     <style>
         body {
-            background-image: url("bg1.png");
-            /* default background image */
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center;
+            background-color: #F0F2F5;
         }
 
-        .form-signin {
-            max-width: 330px;
-            padding: 15px;
-            margin: auto;
+        .container {
+            margin-top: 5rem;
+            max-width: 30rem;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
         }
 
-        .form-signin .form-control {
-            position: relative;
-            box-sizing: border-box;
-            height: auto;
-            padding: 10px;
-            font-size: 16px;
+        h1 {
+            text-align: center;
+            margin-bottom: 2rem;
         }
 
-        .form-signin input[type="email"] {
-            margin-bottom: 10px;
-            border-bottom-right-radius: 0;
-            border-bottom-left-radius: 0;
+        label {
+            font-weight: 600;
         }
 
-        .form-signin input[type="password"] {
-            margin-bottom: 20px;
-            border-top-left-radius: 0;
-            border-top-right-radius: 0;
+        input[type="email"],
+        input[type="password"] {
+            border-radius: 5px;
+            border: 1px solid #BDC1C6;
+            padding: 0.5rem;
+            font-size: 1rem;
+        }
+
+        input[type="email"]:focus,
+        input[type="password"]:focus {
+            border-color: #0366D6;
+            box-shadow: 0px 0px 5px #0366D6;
+        }
+
+        button[type="submit"] {
+            margin-top: 2rem;
+            width: 100%;
+            border-radius: 5px;
+            background-color: #0366D6;
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 0.75rem;
+            border: none;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #054EA4;
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                margin-top: 2rem;
+                padding: 1rem;
+            }
         }
     </style>
 </head>
@@ -56,7 +82,7 @@
             <label for="inputPassword">Password</label>
             <input type="password" class="form-control" id="inputPassword" name="password" placeholder="Password" required>
           </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="submit" class="btn btn-primary">Login</button>
         </form>
       </div>
 
