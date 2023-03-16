@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Infinity Item Shop</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+
+    <style>
+
+        body {
+        background-color: #121215;
+        color: #fff; 
+        }
+
+        .dark-mode {
+            background-color: #1d1c1e;
+            color: #fff;
+        }
+
+        .card-header, .card {
+            background-color: #1a1a20;
+            color: #fff;
+        }
+        
+        .card {
+            border-width: 1px;
+            border-radius: 10px;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-body {
+            background-color: #27272f;
+            color: #fff;
+            border-radius: 20px;
+            padding: 1rem 1.25rem;
+        }
+        .item-image {
+            padding: 5px;
+            border-radius: 35px;
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: center center;
+        }
+        .item-details-col {
+            width: 3;
+            padding-left: 20px;
+
+        }
+        .common {
+            background-image: url('https://media.fortniteapi.io/images/rarities/v2/rarity_common.png');
+        }
+        .epic {
+            background-image: url('https://media.fortniteapi.io/images/rarities/v2/rarity_epic.png');
+        }
+        .legendary {
+            background-image: url('https://media.fortniteapi.io/images/rarities/v2/rarity_legendary.png');
+        }
+        .mythic {
+            background-image: url('https://media.fortniteapi.io/images/rarities/v2/rarity_mythic.png');
+        }
+        .rare {
+            background-image: url('https://media.fortniteapi.io/images/rarities/v2/rarity_rare.png');
+        }
+        .transcendent {
+            background-image: url('https://media.fortniteapi.io/images/rarities/v2/rarity_transcendent.png');
+        }
+        .uncommon {
+            background-image: url('https://media.fortniteapi.io/images/rarities/v2/rarity_uncommon.png');
+        }
+        .dark {
+            background-image: url('https://media.fortniteapi.io/images/rarities/v2/T-Cube-Background.png');
+        }
+        .dc {
+            background-image: url('https://media.fortniteapi.io/images/rarities/v2/T-BlackMonday-Background.png');
+        }
+        .frozen {
+            background-image: url('https://media.fortniteapi.io/images/rarities/v2/T_Ui_LavaSeries_Frozen.png');
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="text-center">Item Shop</h3>
+                    <p class="text-center">Thanks to: bren#2001 for making this for us <3</p>
+                </div>
+                <div id="item-shop" class="card-body">
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+<script>
+const itemShop = document.getElementById("item-shop");
+fetch("/fortnite/api/storefront/v2/catalog")
+    .then(response => response.json())
+    .then(data => {
+        fetch("/cosmetics.json")
+        .then(response => response.json())
+        .then(cosmetics => {
+            data.storefronts.forEach(storefront => {
+                storefront.catalogEntries.forEach(entry => {
+                    const itemCard = document.createElement("div");
+                    itemCard.classList.add("card", "mb-3");
+
+                    const itemRow = document.createElement("div");
+                    itemRow.classList.add("row");
+
+                    const itemDetailsCol = document.createElement("div");
+                    itemDetailsCol.classList.add("col-md-8", "item-details-col");
+
+                    const itemID = document.createElement("h5");
+                    itemID.textContent = entry.devName.split(":").pop();
+
+                    const item = cosmetics.data.find(item => item.id === `${itemID.textContent}`.split(":").pop());
+                    if (item) {
+                        const itemName = document.createElement("h5");
+                        itemName.textContent = item.name;
+                        itemName.classList.add("card-title");
+                        itemDetailsCol.appendChild(itemName);
+                    } else {
+                        const itemNotFound = document.createElement("p");
+                        itemNotFound.textContent = "Item not found in cosmetics data.";
+                        itemDetailsCol.appendChild(itemNotFound);
+                    }
+
+
+                    const itemDesc = document.createElement("p");
+                    itemDesc.classList.add("card-text");
+                    itemDesc.textContent = `${item.description}`
+                    itemDetailsCol.appendChild(itemDesc);
+
+                    const itemPrice = document.createElement("p");
+                    itemPrice.classList.add("card-text");
+                    itemPrice.textContent = `${entry.prices[0].finalPrice} Vbucks`
+                    itemDetailsCol.appendChild(itemPrice);
+
+            
+                    
+
+                    const itemImageCol = document.createElement("div");
+                    itemImageCol.classList.add("col-md-4");
+                    const itemImage = document.createElement("img");
+                    itemImage.classList.add("item-image");
+                    itemImage.setAttribute("src", item.images.icon);
+                    itemImage.setAttribute("alt", item.name);
+                    itemImage.setAttribute("width", "128");
+                    itemImage.setAttribute("height", "128");
+ 
+                    itemImageCol.appendChild(itemImage);
+
+                    itemRow.appendChild(itemDetailsCol);
+                    itemRow.appendChild(itemImageCol);
+
+                    switch(item.rarity.value) {
+                        case 'common':
+                            itemImage.classList.add('common');
+                            break;
+                        case 'epic':
+                            itemImage.classList.add('epic');
+                            break;
+                        case 'legendary':
+                            itemImage.classList.add('legendary');
+                            break;
+                        case 'mythic':
+                            itemImage.classList.add('mythic');
+                            break;
+                        case 'rare':
+                            itemImage.classList.add('rare');
+                            break;
+                        case 'transcendent':
+                            itemImage.classList.add('transcendent');
+                            break;
+                        case 'uncommon':
+                            itemImage.classList.add('uncommon');
+                            break;
+                        case 'dark':
+                            itemImage.classList.add('dark');
+                            break;
+                        case 'dc':
+                            itemImage.classList.add('dc');
+                            break;
+                        case 'frozen':
+                            itemImage.classList.add('frozen');
+                            break;
+                    }
+
+
+                    itemCard.appendChild(itemRow);
+                    itemShop.appendChild(itemCard);
+                });
+            });
+        });
+    })
+    .catch(error => console.log(error));
+
+
+</script>
+</body>
+</html>

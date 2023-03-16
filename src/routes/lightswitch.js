@@ -1,13 +1,13 @@
 const User = require("../services/modules/User")
 
 class Lightswitch {
-    constructor(){
+    constructor() {
         this.maintenanceUri = "https://infinityfn.dev"
         this.application = require("express").Router()
         this.endpoints(this.application, this.maintenanceUri)
     }
-    endpoints(application, maintenanceUri){
-        this.application.get("/lightswitch/api/service/bulk/status", async (req,res) => {
+    endpoints(application, maintenanceUri) {
+        this.application.get("/lightswitch/api/service/bulk/status", async (req, res) => {
             //console.log(req.user);
             console.log(req.headers.authorization);
             var isbanned = false;
@@ -19,13 +19,18 @@ class Lightswitch {
 
             const user = await User.findOne({ displayName: p2 }).lean();
 
-            if(user.profile.banned == true || user.profile.banned == "true") {
+            if (!user) {
+                console.log('User not found!');
+                return res.status(404).json({ error: 'User not found!' });
+            }
+
+            if (user.profile.banned == true || user.profile.banned == "true") {
                 console.log('User is banned!');
                 isbanned = true;
             }
 
-            
-            res.json(  [{
+
+            res.json([{
                 "serviceInstanceId": "fortnite",
                 "status": "UP",
                 "message": "servers up.",
@@ -45,8 +50,8 @@ class Lightswitch {
                 }
             }])
         })
-        
-        this.application.get("/waitingroom/api/waitingroom", async (req,res) => {
+
+        this.application.get("/waitingroom/api/waitingroom", async (req, res) => {
             res.status(204).end()
         })
     }

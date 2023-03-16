@@ -86,6 +86,26 @@ class Gameserver {
         });*/
 
         application.get("/gameserver/pickaxe/:name", async (req, res) => {
+            try {
+              const user = await User.findOne({ displayName: req.params.name }).lean();
+              if (!user) {
+                return res.status(404).send("User not found");
+              }
+              const AthenaPickaxe = user.profile?.pickaxe?.items?.split(":")[1];
+              if (!AthenaPickaxe) {
+                return res.status(400).send("Invalid user data");
+              }
+              const CID = (await axios.get(`https://fortnite-api.com/v2/cosmetics/br/${AthenaPickaxe}`)).data;
+              const jsons = JSON.stringify(CID, null, 2);
+              const jsonp = JSON.parse(jsons, null, 2);
+              res.send(jsonp.data.id);
+            } catch (error) {
+              console.log(error);
+              res.status(500).send("Server error");
+            }
+          });
+
+        /*application.get("/gameserver/pickaxe/:name", async (req, res) => {
             console.log(req.params.name);
             const user = await User.findOne({ displayName: req.params.name }).lean();
             var AthenaPickaxe = user.profile.pickaxe.items.split(':')[1];
@@ -98,7 +118,7 @@ class Gameserver {
             } catch {
                 console.log('cosmetic not found!');
             }
-        });
+        });*/
     }
 }
 

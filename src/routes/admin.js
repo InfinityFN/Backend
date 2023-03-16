@@ -128,6 +128,14 @@ class Admin {
             res.sendFile(path.join(__dirname, '../public/changeplaylist.html'));
         });
 
+        application.get('/cosmetics.json', (req,res) => {
+            return res.sendFile(path.join(__dirname, '../public/itemshop/cosmetics.json'));
+        });
+
+        application.get('/view/itemshop', (req,res) => {
+            return res.sendFile(path.join(__dirname, '../public/itemshop/index.html'));
+        });
+
 
         application.get("/register", (req, res) => {
             res.sendFile(path.join(__dirname, '../public/sitereg.html'));
