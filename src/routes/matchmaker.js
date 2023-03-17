@@ -44,7 +44,7 @@ class Matchmaker {
                 })
             }
 
-
+            // TODO: Add Custom Matchmaking with (player.option.customKey)
 
             /*switch(req.query.bucketId.split(":")[3].toLowerCase()) {
                 case "playlist_defaultsolo":

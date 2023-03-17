@@ -1,0 +1,48 @@
+{
+    "username": "kohl",
+    "vbucks": 30000,
+    "equipped": {
+        "character": {
+            "cid": "cid_144_athena_commando_m_soccerdudea",
+            "cidicon": "https://fortnite-api.com/images/cosmetics/br/cid_144_athena_commando_m_soccerdudea/icon.png"
+        },
+        "pickaxe": {
+            "pickaxeid": "pickaxe_id_138_gnome",
+            "pickaxeicon": "https://fortnite-api.com/images/cosmetics/br/pickaxe_id_138_gnome/icon.png"
+        },
+        "backpack": {
+            "bid": "bid_196_barbarianmale",
+            "bidicon": "https://fortnite-api.com/images/cosmetics/br/bid_196_barbarianmale/icon.png"
+        },
+        "dances": {
+            "eids": [
+                "AthenaDance:EID_Bendy",
+                "AthenaDance:EID_BoogieDown",
+                "AthenaDance:EID_DanceMoves",
+                "AthenaDance:EID_Bunnyhop",
+                "AthenaDance:EID_AirHorn",
+                "AthenaDance:EID_Celebration",
+                ""
+            ]
+        },
+        "glider": {
+            "gliderid": "glider_id_114_icequeen",
+            "glidericon": "https://fortnite-api.com/images/cosmetics/br/glider_id_114_icequeen/icon.png"
+        },
+        "loadingscreen": {
+            "lsid": "lsid_124_airroyale",
+            "lsidicon": "https://fortnite-api.com/images/cosmetics/br/lsid_124_airroyale/icon.png"
+        },
+        "wraps": {
+            "wrap": [
+                "AthenaItemWrap:Wrap_113_ZeroPointFloor",
+                "AthenaItemWrap:Wrap_113_ZeroPointFloor",
+                "AthenaItemWrap:Wrap_113_ZeroPointFloor",
+                "AthenaItemWrap:Wrap_113_ZeroPointFloor",
+                "AthenaItemWrap:Wrap_113_ZeroPointFloor",
+                "AthenaItemWrap:Wrap_113_ZeroPointFloor",
+                "AthenaItemWrap:Wrap_113_ZeroPointFloor"
+            ]
+        }
+    }
+}

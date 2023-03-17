@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>My Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <style>
+        body {
+            background-color: #121215;
+            color: #fff;
+        }
+
+        .dark-mode {
+            background-color: #1d1c1e;
+            color: #fff;
+        }
+
+        .card-header,
+        .card {
+            background-color: #1a1a20;
+            color: #fff;
+            max-width: 500px;
+
+        }
+
+        .mb-3 {
+            background-color: #1a1a20;
+            width: 490px;
+        }
+
+        .card {
+            border-width: 1px;
+            border-radius: 10px;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-body {
+            background-color: #27272f;
+            color: #fff;
+            border-radius: 20px;
+            padding: 1rem 1.25rem;
+        }
+
+        .item-image {
+            user-select: none;
+            -webkit-user-drag: none;
+            -webkit-user-drag: none;
+            padding: 5px;
+            border-radius: 35px;
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: center center;
+        }
+
+        .item-details-col {
+
+            padding-left: 20px;
+
+        }
+        
+        .card-text {
+         word-wrap: break-word;
+         
+        }
+
+        .modal {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            z-index: 1;
+        }
+
+        .modal-content {
+
+            background-color: #1a1a20;
+            margin: auto;
+            margin-bottom: 600px;
+            padding: 30px;
+            border: 1px solid #27272f;
+            width: 80%;
+            max-width: 600px;
+            height: 40%;
+            max-height: 600px;
+
+        }
+
+
+        .modal-title {
+
+            background-color: #1a1a20;
+            margin: auto;
+            margin-bottom: 600px;
+            padding: 30px;
+            border: 1px solid #27272f;
+            width: 80%;
+            max-width: 600px;
+            height: 40%;
+            max-height: 600px;
+
+        }
+
+        .modal-icon {
+            user-select: none;
+            -webkit-user-drag: none;
+            border-radius: 35px;
+            width: 228px;
+            height: 228px;
+            background-size: 228px;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+
+        }
+
+        .modal-close-button {
+            position: absolute;
+            border-radius: 10px;
+            top: 10px;
+            right: 10px;
+            width: 40px;
+            height: 40px;
+            font-size: 28px;
+            background-color: #555568;
+            color: white;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .modal-icon2 {
+            user-select: none;
+            -webkit-user-drag: none;
+            border-radius: 35px;
+            width: 228px;
+            height: 228px;
+            background-size: 228px;
+
+
+        }
+
+        @keyframes fade-in {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal-content.animate-in {
+            animation-name: fade-in;
+            animation-duration: 0.5s;
+            animation-fill-mode: forwards;
+        }
+
+
+        .common {
+            background-image: url('https://media.fortniteapi.io/images/rarities/v2/rarity_common.png');
+        }
+
+        .epic {
+            background-image: url('https://media.fortniteapi.io/images/rarities/v2/rarity_epic.png');
+        }
+
+        .legendary {
+            background-image: url('https://media.fortniteapi.io/images/rarities/v2/rarity_legendary.png');
+        }
+
+        .mythic {
+            background-image: url('https://media.fortniteapi.io/images/rarities/v2/rarity_mythic.png');
+        }
+
+        .rare {
+            background-image: url('https://media.fortniteapi.io/images/rarities/v2/rarity_rare.png');
+        }
+
+        .transcendent {
+            background-image: url('https://media.fortniteapi.io/images/rarities/v2/rarity_transcendent.png');
+        }
+
+        .uncommon {
+            background-image: url('https://media.fortniteapi.io/images/rarities/v2/rarity_uncommon.png');
+        }
+
+        .dark {
+            background-image: url('https://media.fortniteapi.io/images/rarities/v2/T-Cube-Background.png');
+        }
+
+        .dc {
+            background-image: url('https://media.fortniteapi.io/images/rarities/v2/T-BlackMonday-Background.png');
+        }
+
+        .frozen {
+            background-image: url('https://media.fortniteapi.io/images/rarities/v2/T_Ui_LavaSeries_Frozen.png');
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h3 class="text-center">Equipped Cosmetics</h3>
+        <div id="locker" class="row">
+            <!-- your code here -->
+        </div>
+    </div>
+    <script>
+        // your script here
+    </script>
+</body>
+
+
+<body>
+    <div class="container mt-5">
+
+        <div class="row mt-5">
+            <div class="col-md-6">
+                <div class="card">
+                    <div id="characters" class="card-body row">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card">
+                    <div id="gliders" class="card-body row">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-md-6">
+                <div class="card">
+                    <div id="backbling" class="card-body row">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card">
+                    <div id="pickaxe" class="card-body row">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="row mt-5">
+            <div class="col-md-6">
+                <div class="card">
+                    <div id="loadingscreen" class="card-body row">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card">
+                    <div id="vbucks" class="card-body row">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="row mt-5">
+
+            <div class="col-md-6">
+                <div class="card">
+                    <div id="emotes" class="card-body row">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card">
+                    <div id="wraps" class="card-body row">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+    <script src="/lockerjs"></script>
+
+</body>
+
+</html>

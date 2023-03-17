@@ -146,6 +146,8 @@ class Admin {
             return regex.test(email);
         }
 
+        
+
         application.get("/infinity/register", async (req, res) => {
             var Email = req.query.email
             var Password = req.query.password

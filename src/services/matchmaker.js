@@ -10,13 +10,6 @@ class Matchmaker{
         this.sessionId = crypto.createHash('md5').update(`3${Date.now()}`).digest('hex');
         this.application = express()
 
-        /*const server = createServer().listen(442);
-
-        const wss = new WebSocket({
-            server,
-            path: '/',
-        })
-        console.log(`Matchmaker started listening on port 442`);*/
 
         const wss = new WebSocket({ server: this.application.listen(442, () => console.log(`Matchmaker started listening on port 442`)) });
 
@@ -80,7 +73,7 @@ class Matchmaker{
                 "name": "StatusUpdate"
             }))
         }
-        setTimeout(WsSend, 6000);
+        setTimeout(WsSend, 8000);
     }
     Join(ws, matchId, sessionId){
         function WsSend(){

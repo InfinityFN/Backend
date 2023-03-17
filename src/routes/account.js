@@ -2,6 +2,7 @@ const path = require('path');
 const User = require("../services/modules/User");
 const bcrypt = require("bcrypt");
 const crypto = require('crypto');
+const axios = require('axios');
 
 var sessions = [];
 
@@ -15,12 +16,116 @@ function getCurrentDateInUTC() {
     return utcDate.toUTCString();
 }
 
+async function getCosmeticJSON(cosmetic) {
+    const response = await axios.get(`https://fortnite-api.com/v2/cosmetics/br/${cosmetic}`);
+    const data = response.data;
+    var JsonString = JSON.stringify(data, null, 2);
+
+    return JSON.parse(JsonString, null, 2);
+}
+
 class Account {
     constructor() {
         this.application = require("express").Router()
         this.endpoints(this.application)
     }
     endpoints(application) {
+        application.get("/infinity/acct/locker/view/gui", async (req, res) => {
+            let sessionID = req.query.sessionid;
+            var username = "";
+
+            sessions.forEach(session => {
+                if (sessionID == session.sessionId) {
+                    username = session.username;
+                }
+            });
+
+            console.log(username);
+
+            if (username == "") {
+                return res.json({ "message": "invalid sessionId" });
+            }
+
+            return res.sendFile(path.join(__dirname, '../public/locker/lockerv2.html'));
+        });
+
+        application.get('/locker/cosmetics.json', (req, res) => {
+            return res.sendFile(path.join(__dirname, '../public/locker/cosmetics.json'));
+        });
+
+        application.get('/vbuck.png', (req,res) => {
+            return res.sendFile(path.join(__dirname, '../public/locker/vbuck.png'));
+        });
+
+        application.get('/infinity/api/v2/cosmetics/user', async (req, res) => {
+            let sessionID = req.query.sessionid;
+            var username = "";
+
+            sessions.forEach(session => {
+                if (sessionID == session.sessionId) {
+                    username = session.username;
+                }
+            });
+
+            console.log(username);
+
+            if (username == "") {
+                return res.json({ "message": "invalid sessionId" });
+            }
+
+            const user = await User.findOne({ displayName: username }).lean();
+            if (!user) return res.json({ "message": "account does not exist" });
+
+            // get profile character icon
+
+            var character = await getCosmeticJSON(user.profile.character.items.split(':')[1]);
+            var pickaxe = await getCosmeticJSON(user.profile.pickaxe.items.split(':')[1]);
+            var backpack = await getCosmeticJSON(user.profile.backpack.items.split(':')[1]);
+            var glider = await getCosmeticJSON(user.profile.glider.items.split(':')[1]);
+            var loadingscreen = await getCosmeticJSON(user.profile.loadingscreen.items.split(':')[1]);
+
+
+            var JSON = {
+                username: user.displayName,
+                vbucks: user.profile.vbucks,
+                equipped: {
+                    character: {
+                        cid: user.profile.character.items.split(':')[1],
+                        cidicon: character.data.images.icon
+                    },
+                    pickaxe: {
+                        pickaxeid: user.profile.pickaxe.items.split(':')[1],
+                        pickaxeicon: pickaxe.data.images.icon
+                    },
+                    backpack: {
+                        bid: user.profile.backpack.items.split(':')[1],
+                        bidicon: backpack.data.images.icon
+                    },
+                    dances: {
+                        eids: user.profile.dance.items
+                    },
+                    glider: {
+                        gliderid: user.profile.glider.items.split(':')[1],
+                        glidericon: glider.data.images.icon
+                    },
+                    loadingscreen: {
+                        lsid: user.profile.loadingscreen.items.split(':')[1],
+                        lsidicon: loadingscreen.data.images.icon
+                    },
+                    wraps: {
+                        wrap: user.profile.itemwrap.items
+                    }
+                }
+
+            };
+
+            return res.json(JSON);
+        });
+
+        application.get('/lockerjs', (req, res) => {
+            console.log('e');
+            return res.sendFile(path.join(__dirname, '../public/locker/locker.js'));
+        });
         application.get("/login", (req, res) => {
             return res.sendFile(path.join(__dirname, '../public/login.html'));
         })
@@ -43,6 +148,29 @@ class Account {
                 sessions.push({ sessionId: sessionID, username: user.displayName, createdAt: getCurrentDateInUTC() });
 
                 res.redirect(`/acct/dashboard?sessionid=${sessionID}`);
+            } else {
+                res.json({ "message": "user does not exist" });
+            }
+        });
+
+        application.get("/infinity/acct/login/sessiononly", async (req, res) => {
+            let email = req.query.email;
+            let password = req.query.password;
+
+            const user = await User.findOne({ email: email }).lean(); // find the user
+
+            if (user) {
+                const isMatch = bcrypt.compareSync(password, user.password);
+
+                if (isMatch != true) {
+                    return res.json({ "message": "wow" });
+                }
+
+                var sessionID = generateUniqueId(); // create a brand new session ID
+
+                sessions.push({ sessionId: sessionID, username: user.displayName, createdAt: getCurrentDateInUTC() });
+
+                res.json({ "sessionId": sessionID });
             } else {
                 res.json({ "message": "user does not exist" });
             }
@@ -202,7 +330,7 @@ class Account {
             return res.redirect('/login');
         });
 
-        application.get("/credits", (req,res) => {
+        application.get("/credits", (req, res) => {
             return res.sendFile(path.join(__dirname, '../public/credits.html'));
         });
 
@@ -300,7 +428,7 @@ class Account {
                     <hr>
                     <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#changeNameModal">Change Name</button>
                     <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#changePasswordModal">Change Password</button>
-                    <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#dumpLockerJSON">Dump Locker JSON</button>
+                    <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#dumpLockerJSON">View Locker</button>
                     <!-- <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#add2FAModal">Add 2FA</button> -->
                     <hr>
                     <button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#resetSessionModal">Reset Session ID</button>
@@ -468,11 +596,12 @@ class Account {
                 </button>
             </div>
             <div class="modal-body">
-                <p>Are you sure you want your locker json?</p>
+                <p>How do you wanna see your Locker?</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" id="dumpLockerBtn">Yes</button>
+                <button type="button" class="btn btn-primary" id="dumpLockerBtn">JSON</button>
+                <button type="button" class="btn btn-primary" id="dumpLockerWebBtn">Web GUI</button>
             </div>
         </div>
     </div>
@@ -532,6 +661,10 @@ class Account {
         // Handle "resetSessionID" button click
         $('#logOutBtn').click(function () {
             window.location.href = "/infinity/api/dash/logout?sessionid=${sessionID}";
+        });
+
+        $('#dumpLockerWebBtn').click(function () {
+            window.location.href = "/infinity/acct/locker/view/gui?sessionid=${sessionID}";
         });
     });
 </script>

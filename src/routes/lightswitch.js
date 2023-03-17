@@ -13,9 +13,18 @@ class Lightswitch {
             var isbanned = false;
 
             // bearer ctrlkohlNEEDD
-            var p1 = req.headers.authorization.split(' ')[1];
-            var p2 = p1.replace("NEEDD", '');
-            console.log('Player name: ' + p2);
+            var p1;
+            var p2;
+            try {
+                p1 = req.headers.authorization.split(' ')[1];
+                p2 = p1.replace("NEEDD", '');
+                console.log('Player name: ' + p2);
+            } catch (error) {
+                console.error("There was an error with lightswitch (no playername)");
+            }
+            //var p1 = req.headers.authorization.split(' ')[1];
+            //var p2 = p1.replace("NEEDD", '');
+            //console.log('Player name: ' + p2);
 
             const user = await User.findOne({ displayName: p2 }).lean();
 
