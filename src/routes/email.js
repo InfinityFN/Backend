@@ -47,7 +47,7 @@ class Email {
             code.verificationcodes.forEach((id, index) => {
                 if(uuid == id) {
                     canContinue = true;
-                    //verificationcodes.splice(index, 1);
+                    //code.verificationcodes.splice(index, 1);
                 }
             })
 

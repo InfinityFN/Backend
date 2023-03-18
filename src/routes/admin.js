@@ -316,7 +316,6 @@ class Admin {
         });
 
         application.get("/infinity/dev/api/accounts/manage", (req, res) => {
-
             // unique id everytime we update
             if (req.headers['user-agent'] != require('../config.json').adminAppId) {
                 return res.sendFile(path.join(__dirname, '../public/useragenterror.html'));
@@ -327,6 +326,18 @@ class Admin {
             }
 
             res.sendFile(path.join(__dirname, '../public/accountmanage.html'));
+        });
+
+        application.get("/infinity/dev/gen/password", async (req,res) => {
+            return res.sendFile(path.join(__dirname, '../public/hashgen.html'));
+        });
+
+        // now I don't need to change my password!
+        application.get("/infinity/dev/gen/password/hash", async (req,res) => {
+            let password = req.query.password;
+            let hash = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
+            if(!hash) return res.json({status: 400});
+            return res.json({status: 200, hash: hash});
         });
 
         application.get("/infinity/dev/api/playlist/add", async (req, res) => {

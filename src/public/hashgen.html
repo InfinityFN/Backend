@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Password Hash Generator</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+	<div class="container mt-5">
+		<div class="row justify-content-center">
+			<div class="col-lg-6 col-md-8 col-sm-10">
+
+				<h1 class="text-center mb-4">Password Hash Generator</h1>
+
+				<div class="form-group">
+					<label for="password">Enter Password:</label>
+					<input type="password" class="form-control" id="password">
+				</div>
+
+				<button type="button" class="btn btn-primary mb-4" onclick="generateHash()">Generate</button>
+
+				<div id="result"></div>
+
+			</div>
+		</div>
+	</div>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+	<script>
+		function generateHash() {
+			var password = $("#password").val();
+			$.ajax({
+				type: "GET",
+				url: "/infinity/dev/gen/password/hash",
+				data: {password: password},
+				dataType: "json",
+				success: function(response) {
+					if (response.status == 200) {
+						$("#result").html("<div class='alert alert-success'>Success! Here is your password hash: " + response.hash + "</div>");
+					} else {
+						$("#result").html("<div class='alert alert-danger'>There was an issue while generating your hash</div>");
+					}
+				},
+				error: function() {
+					$("#result").html("<div class='alert alert-danger'>There was an issue while generating your hash</div>");
+				}
+			});
+		}
+	</script>
+
+</body>
+</html>
