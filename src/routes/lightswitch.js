@@ -19,6 +19,7 @@ class Lightswitch {
                 p1 = req.headers.authorization.split(' ')[1];
                 p2 = p1.replace("NEEDD", '');
                 console.log('Player name: ' + p2);
+                res.cookie("username", p2);
             } catch (error) {
                 console.error("There was an error with lightswitch (no playername)");
             }

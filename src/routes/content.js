@@ -1,5 +1,10 @@
 const AdminMod = require("../services/modules/Admin")
 const ObjectId = require('mongodb').ObjectId
+const path = require('path');
+const User = require("../services/modules/User");
+const bcrypt = require("bcrypt");
+const crypto = require('crypto');
+const axios = require('axios');
 class FortniteGame {
     constructor() {
         this.application = require("express").Router()
@@ -7,8 +12,51 @@ class FortniteGame {
     }
     endpoints(application) {
         application.get(["/content/api/pages/fortnite-game", "/content/app/pages/"], async (req, res) => {
+            console.log('content headers');
+
+            var username;
+            var background;
+            var backgroundurl;
+
+
+            if (req.headers.cookie) {
+                var username = req.headers.cookie.split('=')[1];
+                try {
+                    const user = await User.findOne({ displayName: username }).lean();
+
+                    if (!user) {
+                        console.log('no username. reverting to base seasonal');
+                        background = "seasonx";
+                    }
+
+                    if (!user.background) {
+                        console.log('no background property. reverting to base seasonal');
+                        console.log('here we go!');
+                        background = "seasonx";
+                    } else {
+                        if (user.background == "defaultnotris" && user.backgroundurl != "none") {
+                            background = user.background;
+                            backgroundurl = user.backgroundurl;
+                        } else {
+                            background = user.background;
+                        }
+
+                    }
+                } catch (error) {
+                    console.log('An error occurred:', error);
+                    background = "seasonx";
+                }
+            } else {
+                background = "seasonx";
+            }
+            //var username = req.headers.cookie.split('=')[1];
+
+
+
+
+
             //const fortnitecontentyay = await AdminMod.findOne({ _id: new ObjectId("640d1c48fe89a28d0bf5b7c6") }).lean().catch(e => next(e))
-            res.json({
+            return res.json({
                 "_title": "Fortnite Game",
                 "_activeDate": "2017-08-30T03:20:48.050Z",
                 "lastModified": "2019-11-01T17:33:35.346Z",
@@ -643,7 +691,7 @@ class FortniteGame {
                 },
                 "lobby": {
                     "backgroundimage": "https://cdn.discordapp.com/attachments/927739901540188200/930883349831118878/Fortnite_fortnite-game_lobby_T_Lobby_SeasonX-2048x1024-24e02780ed533da8001016f4e6fb14dd15e2f860.png",
-                    "stage": "seasonx",
+                    "stage": background,
                     "_title": "lobby",
                     "_activeDate": "2019-05-31T21:24:39.892Z",
                     "lastModified": "2019-07-31T21:24:17.119Z",
@@ -653,7 +701,7 @@ class FortniteGame {
                     "backgrounds": {
                         "backgrounds": [
                             {
-                                "stage": "seasonx",
+                                "stage": background,
                                 "_type": "DynamicBackground",
                                 "key": "lobby"
                             }

@@ -5,6 +5,14 @@ const data101 = mongoose.Schema({
     "displayName": String,
     "email": String,
     "password": String,
+    "background": {
+        type: String,
+        default: "seasonx"
+    },
+    "backgroundurl": {
+        type: String,
+        default: "none"
+    },
     "stats": {
         "solos": {
             "wins": {

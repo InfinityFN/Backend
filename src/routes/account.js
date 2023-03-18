@@ -53,7 +53,7 @@ class Account {
             return res.sendFile(path.join(__dirname, '../public/locker/cosmetics.json'));
         });
 
-        application.get('/vbuck.png', (req,res) => {
+        application.get('/vbuck.png', (req, res) => {
             return res.sendFile(path.join(__dirname, '../public/locker/vbuck.png'));
         });
 
@@ -330,6 +330,48 @@ class Account {
             return res.redirect('/login');
         });
 
+        application.get("/infinity/dev/custom/lobbybg", async (req, res) => {
+            let sessionID = req.query.sessionid;
+            var lobbyid = req.query.lobbybg;
+            var lobbyurl = req.query.lobbyurl;
+            console.log(lobbyid);
+            var username = "";
+
+            sessions.forEach(session => {
+                if (sessionID == session.sessionId) {
+                    username = session.username;
+                }
+            });
+
+            console.log(username);
+
+            if (username == "") return res.json({ "message": "invalid sessionId" });
+
+            if(lobbyurl == "none") {
+                await User.updateMany(
+                    { background: { $exists: false } },
+                    { $set: { background: "seasonx" } }
+                );
+    
+                await User.updateOne({ displayName: username }, { background: lobbyid });
+    
+                return res.json({ "message": "lobby background successfully changed!" });
+            } else {
+                await User.updateMany(
+                    { backgroundurl: { $exists: false } },
+                    { $set: { backgroundurl: "none" } }
+                );
+    
+                await User.updateOne({ displayName: username }, { background: lobbyid });
+                
+                await User.updateOne({ displayName: username }, { backgroundurl: lobbyurl });
+    
+                return res.json({ "message": "lobby background successfully changed!" });
+            }
+
+            
+        });
+
         application.get("/credits", (req, res) => {
             return res.sendFile(path.join(__dirname, '../public/credits.html'));
         });
@@ -431,10 +473,36 @@ class Account {
                     <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#dumpLockerJSON">View Locker</button>
                     <!-- <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#add2FAModal">Add 2FA</button> -->
                     <hr>
+                    <p>Game Features</p>
+                    <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#changelobbyBackgroundModal">Change Lobby Background</button>
+                    <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#changenewslocalModal">Change News Locally</button>
+                    <hr>
                     <button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#resetSessionModal">Reset Session ID</button>
                     <button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#deleteAccountModal">Delete Account</button>
                     <button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#logOutModal">Log out</button>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Change News Locally Modal-->
+<div class="modal fade" id="changenewslocalModal" tabindex="-1" role="dialog" aria-labelledby="changenewslocalModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="changenewslocalModalLabel">Change News Locally</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body"> 
+                <p>This feature is not released to the public yet! Stay tuned for updates on our <a href="https://discord.gg/infinitymp">Discord</a></p>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
+            <!-- <button type="button" class="btn btn-danger" id="deleteAccountBtn">Delete Account</button>-->
             </div>
         </div>
     </div>
@@ -460,6 +528,34 @@ class Account {
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                 <button type="button" class="btn btn-primary" id="changeNameBtn">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Change Lobby Background Modal -->
+<div class="modal fade" id="changelobbyBackgroundModal" tabindex="-1" role="dialog" aria-labelledby="changelobbyBackgroundModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="changelobbyBackgroundModalLabel">Change Lobby Background</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            <p>If you don't know how to use this, please refer to our <a href="https://infinity-8.gitbook.io/infinity/">documentation</a> for custom lobby background switching</p>
+                <div class="form-group">
+                    <label for="lobbybg">Lobby Background Id</label>
+                    <input type="text" class="form-control" id="lobbybg">
+                    <label for="lobbyurl">URL (must be .png or .jpg)</label>
+                    <input type="text" class="form-control" id="lobbyurl">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="changeLobbyBackgroundBtn">Save changes</button>
             </div>
         </div>
     </div>
@@ -632,6 +728,21 @@ class Account {
             if (newName) {
                 window.location.href = "/infinity/api/name/change?sessionid=${sessionID}&newName=" + newName;
                 console.log(newName); 
+            }
+        });
+
+        // Handle "Lobby BG" button click
+        $('#changeLobbyBackgroundBtn').click(function () {
+            var lobbybg2 = $('#lobbybg').val();
+            var lobbyurl2 = $('#lobbyurl').val();
+            console.log('bg: ' + lobbybg2);
+            console.log('ur: ' + lobbyurl2);
+            if (lobbybg2) {
+                if(lobbyurl2 == "" || lobbyurl2 == undefined || lobbyurl2 == null) {
+                    window.location.href = "/infinity/dev/custom/lobbybg?sessionid=${sessionID}&lobbybg=" + lobbybg2 + "&lobbyurl=none";
+                } else {
+                    window.location.href = "/infinity/dev/custom/lobbybg?sessionid=${sessionID}&lobbybg=" + lobbybg2 + "&lobbyurl=" + lobbyurl2;
+                }
             }
         });
 
