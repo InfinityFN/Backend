@@ -1,13 +1,13 @@
 const path = require('path');
 class WorldCup {
-    constructor() {
-        this.application = require("express").Router()
-        this.endpoints(this.application)
-    }
+  constructor() {
+    this.application = require("express").Router()
+    this.endpoints(this.application)
+  }
 
-    endpoints(application) {
-        application.get("/worldcup/leaderboards", (req,res) => {
-            res.send(`
+  endpoints(application) {
+    application.get("/worldcup/leaderboards", (req, res) => {
+      res.send(`
             <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,6 +15,21 @@ class WorldCup {
   <title>Infinity World Cup Duos Leaderboard</title>
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+  background: linear-gradient(135deg, #FFA07A, #9400D3);
+  /* fallback for old browsers */
+  background: -webkit-linear-gradient(135deg, #FFA07A, #9400D3);
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: -moz-linear-gradient(135deg, #FFA07A, #9400D3);
+  /* FF 3.6-15 */
+  background: -o-linear-gradient(135deg, #FFA07A, #9400D3);
+  /* Opera 11.10-11.50 */
+  background-color: #9400D3;
+  /* fallback color if gradient is not supported */
+  /* stretch the background to fill the entire screen */
+  background-repeat: no-repeat;
+  /* prevent the background from repeating */
+  </style>
 </head>
 <body>
   <div class="container mt-4">
@@ -41,12 +56,12 @@ class WorldCup {
 </html>
             `);
 
-        });
+    });
 
-        application.get('/worldcup/leaderboards/json', (req,res) => {
-            return res.sendFile(path.join(__dirname, '../services/resources/json/teams.json'));
-        });
-    }
+    application.get('/worldcup/leaderboards/json', (req, res) => {
+      return res.sendFile(path.join(__dirname, '../services/resources/json/teams.json'));
+    });
+  }
 }
 
 module.exports = new WorldCup
