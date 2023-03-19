@@ -31,7 +31,8 @@ class Public {
                     backpack: user.profile.backpack.items,
                     dance: user.profile.dance.items,
                     glider: user.profile.glider.items,
-                    pickaxe: user.profile.pickaxe.items
+                    pickaxe: user.profile.pickaxe.items,
+                    locker: user.profile.ItemShopPurchases
                 }
 
 

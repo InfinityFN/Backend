@@ -3,6 +3,8 @@ const User = require("../services/modules/User");
 const bcrypt = require("bcrypt");
 const crypto = require('crypto');
 const axios = require('axios');
+const createDOMPurify = require('dompurify');
+const { JSDOM } = require('jsdom');
 
 var sessions = [];
 
@@ -347,29 +349,29 @@ class Account {
 
             if (username == "") return res.json({ "message": "invalid sessionId" });
 
-            if(lobbyurl == "none") {
+            if (lobbyurl == "none") {
                 await User.updateMany(
                     { background: { $exists: false } },
                     { $set: { background: "seasonx" } }
                 );
-    
+
                 await User.updateOne({ displayName: username }, { background: lobbyid });
-    
+
                 return res.json({ "message": "lobby background successfully changed!" });
             } else {
                 await User.updateMany(
                     { backgroundurl: { $exists: false } },
                     { $set: { backgroundurl: "none" } }
                 );
-    
+
                 await User.updateOne({ displayName: username }, { background: lobbyid });
-                
+
                 await User.updateOne({ displayName: username }, { backgroundurl: lobbyurl });
-    
+
                 return res.json({ "message": "lobby background successfully changed!" });
             }
 
-            
+
         });
 
         application.get("/credits", (req, res) => {
@@ -391,7 +393,11 @@ class Account {
                 return res.json({ "message": "invalid sessionId" });
             }
 
+            const window = new JSDOM('').window;
+            const DOMPurify = createDOMPurify(window);
+
             const user = await User.findOne({ displayName: username }).lean(); // find the user
+            const safeDisplayName = DOMPurify.sanitize(user.displayName);
 
             res.send(`
             <!DOCTYPE html>
@@ -465,7 +471,7 @@ class Account {
                     <h3 class="text-center">My Account</h3>
                 </div>
                 <div class="card-body">
-                    <h5>Username: <span id="username">${user.displayName}</span></h5>
+                    <h5>Username: <span id="username">${safeDisplayName}</span></h5>
                     <h5>Email Address: <span id="email">*******</span> <a href="#" id="revealEmail">Reveal</a></h5>
                     <hr>
                     <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#changeNameModal">Change Name</button>

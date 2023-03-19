@@ -1,0 +1,20 @@
+ World Cup Leaderboard Unminified
+ $(document).ready(function() {
+      $.getJSON("/worldcup/leaderboards/json", function(data) {
+        // sort the data by points (descending order)
+        data.sort(function(a, b) {
+          return b.points - a.points;
+        });
+        // iterate through the data and add rows to the leaderboard table
+        $.each(data, function(index, team) {
+          var rank = index + 1;
+          var row = "<tr>" +
+                      "<td>" + rank + "</td>" +
+                      "<td>" + team.team_name + "</td>" +
+                      "<td>" + team.team_members + "</td>" +
+                      "<td>" + team.points + "</td>" +
+                    "</tr>";
+          $("#leaderboard").append(row);
+        });
+      });
+    });
