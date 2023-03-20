@@ -115,7 +115,7 @@ class Admin {
             return res.status(404).json({ message: 'Account not found.' });
         })*/
 
-        application.get("/infinity/dev/api/playlist/manage", (req, res) => {
+        /*application.get("/infinity/dev/api/playlist/manage", (req, res) => {
             // unique id everytime we update
             if (req.headers['user-agent'] != require('../config.json').adminAppId) {
                 return res.sendFile(path.join(__dirname, '../public/useragenterror.html'));
@@ -126,7 +126,7 @@ class Admin {
             }
 
             res.sendFile(path.join(__dirname, '../public/changeplaylist.html'));
-        });
+        });*/
 
         application.get('/cosmetics.json', (req,res) => {
             return res.sendFile(path.join(__dirname, '../public/itemshop/cosmetics.json'));
@@ -253,7 +253,7 @@ class Admin {
             }
         })
 
-        application.get("/infinity/dev/api/playlist/remove", async (req, res) => {
+        /*application.get("/infinity/dev/api/playlist/remove", async (req, res) => {
             // Shoot me :/ ok
             const activeplaylists = await AdminMod.findOne({ _id: new ObjectId("640d1c48fe89a28d0bf5b7c6") }).lean().catch(e => next(e))
             const servers = activeplaylists.playlists
@@ -299,9 +299,9 @@ class Admin {
             console.log(servers)
             await AdminMod.updateOne({ _id: new ObjectId("640d1c48fe89a28d0bf5b7c6") }, { playlists: ServersData })
             return res.json({ message: 'changed enabled status successfully' });
-        });
+        });*/
 
-        application.get("/infinity/dev/api/basic/config", (req, res) => {
+        /*application.get("/infinity/dev/api/basic/config", (req, res) => {
 
             // unique id everytime we update
             if (req.headers['user-agent'] != require('../config.json').adminAppId) {
@@ -330,7 +330,7 @@ class Admin {
 
         application.get("/infinity/dev/gen/password", async (req,res) => {
             return res.sendFile(path.join(__dirname, '../public/hashgen.html'));
-        });
+        });*/
 
         // now I don't need to change my password!
         application.get("/infinity/dev/gen/password/hash", async (req,res) => {
@@ -340,7 +340,7 @@ class Admin {
             return res.json({status: 200, hash: hash});
         });
 
-        application.get("/infinity/dev/api/playlist/add", async (req, res) => {
+        /*application.get("/infinity/dev/api/playlist/add", async (req, res) => {
             const servers = require('../services/resources/json/active-playlists.json');
             var isEnabled = false;
 
@@ -352,7 +352,7 @@ class Admin {
 
             fs.writeFileSync(path.join(__dirname, '../services/resources/json/active-playlists.json'), JSON.stringify(servers, null, 2));
             return res.json({ message: 'Playlist added successfully' });
-        });
+        });*/
         // End of Playlists
     }
 }

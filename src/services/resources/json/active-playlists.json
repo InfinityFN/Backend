@@ -1,8 +1,14 @@
 [
   {
-    "playlist": "Playlist_Fill_Duos",
+    "playlist": "Playlist_DefaultSolo",
     "ServerIP": "147.185.221.211",
     "ServerPort": 44022,
+    "enabled": true
+  },
+  {
+    "playlist": "i love femboys",
+    "ServerIP": "69.69.69.69",
+    "ServerPort": 69,
     "enabled": true
   }
 ]

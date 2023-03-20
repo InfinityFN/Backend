@@ -45,6 +45,29 @@ class Matchmaker {
             }
 
             // TODO: Add Custom Matchmaking with (player.option.customKey)
+            ///fortnite/api/game/v2/matchmakingservice/ticket/player/e17784bba4733a3183e859fbe4d5a671?partyPlayerIds=e17784bba4733a3183e859fbe4d5a671&bucketId=8371783:0:NAE:playlist_defaultsolo&player.platform=Windows&player.subregions=VA,OH&player.option.customKey=kohlisdaddy&player.option.crossplayOptOut=false&party.WIN=true&input.KBM=true&player.input=KBM&player.playerGroups=e17784bba4733a3183e859fbe4d5a671
+
+            /*if(req.query['player.option.customKey'] == "" || req.query['player.option.customKey'] == undefined || req.query['player.option.customKey'] == null) {
+                return res.status(401).json({
+                    errorCode: "Public Matchmaking is currently disabled while Infinity world cup is in progress",
+                    errorMessage: "Servers ded",
+                    messageVars: undefined,
+                    numericErrorCode: 12002,
+                    originatingService: "fortnite",
+                    intent: "prod"
+                })
+            }
+
+            if(req.query['player.option.customKey'] != "InfinityWorldCup2023!@") {
+                return res.status(401).json({
+                    errorCode: "Public Matchmaking is currently disabled while Infinity world cup is in progress",
+                    errorMessage: "Servers ded",
+                    messageVars: undefined,
+                    numericErrorCode: 12002,
+                    originatingService: "fortnite",
+                    intent: "prod"
+                })
+            }*/
 
             /*switch(req.query.bucketId.split(":")[3].toLowerCase()) {
                 case "playlist_defaultsolo":
