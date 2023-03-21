@@ -308,6 +308,13 @@ class Account {
             return res.redirect(`/acct/dashboard?sessionid=${newSessionId}`);
         });
 
+        application.get('/infinity/update/all', async (req,res) => {
+            await User.updateMany(
+                { 'profile.mtx_affiliate_set_time': { $exists: false } }, 
+                { $set: { 'profile.mtx_affiliate_set_time': ''} }
+            );
+        });
+
         application.get("/infinity/api/dash/logout", async (req, res) => {
             let sessionID = req.query.sessionid;
             var username = "";

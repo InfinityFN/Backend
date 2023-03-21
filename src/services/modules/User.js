@@ -260,6 +260,14 @@ const data101 = mongoose.Schema({
             type: Array,
             default: []
         },
+	  "mtx_affiliate": {
+            type: String,
+            default: ""
+        },
+        "mtx_affiliate_set_time": {
+            type: String,
+            default: ""
+        },
         "profilerevision": {
             type: Number,
             default: 0

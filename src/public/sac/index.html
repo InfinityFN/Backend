@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Infinity Creators Program</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container">
+        <a class="navbar-brand" href="#">
+          <img src="https://cdn.discordapp.com/attachments/1080587356303798283/1087537177287741471/LogoTransparent_1.png" alt="Infinity Creators Program" width="256px"/>
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Apply Now</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="jumbotron text-center">
+   <h1>Infinity Creators Program</h1>
+   <p class="lead">Join our creator program and start earning Vbucks today!</p>
+   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#apply-modal">Apply Now</button>
+</div>
+    <div class="container">
+   <div class="row">
+      <div class="col-md-4">
+         <div class="card mb-4 shadow-sm">
+            <div class="card-header bg-primary text-white">
+               <h4 class="my-0 font-weight-normal">Apply</h4>
+            </div>
+            <div class="card-body">
+               <p>Sign in with your Infinity account, tell us about your channels, and accept the terms. Check that you meet the eligibility requirements.</p>
+            </div>
+         </div>
+      </div>
+      <div class="col-md-4">
+         <div class="card mb-4 shadow-sm">
+            <div class="card-header bg-success text-white">
+               <h4 class="my-0 font-weight-normal">Create and Share</h4>
+            </div>
+            <div class="card-body">
+               <p>Once you’re accepted, share your Links and Tags to grow your supporters.</p>
+            </div>
+         </div>
+      </div>
+      <div class="col-md-4">
+         <div class="card mb-4 shadow-sm">
+            <div class="card-header bg-warning text-white">
+               <h4 class="my-0 font-weight-normal">Earn</h4>
+            </div>
+            <div class="card-body">
+               <p>You’ll earn Vbucks from your Supporter’s purchases.</p>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+    <!-- Modal -->
+<div class="modal fade" id="apply-modal" tabindex="-1" role="dialog" aria-labelledby="apply-modal-label" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="apply-modal-label">Apply Now</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="get" action="/apply/sac" id="apply-form">
+          <div class="form-group">
+            <label for="email">Email address</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+          </div>
+          <div class="form-group">
+            <label for="social-url">Social URL (Twitch, Twitter, Tiktok, Youtube, Discord)</label>
+            <input type="text" class="form-control" id="social-url" name="social-url" required>
+          </div>
+          <div class="form-group">
+            <label for="username">Username of your account</label>
+            <input type="text" class="form-control" id="username" name="username" required>
+          </div>
+          <div class="form-group">
+            <label for="creator-code">Creator code you want</label>
+            <input type="text" class="form-control" id="creator-code" name="creator-code" required>
+          </div>
+          <div class="form-group">
+            <label for="password">Unique password for accessing the creator panel</label>
+            <input type="password" class="form-control" id="password" name="password" required>
+          </div>
+          <div class="form-group">
+            <label for="birthdate">Birthdate</label>
+            <input type="date" class="form-control" id="birthdate" name="birthdate" required>
+          </div>
+          <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="terms" name="terms" required>
+            <label class="form-check-label" for="terms">I agree to the Infinity Terms of Service and Infinity Creators Terms of Service.</label>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <footer class="footer">
+    <div class="container text-center">
+      <p>Infinity is not affiliated or endorsed by Epic Games</p>
+    </div>
+  </footer>
+<!-- Scripts -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js"></script>
+  <script>
+    // Check if Infinity Creators is currently accepting new applications
+    fetch('http://infinityapi.nekuzi.cf:43614/sac/config')
+      .then(response => response.json())
+      .then(data => {
+        if (!data.isaccepting) {
+          // Show the banner
+          const banner = document.createElement('div');
+          banner.className = 'alert alert-warning alert-dismissible fade show';
+          banner.role = 'alert';
+          banner.innerHTML = '<strong>Infinity Creators is currently not accepting new applications at this time. Please check back soon!</strong>' +
+                              '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>';
+          document.body.insertBefore(banner, document.body.firstChild);
+
+          // Hide the Apply Now button
+          const applyNowButton = document.getElementById('apply-now-button');
+          applyNowButton.style.display = 'none';
+        }
+      });
+
+    // Show the Apply Now modal when the button is clicked
+    const applyNowButton = document.getElementById('apply-now-button');
+    applyNowButton.addEventListener('click', () => {
+      const applyModal = new bootstrap.Modal(document.getElementById('apply-modal'), {});
+      applyModal.show();
+    });
+  </script>
+</body>
+
+</html>

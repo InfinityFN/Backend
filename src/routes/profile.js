@@ -585,6 +585,26 @@ class Profile {
                     })
                 } else if (command == "BulkEquipBattleRoyaleCustomization") {
                     const athenaData = await profile.GrabUserAccount(accountId, profileID, season)
+                    var username = req.headers.cookie.split('=')[1];
+                    console.log(username);
+
+                    var userJSON = await User.findOne({ displayName: username }).lean();
+
+                    if(userJSON) {
+                        if(userJSON.profile.mtx_affiliate != "") {
+                            const sac = require('../services/resources/json/sac.json');
+                            sac.forEach(async (sac) => {
+                                if(userJSON.profile.mtx_affiliate == sac.id) {
+                                    sac.points++;
+                                }
+                            });
+                            console.log(sac);
+                            fs.writeFileSync(path.join(__dirname, '../services/resources/json/sac.json'), JSON.stringify(sac, null, 2));
+                            console.log('successfully given point');
+                        } else {
+                            console.log('invalid sac, skipping');
+                        }
+                    }
 
                     res.json(athenaData)
                     res.status(200)

@@ -162,6 +162,8 @@ class Admin {
                     return res.json({ "message": "user hasn't agreed to terms of service" });
                 }
 
+                if(username.toLowerCase().includes('[INFINITY]')) return res.json({"message": "please refrain from using the staff badge '[INFINITY]'"});
+
                 var canContinue = false;
                 const code = require('../services/modules/vercodes');
                 code.verificationcodes.forEach((id, index) => {
