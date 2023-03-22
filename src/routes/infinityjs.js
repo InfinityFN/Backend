@@ -43,6 +43,23 @@ class InfinityJS {
             var Player = await User.findOne({ displayName: req.query.username }).lean();
             return res.json({ displayName: Player.displayName });
         });
+
+        application.get("/infinity/sac/points", async (req,res) => {
+            let code = req.query.code;
+            const codes = require('../services/resources/json/sac.json');
+
+            var a = false;
+            codes.forEach(sac => {
+                if(code == sac.id) {
+                    a = true; 
+                    return res.send(sac.points.toString());
+                }
+            });
+
+            if(a == false) {
+                return res.send('invalid');
+            }
+        });
     }
 }
 

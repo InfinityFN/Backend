@@ -17,57 +17,57 @@ const data101 = mongoose.Schema({
         "solos": {
             "wins": {
                 type: Number,
-                default: 99
+                default: 0
             },
             "kills": {
                 type: Number,
-                default: 99
+                default: 0
             },
             "matchplayed": {
                 type: Number,
-                default: 99
+                default: 0
             }
         },
         "duos": {
             "wins": {
                 type: Number,
-                default: 99
+                default: 0
             },
             "kills": {
                 type: Number,
-                default: 99
+                default: 0
             },
             "matchplayed": {
                 type: Number,
-                default: 99
+                default: 0
             }
         },
         "squad": {
             "wins": {
                 type: Number,
-                default: 99
+                default: 0
             },
             "kills": {
                 type: Number,
-                default: 99
+                default: 0
             },
             "matchplayed": {
                 type: Number,
-                default: 99
+                default: 0
             }
         },
         "ltm": {
             "wins": {
                 type: Number,
-                default: 99
+                default: 0
             },
             "kills": {
                 type: Number,
-                default: 99
+                default: 0
             },
             "matchplayed": {
                 type: Number,
-                default: 99
+                default: 0
             }
         }
     },
@@ -286,6 +286,24 @@ const data101 = mongoose.Schema({
             type: Array,
             default: []
         }
+    },
+    "BattlePass": {
+        "battlePassPurchased": {
+            type: Boolean,
+            default: false
+        },
+        "battlePassTier": {
+            type: Number,
+            default: 1
+        },
+        "battlePassXPBoost": {
+            type: Number,
+            default: 0
+        },
+        "battlePassXPFriendBoost": {
+            type: Number,
+            default: 0
+        },
     },
     "Authorization": {
         type: String,

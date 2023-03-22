@@ -310,8 +310,23 @@ class Account {
 
         application.get('/infinity/update/all', async (req,res) => {
             await User.updateMany(
-                { 'profile.mtx_affiliate_set_time': { $exists: false } }, 
-                { $set: { 'profile.mtx_affiliate_set_time': ''} }
+                { 'BattlePass.battlePassPurchased': { $exists: false } }, 
+                { $set: { 'BattlePass.battlePassPurchased': false} }
+            );
+
+            await User.updateMany(
+                { 'BattlePass.battlePassTier': { $exists: false } }, 
+                { $set: { 'BattlePass.battlePassTier': 1} }
+            );
+
+            await User.updateMany(
+                { 'BattlePass.battlePassXPBoost': { $exists: false } }, 
+                { $set: { 'BattlePass.battlePassXPBoost': 0} }
+            );
+
+            await User.updateMany(
+                { 'BattlePass.battlePassXPFriendBoost': { $exists: false } }, 
+                { $set: { 'BattlePass.battlePassXPFriendBoost': 0} }
             );
         });
 

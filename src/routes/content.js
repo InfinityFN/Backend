@@ -165,6 +165,52 @@ class FortniteGame {
                     "lastModified": "2019-10-31T20:29:39.334Z",
                     "_locale": "en-US"
                 },
+                "tournamentinformation": {
+                    "conversion_config": {
+                        "containerName": "tournament_info",
+                        "_type": "Conversion Config",
+                        "enableReferences": true,
+                        "contentName": "tournaments"
+                    },
+                    "jcr:isCheckedOut": true,
+                    "tournament_info": {
+                        "tournaments": [
+                            {
+                                "title_color": "FFFFFF",
+                                "loading_screen_image": "https://cdn2.unrealengine.com/16br-comp-in-game-boxfightarena-modetile-1024x512-f1291f049cb2.jpg",
+                                "background_text_color": "000F4A",
+                                "background_right_color": "000410",
+                                "poster_back_image": "https://cdn2.unrealengine.com/16br-comp-in-game-boxfightarena-poster-back-750x1080-a58bf244edec.jpg",
+                                "_type": "Tournament Display Info",
+                                "pin_earned_text": "Winner!",
+                                "tournament_display_id": "s19_moxie",
+                                "highlight_color": "6DFDFF",
+                                "schedule_info": "February 11th - 12th",
+                                "primary_color": "FFFFFF",
+                                "flavor_description": "Compete against other players on your platform for an opportunity to earn a cash prize!",
+                                "poster_front_image": "https://cdn2.unrealengine.com/16br-comp-in-game-boxfightarena-poster-front-750x1080-e7847772c60c.jpg",
+                                "short_format_title": "Solo Tournament",
+                                "title_line_2": "Cup",
+                                "title_line_1": "Moxie",
+                                "shadow_color": "000F4A",
+                                "details_description": "This event will occur over two rounds, with the top 100 players advancing to Round 2. For more details and official rules, visit: https://www.epicgames.com/fortnite/competitive/en-US/news/moxie-cup-chapter-3-season-1-official-rules",
+                                "background_left_color": "0126B7",
+                                "long_format_title": "Moxie Cup",
+                                "poster_fade_color": "000D3C",
+                                "secondary_color": "000F4A",
+                                "playlist_tile_image": "https://cdn2.unrealengine.com/16br-comp-in-game-boxfightarena-modetile-1024x512-f1291f049cb2.jpg",
+                                "base_color": "FFFFFF"
+                            }
+                        ],
+                        "_type": "Tournaments Info"
+                    },
+                    "_title": "tournamentinformation",
+                    "_noIndex": false,
+                    "jcr:baseVersion": "a7ca237317f1e77c668e8d-4e91-462b-9916-28d3f3181b38",
+                    "_activeDate": "2018-11-13T22:32:47.734Z",
+                    "lastModified": "2021-04-06T17:26:47.948Z",
+                    "_locale": "en-US"
+                },            
                 "playlistinformation": {
                     "frontend_matchmaking_header_style": "None",
                     "_title": "playlistinformation",

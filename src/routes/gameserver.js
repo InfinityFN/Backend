@@ -8,6 +8,31 @@ class Gameserver {
     }
 
     endpoints(application) {
+        application.get('/gameserver/game/win/:name', async(req,res) => {
+            console.log(req.params.name);
+            const user = await User.findOne({ displayName: req.params.name }).lean();
+            if(!user) return res.send('failure, no user found.');
+
+            var newNum = user.stats.solos.matchplayed + 1;
+
+            await User.updateOne({ displayName: req.params.name }, { 'stats.solos.matchplayed': newNum });
+
+            return res.send('success!');
+        });
+
+
+        application.get('/gameserver/game/playing/:name', async(req,res) => {
+            console.log(req.params.name);
+            const user = await User.findOne({ displayName: req.params.name }).lean();
+            if(!user) return res.send('failure, no user found.');
+
+            var newNum = user.stats.solos.matchplayed + 1;
+
+            await User.updateOne({ displayName: req.params.name }, { 'stats.solos.matchplayed': newNum });
+
+            return res.send('success!');
+        });
+
         /*application.get("/gameserver/skin/:name", async (req, res) => {
             console.log(req.params.name);
             const user = await User.findOne({ displayName: req.params.name }).lean();

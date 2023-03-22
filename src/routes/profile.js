@@ -90,14 +90,14 @@ class Profile {
                 } else if (command == "EquipBattleRoyaleCustomization") {
                     var category = req.body.slotName;
                     var AccountTemp = await User.findOne({ id: req.params.accountId }).lean().catch(error => next(e))
-                    if(!AccountTemp) return
+                    if (!AccountTemp) return
                     var ItemToSlot = req.body.itemToSlot;
                     await User.updateOne({ id: req.params.accountId }, { [`profile.profilerevision`]: AccountTemp.profile.profilerevision + 1 })
                     if (category == "ItemWrap" || category == "Dance") {
                         console.log(category)
                         if (ItemToSlot == "") {
                             //console.log(`profile.${category.toString().toLowerCase()}.items.${req.body.indexWithinSlot}`)
-                         await User.updateOne({ id: req.params.accountId }, { [`profile.${category.toString().toLowerCase()}.items.${req.body.indexWithinSlot}`]: `` })
+                            await User.updateOne({ id: req.params.accountId }, { [`profile.${category.toString().toLowerCase()}.items.${req.body.indexWithinSlot}`]: `` })
                         } else {
                             await User.updateOne({ id: req.params.accountId }, { [`profile.${category.toString().toLowerCase()}.items.${req.body.indexWithinSlot}`]: `${ItemToSlot.split(":")[0]}:${ItemToSlot.split(":")[1]}` })
                         }
@@ -111,10 +111,10 @@ class Profile {
 
                     console.log(req.body.variantUpdates)
                     if (req.body.variantUpdates?.length != 0) {
-                       // AccountNew = await User.findOne({ id: req.params.accountId }).lean().catch(error => next(e))
-                       // AccountNew.profile.ItemShopPurchases[ItemToSlot].attributes.variants = req.body.variantUpdates
-                       // console.log(ItemToSlot)
-                      //  console.log(AccountNew.profile.ItemShopPurchases[ItemToSlot].attributes.variants)
+                        // AccountNew = await User.findOne({ id: req.params.accountId }).lean().catch(error => next(e))
+                        // AccountNew.profile.ItemShopPurchases[ItemToSlot].attributes.variants = req.body.variantUpdates
+                        // console.log(ItemToSlot)
+                        //  console.log(AccountNew.profile.ItemShopPurchases[ItemToSlot].attributes.variants)
                         await User.updateOne({ id: req.params.accountId }, { [`profile.ItemShopPurchases.${ItemToSlot}.attributes.variants`]: req.body.variantUpdates })
                         await User.updateOne({ id: req.params.accountId }, { [`profile.${category.toString().toLowerCase()}.activeVariants`]: req.body.variantUpdates })
                     }
@@ -379,6 +379,165 @@ class Profile {
                     res.json(retJSON)
 
                 } else if (command == "PurchaseCatalogEntry") {
+                    console.log(req.headers);
+                    console.log(req.body.offerId);
+                    console.log(req.query);
+                    console.log(req.params);
+                    //  checkValidProfileID("common_core");
+                    const shop = require('../services/resources/json/store.json');
+                    var account = await User.findOne({ id: accountId }).lean().catch(e => next(e))
+                    let catalogEntryToPurchase = null;
+                    var test123;
+                    var finalPriceIG
+
+                    for (const storefront of shop.storefronts) {
+                        if (storefront.name.includes("BRSeason")) {
+ 				    if (!Number.isNaN(Number(storefront.name.split("BRSeason")[1]))) {
+                           	 console.log("Battle Pass?")
+				    }
+                        } else {
+                            for (const catalogEntry of storefront.catalogEntries) {
+
+                                if (catalogEntry.offerId == req.body.offerId) {
+
+                                    catalogEntryToPurchase = catalogEntry;
+                                    finalPriceIG = catalogEntry["prices"][0]["finalPrice"]
+                                    // console.log(catalogEntry)
+                                }
+                            }
+                        }
+                    }
+
+                    if (catalogEntryToPurchase == null) {
+                        return res.json({})
+                        //  throw next(new ApiException(errors.com.epicgames.modules.gamesubcatalog.catalog_out_of_date).with(req.body.offerId));
+                    }
+
+
+                    var grantProfile = await profile.GrabUserAccount(accountId, "athena", season);
+                    grantProfile = grantProfile['profileChanges'][0]['profile']
+                    const lootResult = [];
+
+                    if (account) {
+                        var vbucks = account.profile.vbucks
+                        /// console.log(vbucks)
+                        ///   console.log(finalPriceIG)
+                        if (vbucks > finalPriceIG) {
+                            vbucks = vbucks - finalPriceIG
+                            // console.log(vbucks)
+                            await User.updateOne({ id: accountId }, { [`profile.vbucks`]: vbucks })
+
+                        }
+                    }
+
+
+
+                    for (const itemGrant of catalogEntryToPurchase.itemGrants) {
+
+
+
+                        lootResult.push({
+                            "itemType": itemGrant.templateId,
+                            "itemGuid": itemGrant.templateId,
+                            "itemProfile": "athena",
+                            "quantity": itemGrant.quantity
+                        });
+                    }
+
+
+                    for (const lootResultEntry of lootResult) {
+                        account = await User.findOne({ id: accountId }).lean().catch(e => next(e))
+                        var Epic = `{
+                            "${lootResultEntry.itemType}": {
+                                "templateId": "${lootResultEntry.itemType}",
+                                "attributes": {
+                                    "favorite": false,
+                                    "item_seen": false,
+                                    "level": 1,
+                                    "max_level_bonus": 0,
+                                    "rnd_sel_cnt": 0,
+                                    "variants": [],
+                                    "creation_time": "${new Date().toISOString()}",
+                                    "xp": 0
+                                },
+                                "quantity": ${lootResultEntry.quantity}
+                            }
+                        }`
+
+                        //  console.log(lootResultEntry)
+
+
+                        var test2 = Object.assign({}, account.profile.ItemShopPurchases, JSON.parse(Epic))
+
+                        await User.updateOne({ id: req.params.accountId }, { [`profile.ItemShopPurchases`]: test2 })
+
+                    }
+
+                    grantProfile = await profile.GrabUserAccount(accountId, "athena", season);
+                    grantProfile = grantProfile['profileChanges'][0]['profile']
+
+                    var grantProfile2 = await common_core69.GrabUserAccount(accountId, "common_core");
+
+                    grantProfile2 = grantProfile2['profileChanges'][0]['profile']
+                    // need to add it to the mtx one as well at some point
+
+                    //   console.log(lootResult)
+
+
+
+                    await User.updateOne({ id: req.params.accountId }, { [`profile.profilerevision`]: account.profile.profilerevision + 1 })
+                    var accoun2t = await User.findOne({ id: accountId }).lean().catch(e => next(e))
+
+
+
+                    //console.log(grantProfile)
+                    res.json({
+                        "profileRevision": accoun2t.profile.profilerevision,
+                        "profileId": "common_core",
+                        "profileChangesBaseRevision": 1,
+                        "profileChanges": [],
+                        "responseVersion": 1,
+                        "serverTime": new Date().toISOString(),
+                        "profileCommandRevision": accoun2t.profile.profilerevision,
+                        "notifications": [{
+                            "type": "CatalogPurchase",
+                            "primary": true,
+                            "lootResult": {
+                                "items": lootResult
+                            }
+                        }],
+                        "multiUpdate": [{
+                            "profileRevision": accoun2t.profile.profilerevision,
+                            "profileId": "athena",
+                            "profileChangesBaseRevision": accoun2t.profile.profilerevision,
+                            "profileChanges": [{
+                                changeType: "fullProfileUpdate",
+                                profile: grantProfile
+                            }],
+                            "serverTime": new Date().toISOString(),
+                            "profileCommandRevision": accoun2t.profile.profilerevision,
+                            "responseVersion": 1
+                        },
+                        {
+                            "profileRevision": accoun2t.profile.profilerevision,
+                            "profileId": "common_core",
+                            "profileChangesBaseRevision": accoun2t.profile.profilerevision,
+                            "profileChanges": [{
+                                changeType: "fullProfileUpdate",
+                                profile: grantProfile2
+                            }],
+                            "serverTime": new Date().toISOString(),
+                            "profileCommandRevision": accoun2t.profile.profilerevision,
+                            "responseVersion": 1
+                        }]
+
+                    })
+                    // res.end();
+                } /*else if (command == "PurchaseCatalogEntry") {
+                    console.log(req.headers);
+                    console.log(req.body.offerId);
+                    //console.log(req.query);
+                    //console.log(req.params);
                     //  checkValidProfileID("common_core");
                     const shop = require('../services/resources/json/store.json');
                     var account = await User.findOne({ id: accountId }).lean().catch(e => next(e))
@@ -478,7 +637,7 @@ class Profile {
 
 
 
-                    console.log(grantProfile)
+                    //console.log(grantProfile)
                     res.json({
                         "profileRevision": accoun2t.profile.profilerevision,
                         "profileId": "common_core",
@@ -521,21 +680,21 @@ class Profile {
 
                     })
                     // res.end();
-                } else if (command == "RemoveGiftBox") {
+                }*/ else if (command == "RemoveGiftBox") {
 
                     var AccountTemp = await User.findOne({ id: req.params.accountId }).lean().catch(error => next(e))
                     //let remove = []
-                    if(!AccountTemp) return res.json({})
+                    if (!AccountTemp) return res.json({})
                     console.log(res.headers)
-                 //   await User.updateOne({ id: req.params.accountId }, { [`profile.profilerevision`]: AccountTemp.profile.profilerevision + 1 })
+                    //   await User.updateOne({ id: req.params.accountId }, { [`profile.profilerevision`]: AccountTemp.profile.profilerevision + 1 })
                     AccountTemp.profile.gifts.forEach(async gift => {
                         console.log(gift.giftbox)
                         if (req.body.giftBoxItemId.includes(`GiftBox:${gift.giftbox.split(":")[1]}`)) {
-                     
- 
-                           // remove.push(gift.personsend)
+
+
+                            // remove.push(gift.personsend)
                             await User.updateOne({ id: req.params.accountId }, { $pull: { ["profile.gifts"]: { giftedAt: gift.giftedAt } } })
-                        
+
                         }
                     })
 
@@ -548,7 +707,7 @@ class Profile {
                     grantProfile = await profile.GrabUserAccount(accountId, "athena", 10);
                     grantProfile = grantProfile['profileChanges'][0]['profile']
 
-                   AccountTemp = await User.findOne({ id: req.params.accountId }).lean().catch(error => next(e))
+                    AccountTemp = await User.findOne({ id: req.params.accountId }).lean().catch(error => next(e))
                     //}
 
                     res.json({
@@ -590,11 +749,11 @@ class Profile {
 
                     var userJSON = await User.findOne({ displayName: username }).lean();
 
-                    if(userJSON) {
-                        if(userJSON.profile.mtx_affiliate != "") {
+                    if (userJSON) {
+                        if (userJSON.profile.mtx_affiliate != "") {
                             const sac = require('../services/resources/json/sac.json');
                             sac.forEach(async (sac) => {
-                                if(userJSON.profile.mtx_affiliate == sac.id) {
+                                if (userJSON.profile.mtx_affiliate == sac.id) {
                                     sac.points++;
                                 }
                             });
