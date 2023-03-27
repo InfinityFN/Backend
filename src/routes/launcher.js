@@ -11,7 +11,7 @@ class Launcher {
     }
 
     endpoints(application) {
-        application.get("/infinity/dev/players/online", (req,res) => {
+        application.get("/infinity/dev/players/online", (req, res) => {
             return res.send(`${online}`);
         })
 
@@ -33,11 +33,37 @@ class Launcher {
             }
         });
 
-        application.get("/infinity/launcher/kill", (req,res) => {
+        application.get('/infinity/launcher/api/get/friends/:displayName', async (req, res) => {
+            const user = await User.findOne({ displayName: req.params.displayName }).lean();
+            console.log(user);
+
+            if (!user) return res.send('Err:404');
+
+            var friends = user.Friends.accepted;
+
+            var friendNames = [];
+
+            await Promise.all(friends.map(async (friend) => {
+                var friendName = await User.findOne({ id: friend.id }).lean();
+                console.log(friendName);
+                if (friendName != null) {
+                    if (friendName.displayName != undefined && friendName.displayName != null) {
+                        var name = friendName.displayName;
+                        friendNames.push(name);
+                    }
+                }
+            }));
+
+            console.log(friendNames);
+
+            return res.json(friendNames);
+        });
+
+        application.get("/infinity/launcher/kill", (req, res) => {
             console.log('Player logged out!');
-            if(online != 0) {
+            if (online != 0) {
                 online--;
-            } 
+            }
             return res.send('done!');
         });
     }

@@ -33,7 +33,7 @@ class Gameserver {
             return res.send('success!');
         });
 
-        /*application.get("/gameserver/skin/:name", async (req, res) => {
+        application.get("/gameserver/skin/:name", async (req, res) => {
             console.log(req.params.name);
             const user = await User.findOne({ displayName: req.params.name }).lean();
             var AthenaCharacter = user.profile.character.items.split(':')[1];
@@ -58,7 +58,7 @@ class Gameserver {
                 var jsons = JSON.stringify(CID, null, 2);
                 var jsonp = JSON.parse(jsons, null, 2);
 
-                res.send(jsonp.data.path.replace("FortniteGame/Content/", '/Game/') + "." + jsonp.data.id);
+                res.send("AthenaCharacterItemDefinition " + jsonp.data.path.replace("FortniteGame/Content/", '/Game/') + "." + jsonp.data.id);
             } catch {
                 console.log('Cosmetic not found');
             }
@@ -95,22 +95,63 @@ class Gameserver {
 
         });
 
+        application.get("/gameserver/onwin/:name", async (req, res) => {
+            console.log(req.params.name);
+            const user = await User.findOne({ displayName: req.params.name }).lean();
+            
+            if(user) {
+                var newWin = user.stats.solos.wins + 1;
+                var newVbucks = user.profile.vbucks + 100;
+
+                await User.updateOne({ displayName: req.params.name }, { 'stats.solos.wins': newWin });
+                await User.updateOne({ displayName: req.params.name }, { 'profile.vbucks': newVbucks });
+                res.send('success');
+            } else {
+                console.log('not a player! cheater');
+                res.send('failure');
+            }
+
+        });
+
+        application.get("/gameserver/onkill/:name", async (req, res) => {
+            console.log(req.params.name);
+            const user = await User.findOne({ displayName: req.params.name }).lean();
+            
+            if(user) {
+                var newKill = user.stats.solos.kills + 1;
+                var newVbucks = user.profile.vbucks + 50;
+
+                await User.updateOne({ displayName: req.params.name }, { 'stats.solos.kills': newKill });
+                await User.updateOne({ displayName: req.params.name }, { 'profile.vbucks': newVbucks });
+                res.send('success');
+            } else {
+                console.log('not a player! cheater');
+                res.send('failure');
+            }
+
+        });
+
         application.get("/gameserver/pickaxe/:name", async (req, res) => {
             console.log(req.params.name);
             const user = await User.findOne({ displayName: req.params.name }).lean();
+            if(!user) {
+                return res.send('failure');
+            }
+            
             var AthenaPickaxe = user.profile.pickaxe.items.split(':')[1];
-            try {
-                var CID = (await axios.get(`https://fortnite-api.com/v2/cosmetics/br/${AthenaPickaxe}`)).data;
+
+            if(user.profile.pickaxe.items == "" || user.profile.pickaxe.items == " ") {
+                return res.send('DefaultPickaxe');
+            }
+	
+var CID = (await axios.get(`https://fortnite-api.com/v2/cosmetics/br/${AthenaPickaxe}`)).data;
                 //console.log(CID);
                 var jsons = JSON.stringify(CID, null, 2);
                 var jsonp = JSON.parse(jsons, null, 2);
                 res.send(jsonp.data.id);
-            } catch {
-                console.log('cosmetic not found!');
-            }
-        });*/
+        });
 
-        application.get("/gameserver/pickaxe/:name", async (req, res) => {
+        /*application.get("/gameserver/pickaxe/:name", async (req, res) => {
             try {
               const user = await User.findOne({ displayName: req.params.name }).lean();
               if (!user) {
@@ -128,7 +169,7 @@ class Gameserver {
               console.log(error);
               res.status(500).send("Server error");
             }
-          });
+          });*/
 
         /*application.get("/gameserver/pickaxe/:name", async (req, res) => {
             console.log(req.params.name);

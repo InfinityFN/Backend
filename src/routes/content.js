@@ -11,6 +11,11 @@ class FortniteGame {
         this.endpoints(this.application)
     }
     endpoints(application) {
+        application.get('/launcher/v1/news', (req,res) => {
+            //res.setHeader('Content-Type', 'application/json');
+            return res.sendFile(path.join(__dirname, '../services/resources/json/launchernews.json'));
+        });
+
         application.get(["/content/api/pages/fortnite-game", "/content/app/pages/"], async (req, res) => {
             console.log('content headers');
 
@@ -164,6 +169,71 @@ class FortniteGame {
                     "_activeDate": "2018-08-17T16:00:00.000Z",
                     "lastModified": "2019-10-31T20:29:39.334Z",
                     "_locale": "en-US"
+
+                },
+                "battleroyalenewsv2": {
+                    "news": {
+                      "motds": [
+                        {
+                          "entryType": "Website",
+                          "image": "https://fortnite-public-service-prod11.ol.epicgames.com/images/motd.png",
+                          "tileImage": "https://fortnite-public-service-prod11.ol.epicgames.com/images/motd-s.png",
+                          "videoMute": false,
+                          "hidden": false,
+                          "tabTitleOverride": "LawinServer",
+                          "_type": "CommonUI Simple Message MOTD",
+                          "title": {
+                            "ar": "مرحبًا بك في LawinServer!",
+                            "en": "Welcome to LawinServer!",
+                            "de": "Willkommen bei LawinServer!",
+                            "es": "¡Bienvenidos a LawinServer!",
+                            "es-419": "¡Bienvenidos a LawinServer!",
+                            "fr": "Bienvenue sur LawinServer !",
+                            "it": "Benvenuto in LawinServer!",
+                            "ja": "LawinServerへようこそ！",
+                            "ko": "LawinServer에 오신 것을 환영합니다!",
+                            "pl": "Witaj w LawinServerze!",
+                            "pt-BR": "Bem-vindo ao LawinServer!",
+                            "ru": "Добро пожаловать в LawinServer!",
+                            "tr": "LavinServer'a Hoş Geldiniz!"
+                          },
+                          "body": {
+                            "ar": "استمتع بتجربة لعب استثنائية!",
+                            "en": "Have a phenomenal gaming experience!",
+                            "de": "Wünsche allen ein wunderbares Spielerlebnis!",
+                            "es": "¡Que disfrutes de tu experiencia de videojuegos!",
+                            "es-419": "¡Ten una experiencia de juego espectacular!",
+                            "fr": "Un bon jeu à toutes et à tous !",
+                            "it": "Ti auguriamo un'esperienza di gioco fenomenale!",
+                            "ja": "驚きの体験をしよう！",
+                            "ko": "게임에서 환상적인 경험을 해보세요!",
+                            "pl": "Życzymy fenomenalnej gry!",
+                            "pt-BR": "Tenha uma experiência de jogo fenomenal!",
+                            "ru": "Желаю невероятно приятной игры!",
+                            "tr": "Muhteşem bir oyun deneyimi yaşamanı dileriz!"
+                          },
+                          "offerAction": "ShowOfferDetails",
+                          "videoLoop": false,
+                          "videoStreamingEnabled": false,
+                          "sortingPriority": 90,
+                          "websiteButtonText": "Discord",
+                          "websiteURL": "https://discord.gg/KJ8UaHZ",
+                          "id": "61fb3dd8-f23d-45cc-9058-058ab223ba5c",
+                          "videoAutoplay": false,
+                          "videoFullscreen": false,
+                          "spotlight": false
+                        }
+                      ],
+                      "_type": "Battle Royale News v2"
+                    },
+                    "jcr:isCheckedOut": true,
+                    "_title": "battleroyalenewsv2",
+                    "_noIndex": false,
+                    "alwaysShow": false,
+                    "jcr:baseVersion": "a7ca237317f1e7721def6e-9f96-4c43-b429-30c794953b04",
+                    "_activeDate": "2020-01-21T14:00:00.000Z",
+                    "lastModified": "2021-09-14T16:31:00.888Z",
+                    "_locale": "en-US"
                 },
                 "tournamentinformation": {
                     "conversion_config": {
@@ -183,7 +253,7 @@ class FortniteGame {
                                 "poster_back_image": "https://cdn2.unrealengine.com/16br-comp-in-game-boxfightarena-poster-back-750x1080-a58bf244edec.jpg",
                                 "_type": "Tournament Display Info",
                                 "pin_earned_text": "Winner!",
-                                "tournament_display_id": "s19_moxie",
+                                "tournament_display_id": "epicgames_S4_1_RenegadeCup",
                                 "highlight_color": "6DFDFF",
                                 "schedule_info": "February 11th - 12th",
                                 "primary_color": "FFFFFF",
@@ -191,7 +261,7 @@ class FortniteGame {
                                 "poster_front_image": "https://cdn2.unrealengine.com/16br-comp-in-game-boxfightarena-poster-front-750x1080-e7847772c60c.jpg",
                                 "short_format_title": "Solo Tournament",
                                 "title_line_2": "Cup",
-                                "title_line_1": "Moxie",
+                                "title_line_1": "Lets it goo!",
                                 "shadow_color": "000F4A",
                                 "details_description": "This event will occur over two rounds, with the top 100 players advancing to Round 2. For more details and official rules, visit: https://www.epicgames.com/fortnite/competitive/en-US/news/moxie-cup-chapter-3-season-1-official-rules",
                                 "background_left_color": "0126B7",
@@ -210,7 +280,7 @@ class FortniteGame {
                     "_activeDate": "2018-11-13T22:32:47.734Z",
                     "lastModified": "2021-04-06T17:26:47.948Z",
                     "_locale": "en-US"
-                },            
+                },
                 "playlistinformation": {
                     "frontend_matchmaking_header_style": "None",
                     "_title": "playlistinformation",

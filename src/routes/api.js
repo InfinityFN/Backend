@@ -27,6 +27,11 @@ class Api {
             next()
         })
 
+        application.get("/fortnite/api/game/v2/world/info", async (req, res) => {
+            const worldstw = require('../services/resources/json/stw.json');
+            res.json(worldstw);
+        })
+
 
 
         // JUST to test to see how the embed looked. will delete later
