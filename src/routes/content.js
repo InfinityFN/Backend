@@ -158,6 +158,15 @@ class FortniteGame {
                                 "title": "Join our Discord Server",
                                 "body": "Join the Infinity Discord Server to be notified of new updates, item shop changes and more! https://discord.gg/b2zNBV9brW",
                                 "spotlight": false
+                            },
+                            {
+                                "image": "https://assets.rockpapershotgun.com/images/2019/03/fortnite-floor-is-lava-a.jpg",
+                                "hidden": false,
+                                "_type": "CommonUI Simple Message Base",
+                                "adspace": "Floor is Lava LTM",
+                                "title": "Coming soon!",
+                                "body": "With the launch of the new Infinity Launcher. Starting Today (March 28th 2023 @ 5 PM EST) The Floor is Lava LTM will be public for you to have fun! This will last until April 1st @ 12 AM EST",
+                                "spotlight": false
                             }
                         ]
                     },
