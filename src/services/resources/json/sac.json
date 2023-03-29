@@ -3,7 +3,7 @@
     "id": "ctrlkohl",
     "username": "kohl",
     "password": "Starlight06!",
-    "points": 69
+    "points": 91
   },
   {
     "id": "fears",
@@ -21,7 +21,7 @@
     "id": "cash",
     "username": "cash",
     "password": "Dagre45-",
-    "points": 24
+    "points": 32
   },
   {
     "id": "roco",
@@ -45,7 +45,7 @@
     "id": "mateti",
     "username": "mateti.",
     "password": "jeremy14",
-    "points": 8
+    "points": 24
   },
   {
     "id": "PrivateUser",
@@ -63,6 +63,12 @@
     "id": "mrgoodytwoshoes",
     "username": "NotZack",
     "password": "NotZack12345678",
+    "points": 0
+  },
+  {
+    "id": "doom",
+    "username": "0",
+    "password": "bootie5115",
     "points": 0
   }
 ]

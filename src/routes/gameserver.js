@@ -1,17 +1,18 @@
 const User = require("../services/modules/User")
+const Gameserver = require('../services/modules/Gameserver');
 const axios = require('axios');
 
-class Gameserver {
+class Gameserver2 {
     constructor() {
         this.application = require("express").Router()
         this.endpoints(this.application)
     }
 
     endpoints(application) {
-        application.get('/gameserver/game/win/:name', async(req,res) => {
+        application.get('/gameserver/game/win/:name', async (req, res) => {
             console.log(req.params.name);
             const user = await User.findOne({ displayName: req.params.name }).lean();
-            if(!user) return res.send('failure, no user found.');
+            if (!user) return res.send('failure, no user found.');
 
             var newNum = user.stats.solos.matchplayed + 1;
 
@@ -20,11 +21,38 @@ class Gameserver {
             return res.send('success!');
         });
 
+        application.get('/gameserver/status/:status', async (req, res) => {
+            if (req.params.status == "Online") {
+                const gameServer = await Gameserver.findOne({ name: "NA" });
+                if (!gameServer) {
+                    console.error("Game server not found!");
+                    return;
+                }
+                await Gameserver.updateOne({ name: "NA" }, { $set: { online: true } });
+            } else if (req.params.status == "Bus") {
+                const gameServer = await Gameserver.findOne({ name: "NA" });
+                if (!gameServer) {
+                    console.error("Game server not found!");
+                    return;
+                }
+                await Gameserver.updateOne({ name: "NA" }, { $set: { online: false } });
+            }else if (req.params.status == "Offline") {
+                const gameServer = await Gameserver.findOne({ name: "NA" });
+                if (!gameServer) {
+                    console.error("Game server not found!");
+                    return;
+                }
+                await Gameserver.updateOne({ name: "NA" }, { $set: { online: false } });
+            }
 
-        application.get('/gameserver/game/playing/:name', async(req,res) => {
+            res.send('finished!');
+        });
+
+
+        application.get('/gameserver/game/playing/:name', async (req, res) => {
             console.log(req.params.name);
             const user = await User.findOne({ displayName: req.params.name }).lean();
-            if(!user) return res.send('failure, no user found.');
+            if (!user) return res.send('failure, no user found.');
 
             var newNum = user.stats.solos.matchplayed + 1;
 
@@ -98,8 +126,8 @@ class Gameserver {
         application.get("/gameserver/onwin/:name", async (req, res) => {
             console.log(req.params.name);
             const user = await User.findOne({ displayName: req.params.name }).lean();
-            
-            if(user) {
+
+            if (user) {
                 var newWin = user.stats.solos.wins + 1;
                 var newVbucks = user.profile.vbucks + 100;
 
@@ -116,8 +144,8 @@ class Gameserver {
         application.get("/gameserver/onkill/:name", async (req, res) => {
             console.log(req.params.name);
             const user = await User.findOne({ displayName: req.params.name }).lean();
-            
-            if(user) {
+
+            if (user) {
                 var newKill = user.stats.solos.kills + 1;
                 var newVbucks = user.profile.vbucks + 50;
 
@@ -134,21 +162,21 @@ class Gameserver {
         application.get("/gameserver/pickaxe/:name", async (req, res) => {
             console.log(req.params.name);
             const user = await User.findOne({ displayName: req.params.name }).lean();
-            if(!user) {
+            if (!user) {
                 return res.send('failure');
             }
-            
+
             var AthenaPickaxe = user.profile.pickaxe.items.split(':')[1];
 
-            if(user.profile.pickaxe.items == "" || user.profile.pickaxe.items == " ") {
+            if (user.profile.pickaxe.items == "" || user.profile.pickaxe.items == " ") {
                 return res.send('DefaultPickaxe');
             }
-	
-var CID = (await axios.get(`https://fortnite-api.com/v2/cosmetics/br/${AthenaPickaxe}`)).data;
-                //console.log(CID);
-                var jsons = JSON.stringify(CID, null, 2);
-                var jsonp = JSON.parse(jsons, null, 2);
-                res.send(jsonp.data.id);
+
+            var CID = (await axios.get(`https://fortnite-api.com/v2/cosmetics/br/${AthenaPickaxe}`)).data;
+            //console.log(CID);
+            var jsons = JSON.stringify(CID, null, 2);
+            var jsonp = JSON.parse(jsons, null, 2);
+            res.send(jsonp.data.id);
         });
 
         /*application.get("/gameserver/pickaxe/:name", async (req, res) => {
@@ -188,4 +216,4 @@ var CID = (await axios.get(`https://fortnite-api.com/v2/cosmetics/br/${AthenaPic
     }
 }
 
-module.exports = new Gameserver
+module.exports = new Gameserver2

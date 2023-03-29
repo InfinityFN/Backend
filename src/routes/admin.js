@@ -91,6 +91,20 @@ class Admin {
             //return res.json(require('../services/resources/json/active-playlists.json'))
         });
 
+        application.get('/infinity/dev/add/gameserverschema', async (req,res) => {
+            const Servers = require('../services/modules/Gameserver');
+            let Server = await Servers.create({
+                "name": "NA",
+                "playerCount": 0,
+                "online": false
+            });
+
+            Server.save().catch(err => {
+                return res.json({ err: err })
+            })
+            res.send('lol');
+        });
+
         // ONLY REMOVE IF THERE NOT BANNED ELSE WHY BANNED :skull:
         /*application.get("/infinity/dev/api/players/remove", async (req, res, next) => {
             const playersalive = await UserMod.findOne({ id: req.query.id }).lean().catch(e => next(e)); // we save ids as id alr?
