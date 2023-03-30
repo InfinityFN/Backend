@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Login Page</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-color: #F0F2F5;
+        }
+
+        .container {
+            margin-top: 5rem;
+            max-width: 30rem;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        label {
+            font-weight: 600;
+        }
+
+        input[type="email"],
+        input[type="password"] {
+            border-radius: 5px;
+            border: 1px solid #BDC1C6;
+            padding: 0.5rem;
+            font-size: 1rem;
+        }
+
+        input[type="email"]:focus,
+        input[type="password"]:focus {
+            border-color: #0366D6;
+            box-shadow: 0px 0px 5px #0366D6;
+        }
+
+        button[type="submit"] {
+            margin-top: 2rem;
+            width: 100%;
+            border-radius: 5px;
+            background-color: #0366D6;
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 0.75rem;
+            border: none;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #054EA4;
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                margin-top: 2rem;
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Page de connexion</h1>
+        <form id="loginForm" action="http://infinityapi.nekuzi.cf:43614/infinity/acct/login" method="GET">
+          <div class="form-group">
+            <label for="inputEmail">Adresse e-mail</label>
+            <input type="email" class="form-control" id="inputEmail" name="email" aria-describedby="emailHelp" placeholder="Enter email" required>
+          </div>
+          <div class="form-group">
+            <label for="inputPassword">Mot de passe</label>
+            <input type="password" class="form-control" id="inputPassword" name="password" placeholder="Password" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Connexion</button>
+        </form>
+        <p><center><a href="/forgotpassword">Mot de passe oublié?</a></center></p>
+      </div>
+
+    <!-- jQuery and Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js">
+    </script>
+    <!-- Custom JS -->
+    <script>
+        // generate random number between 1 and 10
+        var num = Math.floor(Math.random() * 10) + 1;
+        // change background image based on random number
+        switch (num) {
+            case 1:
+                document.body.style.backgroundImage = "url('bg1.png')";
+                break;
+            case 2:
+                document.body.style.backgroundImage = "url('bg2.png')";
+                break;
+            case 3:
+                document.body.style.backgroundImage = "url('bg3.png')";
+                break;
+            // add more cases as needed
+            default:
+                document.body.style.backgroundImage = "url('bg1.png')";
+        }
+    </script>
+
+</body>
+
+</html>

@@ -33,25 +33,25 @@ class Cloudstorage {
         // USER
         application.get("/fortnite/api/cloudstorage/user/:accountId/:file", async (req, res) => {
             //const config = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "Config", "config.json")).toString());
-        
-           // if (!config.clientsettings.SaveFortniteSettings) return res.status(200).end();
-        
+
+            // if (!config.clientsettings.SaveFortniteSettings) return res.status(200).end();
+
             if (!fs.existsSync(path.join(__dirname, "..", "ClientSettings", req.params.accountId))) {
                 fs.mkdirSync(path.join(__dirname, "..", "ClientSettings", req.params.accountId));
             }
-        
+
             if (req.params.file.toLowerCase() != "clientsettings.sav") return res.status(404).json({ "error": "file not found" });
             res.type("application/octet-stream");
-        
+
             const memory = require('../services/modules/version').GetVersionInfo(req);
-        
-            if (memory.CL.length > 8) return res.status(403).json({ "error": "Build CL must be 8 figures or less."});
-        
+
+            if (memory.CL.length > 8) return res.status(403).json({ "error": "Build CL must be 8 figures or less." });
+
             let file = path.join(__dirname, "..", "ClientSettings", req.params.accountId, `ClientSettings-${memory.CL}.Sav`);
-        
+
             if (fs.existsSync(file)) {
                 const ParsedFile = fs.readFileSync(file);
-        
+
                 return res.status(200).send(ParsedFile).end();
             } else {
                 res.status(200);
@@ -61,46 +61,46 @@ class Cloudstorage {
 
         application.put("/fortnite/api/cloudstorage/user/:accountId/:file", getRawBody, async (req, res) => {
             //const config = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "Config", "config.json")).toString());
-        
+
             //if (!config.clientsettings.SaveFortniteSettings) return res.status(204).end();
-        
+
             if (Buffer.byteLength(req.rawBody) > 1000000) return res.status(403).json({ "error": "File size must be less than 1MB." });
-        
+
             if (!fs.existsSync(path.join(__dirname, "..", "ClientSettings", req.params.accountId))) {
                 fs.mkdirSync(path.join(__dirname, "..", "ClientSettings", req.params.accountId));
             }
-        
+
             if (req.params.file.toLowerCase() != "clientsettings.sav") return res.status(404).json({ "error": "file not found" });
-        
+
             const memory = require('../services/modules/version').GetVersionInfo(req);
-        
-            if (memory.CL.length > 8) return res.status(403).json({ "error": "Build CL must be 8 figures or less."});
-        
+
+            if (memory.CL.length > 8) return res.status(403).json({ "error": "Build CL must be 8 figures or less." });
+
             let file = path.join(__dirname, "..", "ClientSettings", req.params.accountId, `ClientSettings-${memory.CL}.Sav`);
-        
+
             fs.writeFileSync(file, req.rawBody, 'latin1');
             res.status(204).end();
         });
 
         application.get("/fortnite/api/cloudstorage/user/:accountId", async (req, res) => {
             //const config = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "Config", "config.json")).toString());
-        
+
             //if (!config.clientsettings.SaveFortniteSettings) return res.json([]);
-        
+
             if (!fs.existsSync(path.join(__dirname, "..", "ClientSettings", req.params.accountId))) {
                 fs.mkdirSync(path.join(__dirname, "..", "ClientSettings", req.params.accountId));
             }
-        
+
             const memory = require('../services/modules/version').GetVersionInfo(req);
-        
-            if (memory.CL.length > 8) return res.status(403).json({ "error": "Build CL must be 8 figures or less."});
-            
+
+            if (memory.CL.length > 8) return res.status(403).json({ "error": "Build CL must be 8 figures or less." });
+
             let file = path.join(__dirname, "..", "ClientSettings", req.params.accountId, `ClientSettings-${memory.CL}.Sav`);
-        
+
             if (fs.existsSync(file)) {
                 const ParsedFile = fs.readFileSync(file, 'latin1');
                 const ParsedStats = fs.statSync(file);
-        
+
                 return res.json([{
                     "uniqueFilename": "ClientSettings.Sav",
                     "filename": "ClientSettings.Sav",
@@ -141,15 +141,32 @@ class Cloudstorage {
             res.json(files).status(200);
         })
 
+        const blockedAgents = [
+            'Mozilla/5.0',
+            'Chrome',
+            'Safari',
+            'Firefox',
+            'Edge'
+        ];
+
         application.all("/fortnite/api/cloudstorage/system/:file", (req, res) => {
-            const file = req.params.file;
-            try {
-                res.sendFile(path.join(__dirname, `../services/resources/ini/${file}`));
-                res.status(200);
-            } catch (err) {
-                console.log(err);
-                res.status(200);
+            const userAgent = req.get('User-Agent');
+
+            console.log(userAgent);
+
+            if (userAgent && userAgent.includes('Fortnite')) {
+                const file = req.params.file;
+                try {
+                    res.sendFile(path.join(__dirname, `../services/resources/ini/${file}`));
+                    res.status(200);
+                } catch (err) {
+                    console.log(err);
+                    res.status(200);
+                }
+            } else {
+                res.send(403);
             }
+
         })
     }
 }

@@ -4,5 +4,7 @@
     "logRequests": true,
     "adminAppId": "INFINITY-LIVE-DSFKJDK7239HAAG2321JBDJ24",
     "apiKey": "INFINITY-KEY-DFJLSK892378LSDHFSD2348947KSDHK",
-    "mongodb": "mongodb+srv://infinitydev:qffaUcLpH4NBIHfM@infinitydb2.d8cmwky.mongodb.net/?retryWrites=true&w=majority"
+    "mongodb": "mongodb+srv://infinitydev:qffaUcLpH4NBIHfM@infinitydb2.d8cmwky.mongodb.net/?retryWrites=true&w=majority",
+    "//": "THE VERSION CODE IS THE CODE TO ENABLE MATCHMAKING FOR",
+    "versionCode": "I1239z7aj-al19876x"
 }

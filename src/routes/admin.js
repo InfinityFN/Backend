@@ -91,7 +91,7 @@ class Admin {
             //return res.json(require('../services/resources/json/active-playlists.json'))
         });
 
-        application.get('/infinity/dev/add/gameserverschema', async (req,res) => {
+        application.get('/infinity/dev/add/gameserverschema', async (req, res) => {
             const Servers = require('../services/modules/Gameserver');
             let Server = await Servers.create({
                 "name": "NA",
@@ -142,17 +142,30 @@ class Admin {
             res.sendFile(path.join(__dirname, '../public/changeplaylist.html'));
         });*/
 
-        application.get('/cosmetics.json', (req,res) => {
+        application.get('/cosmetics.json', (req, res) => {
             return res.sendFile(path.join(__dirname, '../public/itemshop/cosmetics.json'));
         });
 
-        application.get('/view/itemshop', (req,res) => {
+        application.get('/view/itemshop', (req, res) => {
             return res.sendFile(path.join(__dirname, '../public/itemshop/index.html'));
         });
 
 
         application.get("/register", (req, res) => {
-            res.sendFile(path.join(__dirname, '../public/sitereg.html'));
+            let language = req.query.lang;
+
+            switch (language) {
+                case "en":
+                    res.sendFile(path.join(__dirname, '../public/sitereg.html'));
+                    break;
+                case "fr":
+                    res.sendFile(path.join(__dirname, '../public/languages/fr/sitereg.html'));
+                    break;
+                default:
+                    res.sendFile(path.join(__dirname, '../public/sitereg.html'));
+                    break;
+            }
+
         })
 
         function isPotentialSpamEmail(email) {
@@ -160,7 +173,7 @@ class Admin {
             return regex.test(email);
         }
 
-        
+
 
         application.get("/infinity/register", async (req, res) => {
             var Email = req.query.email
@@ -349,11 +362,11 @@ class Admin {
         });*/
 
         // now I don't need to change my password!
-        application.get("/infinity/dev/gen/password/hash", async (req,res) => {
+        application.get("/infinity/dev/gen/password/hash", async (req, res) => {
             let password = req.query.password;
             let hash = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
-            if(!hash) return res.json({status: 400});
-            return res.json({status: 200, hash: hash});
+            if (!hash) return res.json({ status: 400 });
+            return res.json({ status: 200, hash: hash });
         });
 
         /*application.get("/infinity/dev/api/playlist/add", async (req, res) => {

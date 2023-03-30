@@ -129,7 +129,20 @@ class Account {
             return res.sendFile(path.join(__dirname, '../public/locker/locker.js'));
         });
         application.get("/login", (req, res) => {
-            return res.sendFile(path.join(__dirname, '../public/login.html'));
+            let language = req.query.lang;
+
+            switch (language) {
+                case "en":
+                    return res.sendFile(path.join(__dirname, '../public/login.html'));
+                    break;
+                case "fr":
+                    return res.sendFile(path.join(__dirname, '../public/languages/fr/login.html'));
+                    break;
+                default:
+                    return res.sendFile(path.join(__dirname, '../public/login.html'));
+                    break;
+            }
+
         })
 
         application.get("/infinity/acct/login", async (req, res) => {
@@ -308,25 +321,25 @@ class Account {
             return res.redirect(`/acct/dashboard?sessionid=${newSessionId}`);
         });
 
-        application.get('/infinity/update/all', async (req,res) => {
+        application.get('/infinity/update/all', async (req, res) => {
             await User.updateMany(
-                { 'BattlePass.battlePassPurchased': { $exists: false } }, 
-                { $set: { 'BattlePass.battlePassPurchased': false} }
+                { 'BattlePass.battlePassPurchased': { $exists: false } },
+                { $set: { 'BattlePass.battlePassPurchased': false } }
             );
 
             await User.updateMany(
-                { 'BattlePass.battlePassTier': { $exists: false } }, 
-                { $set: { 'BattlePass.battlePassTier': 1} }
+                { 'BattlePass.battlePassTier': { $exists: false } },
+                { $set: { 'BattlePass.battlePassTier': 1 } }
             );
 
             await User.updateMany(
-                { 'BattlePass.battlePassXPBoost': { $exists: false } }, 
-                { $set: { 'BattlePass.battlePassXPBoost': 0} }
+                { 'BattlePass.battlePassXPBoost': { $exists: false } },
+                { $set: { 'BattlePass.battlePassXPBoost': 0 } }
             );
 
             await User.updateMany(
-                { 'BattlePass.battlePassXPFriendBoost': { $exists: false } }, 
-                { $set: { 'BattlePass.battlePassXPFriendBoost': 0} }
+                { 'BattlePass.battlePassXPFriendBoost': { $exists: false } },
+                { $set: { 'BattlePass.battlePassXPFriendBoost': 0 } }
             );
         });
 
