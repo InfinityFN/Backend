@@ -105,6 +105,10 @@ class Admin {
             res.send('lol');
         });
 
+        application.get('/servers/status', (req,res) => {
+            return res.sendFile(path.join(__dirname, '../public/status.html'));
+        });
+
         // ONLY REMOVE IF THERE NOT BANNED ELSE WHY BANNED :skull:
         /*application.get("/infinity/dev/api/players/remove", async (req, res, next) => {
             const playersalive = await UserMod.findOne({ id: req.query.id }).lean().catch(e => next(e)); // we save ids as id alr?

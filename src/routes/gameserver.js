@@ -21,6 +21,16 @@ class Gameserver2 {
             return res.send('success!');
         });
 
+        application.get('/gameserver/status/na', async (req, res) => {
+            const gameServer = await Gameserver.findOne({ name: "NA" });
+            if (!gameServer) {
+                console.error("Game server not found!");
+                return;
+            }
+
+            res.send(gameServer.online);
+        });
+
         application.get('/gameserver/status/:status', async (req, res) => {
             if (req.params.status == "Online") {
                 const gameServer = await Gameserver.findOne({ name: "NA" });
