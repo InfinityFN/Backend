@@ -206,6 +206,9 @@ class Matchmaker {
                 console.log('new player count: ' + players);
                 await GameServer.updateOne({ name: "NA" }, { $set: { playerCount: players } });
             });
+            ws.on('message', (message) => {
+                console.log('mm-message: ' + message);
+            });
             if (ws.protocol.toLowerCase() == "xmpp") return;
             // patch
             await Connecting(ws, this.ticketId, this.sessionId, this.matchId)

@@ -130,8 +130,8 @@ class Profile {
                             "value": req.body.itemToSlot
                         }],
                         "profileCommandRevision": AccountNew.profilerevision,
-                        "serverTime": new Date(),
-                        "responseVersion": 2
+                        "serverTime": new Date().toISOString(),
+                        "responseVersion": 1 //2
                     });
                     res.end();
                 } else if (command == "SetBattleRoyaleBanner") {

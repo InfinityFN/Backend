@@ -15,7 +15,6 @@ class Admin {
     }
 
     endpoints(application) {
-
         application.get("/infinity/public/jquery", (req, res) => {
             res.sendFile(path.join(__dirname, '../public/jquery.js'));
         });
@@ -210,34 +209,6 @@ class Admin {
                     return res.json({ "message": "invalid verification code" });
                 }
 
-                /*const response = req.query['g-recaptcha-response'];
-                console.log(response);
-                const secretKey = '6LdQB_8kAAAAACk_Ay0SHhv26RMaRqfFSA9AF2Px';
-                const options = {
-                    uri: 'https://www.google.com/recaptcha/api/siteverify',
-                    method: 'POST',
-                    formData: {
-                        secret: secretKey,
-                        response: response
-                    },
-                    json: true
-                };
-
-                try {
-                    const result = await request(options);
-                    if (result.success) {
-                        console.log("reCAPTCHA Passed!");
-                    } else {
-                        // reCAPTCHA failed, do something here
-                        console.log("reCAPTCHA Failed!");
-                        return res.json({"message": "reCAPTCHA was unsuccessful"});
-                    }
-                } catch (error) {
-                    console.error(error);
-                    console.log("reCAPTCHA Failed!");
-                    return res.json({"message": "reCAPTCHA was unsuccessful"});
-                }*/
-
                 if (isPotentialSpamEmail(Email)) {
                     const ip = req.ip;
                     console.log(`Request from IP address: ${ip}`);
@@ -262,7 +233,6 @@ class Admin {
                     } else {
                         const RandomID = crypto.randomBytes(16).toString('hex')
                         const RandomID2 = crypto.randomBytes(16).toString('hex')
-
 
                         let User = await UserMod.create({
                             "id": RandomID,
@@ -373,7 +343,7 @@ class Admin {
             return res.json({ status: 200, hash: hash });
         });
 
-        /*application.get("/infinity/dev/api/playlist/add", async (req, res) => {
+        application.get("/infinity/dev/api/playlist/add", async (req, res) => {
             const servers = require('../services/resources/json/active-playlists.json');
             var isEnabled = false;
 
@@ -385,7 +355,7 @@ class Admin {
 
             fs.writeFileSync(path.join(__dirname, '../services/resources/json/active-playlists.json'), JSON.stringify(servers, null, 2));
             return res.json({ message: 'Playlist added successfully' });
-        });*/
+        });
         // End of Playlists
     }
 }

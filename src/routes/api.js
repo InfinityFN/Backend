@@ -1,18 +1,36 @@
 const User = require("../services/modules/User")
-
+const path = require('path');
+const fs = require('fs');
 const { WebhookClient, MessageEmbed } = require('discord.js');
+
 class Api {
     constructor() {
         this.application = require("express").Router()
         this.endpoints(this.application)
     }
+    getLogFilename() {
+        const date = new Date();
+        const filename = `./src/routes/logs/inflog-${date.getMonth() + 1}-${date.getDate()}-${date.getFullYear()}.txt`;
+        return filename;
+    }
     endpoints(application) {
-
         application.use((req, res, next) => {
             // Ip Ban check
             const bannedIps = require('../services/resources/json/bannedIps.json');
             const isIpBanned = bannedIps.includes(req.header('x-forwarded-for') || req.socket.remoteAddress);
+            console.log('header ip: ' + req.header('x-forwarded-for'));
+            var ip = req.header('x-forwarded-for');
+            //console.log('socket address: ' + req.socket.remoteAddress);
 
+            if(ip == undefined || ip == null || ip == "undefined" || ip == "null") {
+                ip = "FORTNITEGAME"; // gonna assume they are using the Fortnite Client
+            }
+
+            const URL = req.originalUrl;
+            const log = `[${new Date().toISOString()}] IP: ${ip} User-Agent: ${req.headers['user-agent']} Endpoint: ${URL}\n`;
+            fs.appendFile(this.getLogFilename(), log, err => {
+                if (err) console.error(err);
+            });
 
             if (isIpBanned && req.url !== "/infinity/dev/ip/banned") {
                 return res.redirect('/infinity/dev/ip/banned');
@@ -21,11 +39,21 @@ class Api {
             if (require('../config.json').logRequests == true) {
                 console.log(`Incoming request: ${req.method} ${req.url}`)
                 console.log(isIpBanned);
-           
-            }
 
+            }
             next()
         })
+
+        application.get('/', (req, res) => {
+            return res.sendFile(path.join(__dirname, '../public/main/index.html'));
+        });
+
+        application.get('/mobile', (req, res) => {
+            return res.sendFile(path.join(__dirname, '../public/main/mobile.html'));
+        });
+        application.get('/competitive', (req, res) => {
+            return res.sendFile(path.join(__dirname, '../public/main/competitive.html'));
+        });
 
         application.get("/fortnite/api/game/v2/world/info", async (req, res) => {
             const worldstw = require('../services/resources/json/stw.json');

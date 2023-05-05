@@ -309,6 +309,16 @@ class FortniteGame {
                                 "playlist_name": "Playlist_DADBRO_Squads",
                                 "_type": "FortPlaylistInfo"
                             },
+				    {
+                                "image": "https://media.discordapp.net/attachments/1090490584633974896/1091837372443918356/image.png",
+                                "playlist_name": "Playlist_DefaultSolo",
+                                "_type": "FortPlaylistInfo"
+                            },
+                            {
+                                "image": "https://media.discordapp.net/attachments/1087581043218989089/1091899367276937216/CtrlKohl_blue.png",
+                                "playlist_name": "Playlist_DefaultDuo",
+                                "_type": "FortPlaylistInfo"
+                            },
                             {
                                 "image": "https://cdn2.unrealengine.com/Fortnite/fortnite-game/playlistinformation/v94/11BR_LTM_ModeTile-1024x512-aae4d5b5eb1ea4eeb31f852c8b98516681bfe769.jpg",
                                 "playlist_name": "Playlist_DADBRO_Squads_12",
@@ -591,32 +601,6 @@ class FortniteGame {
                             {
                                 "image": "",
                                 "playlist_name": "Playlist_Carmine",
-                                "_type": "FortPlaylistInfo"
-                            },
-                            {
-                                "image": "https://i.imgur.com/zr4Fnnp.jpg",
-                                "playlist_name": "Playlist_DefaultSolo",
-                                "hidden": false,
-                                "special_border": "None",
-                                "_type": "FortPlaylistInfo"
-                            },
-                            {
-                                "image": "https://i.imgur.com/99n3n0m.jpg",
-                                "playlist_name": "Playlist_DefaultDuo",
-                                "hidden": false,
-                                "special_border": "None",
-                                "_type": "FortPlaylistInfo"
-                            },
-                            {
-                                "playlist_name": "Playlist_Trios",
-                                "hidden": false,
-                                "_type": "FortPlaylistInfo"
-                            },
-                            {
-                                "image": "https://i.imgur.com/YA4ssMv.jpg",
-                                "playlist_name": "Playlist_DefaultSquad",
-                                "hidden": false,
-                                "special_border": "None",
                                 "_type": "FortPlaylistInfo"
                             }
                         ]

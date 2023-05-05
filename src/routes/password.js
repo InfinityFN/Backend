@@ -92,7 +92,7 @@ class Password {
                   <p>We received a request to reset the password associated with your account. If you did not request this change, please contact us immediately on our <a href="https://discord.gg/infinitymp">Discord</a>.</p>
                   <p>If you did request the password reset, please click the button below to reset your password:</p>
                   
-                  <a href="http://infinityapi.nekuzi.cf:43614/password/reset?uuid=${uuid}&username=${user.displayName}" class="btn btn-primary">Reset Password</a>
+                  <a href="https://infinity.nekuzi.cf/password/reset?uuid=${uuid}&username=${user.displayName}" class="btn btn-primary">Reset Password</a>
                 </div>
                 
                 <!-- Bootstrap JS -->

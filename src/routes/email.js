@@ -101,8 +101,8 @@ class Email {
         <img src="https://media.discordapp.net/attachments/1073761699603165305/1085276441966547045/LogoTransparent_1.png?width=1440&height=458" alt="InfinityFN Logo" style="height: auto; width: 256px;">
         <h1 style="font-size: 24px; margin-top: 20px;">Verify Your Email Address</h1>
         <p style="font-size: 16px; margin-top: 20px;">Thank you for choosing InfinityFN as your Fortnite Private Server. To complete your account setup, please verify your email address by clicking the button below:</p>
-        <a href="http://infinityapi.nekuzi.cf:43614/infinity/confirm/emailver?email=${email}&username=${username}&password=${password}&uuid=${uuid}&terms=on" style="display: block; text-align: center; background-color: #007bff; color: #fff; font-size: 16px; font-weight: bold; text-decoration: none; padding: 12px 24px; border-radius: 5px; margin-top: 20px;">Verify Email Address</a>
-        <p style="font-size: 16px; margin-top: 20px;">Having issues? copy this url and paste it in your browser: http://infinityapi.nekuzi.cf:43614/infinity/confirm/emailver?email=${email}&username=${username}&password=${password}&uuid=${uuid}&terms=on</p>
+        <a href="https://infinity.nekuzi.cf/infinity/confirm/emailver?email=${email}&username=${username}&password=${password}&uuid=${uuid}&terms=on" style="display: block; text-align: center; background-color: #007bff; color: #fff; font-size: 16px; font-weight: bold; text-decoration: none; padding: 12px 24px; border-radius: 5px; margin-top: 20px;">Verify Email Address</a>
+        <p style="font-size: 16px; margin-top: 20px;">Having issues? copy this url and paste it in your browser: https://infinity.nekuzi.cf/infinity/confirm/emailver?email=${email}&username=${username}&password=${password}&uuid=${uuid}&terms=on</p>
         <p style="font-size: 16px; margin-top: 20px;">If you did not create an account with InfinityFN, please ignore this email.</p>
       </td>
     </tr>
@@ -165,8 +165,8 @@ class Email {
         <img src="https://media.discordapp.net/attachments/1073761699603165305/1085276441966547045/LogoTransparent_1.png?width=1440&height=458" alt="InfinityFN Logo" style="height: auto; width: 256px;">
         <h1 style="font-size: 24px; margin-top: 20px;">Verify Your Email Address</h1>
         <p style="font-size: 16px; margin-top: 20px;">Thank you for choosing InfinityFN as your Fortnite Private Server. To complete your account setup, please verify your email address by clicking the button below:</p>
-        <a href="http://infinityapi.nekuzi.cf:43614/infinity/confirm/emailver?email=${email}&username=${username}&password=${password}&uuid=${uuid}&terms=on" style="display: block; text-align: center; background-color: #007bff; color: #fff; font-size: 16px; font-weight: bold; text-decoration: none; padding: 12px 24px; border-radius: 5px; margin-top: 20px;">Verify Email Address</a>
-        <p style="font-size: 16px; margin-top: 20px;">Having issues? copy this url and paste it in your browser: http://infinityapi.nekuzi.cf:43614/infinity/confirm/emailver?email=${email}&username=${username}&password=${password}&uuid=${uuid}&terms=on</p>
+        <a href="https://infinity.nekuzi.cf/infinity/confirm/emailver?email=${email}&username=${username}&password=${password}&uuid=${uuid}&terms=on" style="display: block; text-align: center; background-color: #007bff; color: #fff; font-size: 16px; font-weight: bold; text-decoration: none; padding: 12px 24px; border-radius: 5px; margin-top: 20px;">Verify Email Address</a>
+        <p style="font-size: 16px; margin-top: 20px;">Having issues? copy this url and paste it in your browser: https://infinity.nekuzi.cf/infinity/confirm/emailver?email=${email}&username=${username}&password=${password}&uuid=${uuid}&terms=on</p>
         <p style="font-size: 16px; margin-top: 20px;">If you did not create an account with InfinityFN, please ignore this email.</p>
       </td>
     </tr>

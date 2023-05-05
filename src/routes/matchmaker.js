@@ -41,7 +41,7 @@ class Matchmaker {
                     numericErrorCode: 12002,
                     originatingService: "fortnite",
                     intent: "prod"
-                })
+                });
             }
 
             // TODO: Add Custom Matchmaking with (player.option.customKey)
@@ -99,7 +99,7 @@ class Matchmaker {
             }
 
             res.json({
-                "serviceUrl": `ws://147.185.221.181:10858`,
+                "serviceUrl": `ws://54.201.42.234:442`,
                 "ticketType": "mms-player",
                 "payload": "69=",
                 "signature": "420=",

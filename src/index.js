@@ -15,8 +15,8 @@ class Server {
         this.Routing(this.application, this.logger);
         this.Init();
         process.on('warning', e => console.warn(e.stack));
-        this.application.use(function(req, res, next) {
-         //  console.log(req.url)
+        this.application.use(function (req, res, next) {
+            //  console.log(req.url)
             next()
         })
     }
@@ -28,32 +28,43 @@ class Server {
     Routing(application, logger) {
         fs.readdirSync(`${__dirname}/routes`).filter(async function (mainFiles) {
             if (mainFiles.endsWith(".js")) {
-               // try {
-                    await application.use(require(`./routes/${mainFiles}`).application)
-                   
-               // } catch (err) {
-                    
-                   // logger.error(`Sorry, ${mainFiles} Failed To Load, Err: ${err}`)
-              //  }
-            }else{
+                // try {
+                await application.use(require(`./routes/${mainFiles}`).application)
+
+                // } catch (err) {
+
+                // logger.error(`Sorry, ${mainFiles} Failed To Load, Err: ${err}`)
+                //  }
+            } else {
                 logger.error(`Sorry, ${mainFiles} Failed To Load Please make sure it ends with .js`)
             }
         })
     }
     Init() {
+        // Create the log file and add a header
+        const header = `Infinity Backend Log (${new Date().toISOString()})\n\n`;
+        const filename = require('./routes/api').getLogFilename();
+        if (!fs.existsSync(filename)) {
+            fs.writeFile(filename, header, err => {
+                if (err) console.error(err);
+                console.log(`Log file created: ${filename}`);
+            });
+        } else {
+            console.log(`Log file exists: ${filename}`);
+        }
         if (!this.port) return console.log("PORT NOT SET!")
         this.application.listen(this.port || process.env.port, async () => {
             this.logger.log(`[Server] Running on port ${this.port || process.env.port}`)
             await require("./services/Mongodb").MongoDB.Connect(this.mongodb, this.logger)
- 
+
             require("./services/matchmaker").matchmaker;
-           require("./services/xmpp").xmpp;
-          
-          //  this.application.get("*", function (req,res) {
-               // res.json({ "eh": "Your one of thoses people ;) skidder..."})
-          //  })
+            require("./services/xmpp").xmpp;
+
+            //  this.application.get("*", function (req,res) {
+            // res.json({ "eh": "Your one of thoses people ;) skidder..."})
+            //  })
         })
-        
+
     }
 }
 module.exports.Server = new Server;

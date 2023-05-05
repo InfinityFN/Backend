@@ -48,7 +48,8 @@ class Account {
                 return res.json({ "message": "invalid sessionId" });
             }
 
-            return res.sendFile(path.join(__dirname, '../public/locker/lockerv2.html'));
+            res.send('Locker GUI will be available again soon!');
+            //return res.sendFile(path.join(__dirname, '../public/locker/lockerv2.html'));
         });
 
         application.get('/locker/cosmetics.json', (req, res) => {

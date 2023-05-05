@@ -1,0 +1,10 @@
+{
+    "port": 5595,
+    "//": "DO NOT SHARE THE ADMINAPPID OR APIKEY TO ANYONE!",
+    "logRequests": true,
+    "adminAppId": "INFINITY-LIVE-DSFKJDK7239HAAG2321JBDJ24",
+    "apiKey": "INFINITY-KEY-DFJLSK892378LSDHFSD2348947KSDHK",
+    "mongodb": "",
+    "//": "THE VERSION CODE IS THE CODE TO ENABLE MATCHMAKING FOR",
+    "versionCode": "I1239z7aj-al19876x"
+}
